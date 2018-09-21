@@ -1,8 +1,17 @@
 body {
-    background-color: powderblue;
+    background-color: white;
+	font-family: Arial, Helvetica, sans-serif;
+}
+header {
+    background-color: #B22222;
+    padding: 30px;
+    text-align: left;
+    font-size: 35px;
+    color: white;
+	font: Helvetica;
 }
 h1 {
-    color: blue;
+    color: white;
 }
 p {
     color: red;
