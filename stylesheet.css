@@ -2,17 +2,165 @@ body {
     background-color: white;
 	font-family: Arial, Helvetica, sans-serif;
 }
+
 header {
     background-color: #B22222;
     padding: 30px;
     text-align: left;
-    font-size: 35px;
     color: white;
-	font: Helvetica;
+	font: sans-serif;
+	font-size: 20px;
 }
-h1 {
+
+header h1 {
+	font-size: 35px;
+}
+
+header img {
+	width: 50px;
+	height: 50px;	
+}
+
+form {
+	color: white;
+	text-align: left;
+	padding: 5px;
+}
+
+form button {
+	float: right;
+	padding: 6px 10px;
+	margin-top: 8px;
+	margin-right: 16px;
+	background: #ddd;
+	font-size: 17px;
+	border: none;
+	cursor: pointer;
+}
+
+form button:hover{
+	color: blue;
+}
+
+table {
+	float: left;
+	width: 50%;
+	height: 50%;
+	text-align: left;
+}
+
+.mini-nav-bar {
+	text-align: right;	
+	height: 30px;
+	padding: 2px;
+	background-color: #e1e6ef;
+}
+
+.mini-nav-bar .search-container {
+	float: right;
+	padding: 0;
+}
+
+.mini-nav-bar input[type=text] {
+	padding: 2px;
+	font-size: 15px;
+	border: none;
+}
+
+.mini-nav-bar .search-container button {
+	float: right;
+	padding: 6px 10px;
+	margin-top: 8px;
+	margin-right: 16px;
+	background: #ddd;
+	font-size: 17px;
+	border: none;
+	cursor: pointer;
+}
+
+nav {
+	background: #7c0000;
+	float: left;
+	width: 15%;
+    height: 300px; /* only for demonstration, should be removed */
+    padding: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+	text-align: left;
+	padding: 5px;
+}
+
+nav ul a {
+	color: white;
+	text-align: left;
+	font-size: 20px;
+	font: Arial;
+	text-decoration: none;
+}
+
+nav ul a:hover{
+	color: gray;
+}
+
+nav ul a:active{
+	color: #e1e6ef;
+}
+
+article {
+	background-color: white;
+	padding: 20px;
+	overflow-y: scroll;
+	float: left;
+	width: 80%;
+	height: 300px;
+}
+
+.movie-desc {
+	background-color: white;
+	float: center;
+	text-align: center;
+	padding: 5px;
+	font: Arial;
+	width: 100px;
+	height: 180px;
+	border: double;
+}
+
+.movie-desc a {
+	text-align: center;
+	text-decoration: none;
+	font-size: 10px;
+	padding: 0;
+}
+
+.movie-desc a:hover {
+	color: red;
+}
+
+.movie-desc p {
+	padding: 0;
+	font-size: 10px;
+}
+
+.movie-desc img {
+	width: 70px;
+	height: 100px;
+	padding: 0;
+}
+
+section:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+footer {
+    background-color: #B22222;
+    padding: 10px;
+    text-align: center;
     color: white;
+	font: Helvetica;	
 }
-p {
-    color: red;
-}
+	
