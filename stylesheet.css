@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color: white;
 	font-family: Arial, Helvetica, sans-serif;
@@ -10,10 +14,6 @@ header {
     color: white;
 	font: sans-serif;
 	font-size: 20px;
-}
-
-header h1 {
-	font-size: 35px;
 }
 
 header img {
@@ -36,10 +36,6 @@ form button {
 	font-size: 17px;
 	border: none;
 	cursor: pointer;
-}
-
-form button:hover{
-	color: blue;
 }
 
 table {
@@ -81,9 +77,10 @@ table {
 nav {
 	background: #7c0000;
 	float: left;
-	width: 15%;
-    height: 300px; /* only for demonstration, should be removed */
+	width: 20%;
+	height: 80%;
     padding: 10px;
+	overflow-x: hidden;
 }
 
 nav ul {
@@ -112,10 +109,9 @@ article {
 	background-color: white;
 	padding: 20px;
 	overflow-y: scroll;
-	overflow-x: none;
+	overflow-x: hidden;
 	float: left;
 	width: 80%;
-	height: 300px;
 	text-align: center;
 }
 
@@ -127,7 +123,6 @@ article {
 	font: Arial;
 	width: 100px;
 	height: 180px;
-	border: double;
 	white-space: 10px;
 }
 
@@ -159,6 +154,10 @@ section:after {
     clear: both;
 }
 
+.foto img{
+	width: 20%;
+	height: 30%;
+}	
 footer {
     background-color: #B22222;
     padding: 10px;
