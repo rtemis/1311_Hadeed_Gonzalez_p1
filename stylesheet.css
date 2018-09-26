@@ -78,7 +78,7 @@ nav {
 	background: #7c0000;
 	float: left;
 	width: 20%;
-	height: 80%;
+	height: 70vh;
     padding: 10px;
 	overflow-x: hidden;
 }
@@ -108,11 +108,10 @@ nav ul a:active{
 article {
 	background-color: white;
 	padding: 20px;
-	overflow-y: scroll;
-	overflow-x: hidden;
+	overflow: auto;
 	float: left;
 	width: 80%;
-	text-align: center;
+	height: 70vh;
 }
 
 .movie-desc {
@@ -154,10 +153,22 @@ section:after {
     clear: both;
 }
 
-.foto img{
-	width: 20%;
-	height: 30%;
+.movie {
+	float: left;
+	padding: 20px;
+	width: 50%;
+	height: 50%;
+}
+
+.movie img{
+	width: 30%;
+	height: 40%;
 }	
+
+.movie p {
+	float: center;
+}
+
 footer {
     background-color: #B22222;
     padding: 10px;

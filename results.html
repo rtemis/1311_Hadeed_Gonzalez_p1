@@ -14,16 +14,29 @@
 
 		</header>
 
-
+		<div class="mini-nav-bar"> 
+			<div class="search-container">
+				<form action="results.html">
+					<input type="text" placeholder="Search.." name="search">
+					<input type="submit" value="Search">
+				</form>
+			</div>
+		</div>
+		
 		<section>
 			<nav>
-				<form action="deluxe_video_club.html">
-					<input type="submit" value="Logout"> </button>
-				</form>
+				<form action="user.html" method="post">
+					Username:<br>
+					<input type="text" name="username">
+					<br>
+					Password:<br>
+					<input type="password" name="password">
+					<p>
+					<input type="submit" value="Submit">
+				</form>	
 				<ul>
 					<li><a href="deluxe_video_club.html">Home</a></li>
 					<li><a href="#">Cart</a></li>
-					<li><a href="purchase-history.html">Purchase History</a></li>
 					<li><a href="#">Contact</a></li>
 					<li><a href="#">About Us</a></li>
 				</ul>
@@ -31,9 +44,24 @@
 			
 			<article>
 				<div class="movie-desc">
-					<img src="https://i.ebayimg.com/images/g/d-AAAOSw15FamMSn/s-l300.jpg" alt="Black-Panther"> </img>
-					<p> <a href="description.html">Black Panther</a></p>
+					<img src="images/harry_potter.jpg" alt="Harry Potter and the Philosopher's Stone"> </img>
+					<p> <a href="description.html">Harry Potter and the Philosopher's Stone</a></p>
+					<p>PG | Action, Adventure, Sci-fi | 134min</p> 
+				</div>
+				<div class="movie-desc">
+					<img src="images/harry_potter_2.jpg" alt="Harry Potter and the Chamber of Secrets"> </img>
+					<p> <a href="#">Harry Potter and the Chamber of Secrets</a></p>
+					<p>PG | Action, Adventure, Sci-fi | 134min</p> 
+				</div>
+				<div class="movie-desc">
+					<img src="images/harry_potter_3.jpg" alt="Harry Potter and the Prisoner of Azkaban"> </img>
+					<p> <a href="#">Harry Potter and the Prisoner of Azkaban</a></p>
 					<p>PG-13 | Action, Adventure, Sci-fi | 134min</p> 
+				</div>
+				<div class="movie-desc">
+					<img src="images/harry_potter_4.jpg" alt="Harry Potter and the Goblet of Fire"> </img>
+					<p> <a href="#">Harry Potter and the Goblet of Fire</a></p>
+					<p>PG | Action, Adventure, Sci-fi | 134min</p> 
 				</div>
 			</article>
 		</section>
@@ -41,6 +69,5 @@
 		<footer>
 			Deluxe Video Club © All rights reserved.
 		</footer>
-		
 	</body>
 </html>
