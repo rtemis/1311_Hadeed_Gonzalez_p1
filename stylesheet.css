@@ -101,6 +101,16 @@ table {
 }
 
 
+.cart-table table {
+	float: center;
+	height: 20%;
+	overflow-y: scroll;
+}
+
+.cart-buttons {
+	float: center;
+}
+
 .contact-form {
 	background-color: #B22222;
 	width: 100%;

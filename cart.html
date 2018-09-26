@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Movie Description</title>
+		<title>Purchase History</title>
 		<link rel="stylesheet" href="stylesheet.css">
 	</head>
 	<body>
@@ -24,8 +24,7 @@
 				</form>
 			</div>
 		</div>
-		
-		
+
 		<section>
 			<nav>
 				<ul>
@@ -39,13 +38,44 @@
 			</nav>
 			
 			<article>
-				<div class="movie">
-					<img src="images/harry_potter.jpg" alt="Harry Potter and the Philosopher's Stone"> </img>
-					<h3>Harry Potter and the Philosopher's Stone</h3>
-					<p>PG-13 | Action, Adventure, Sci-fi | 134min</p>
-					<p><h4>Description:</h4> An orphaned boy enrolled in a school of wizardry, where he learns the truth about himself, his family and the terrible evil that haunts the magical world.</p>
-					<form action="#">
-						<input type="submit" value="Add to Cart">
+				<div class="cart-table">
+				<table>
+					<tr>
+						<th>Movie</th>
+						<th>Quantity</th>
+						<th>Price (Ud.)</th>
+						<th>Remove from Cart</th>
+					</tr>
+					<tr>
+						<td>Black Panther</td>
+						<td>x1</td>
+						<td>$12.50</td>
+						<td><form action="#"><input type="radio" name="remove"></form></td>
+					</tr>
+					<tr>
+						<td>The Usual Suspects</td>
+						<td>x1</td>
+						<td>$19.50</td>
+						<td><form action="#"><input type="radio" name="remove"></form></td>
+					</tr>
+					<tr>
+						<td>The Slipper and the Rose</td>
+						<td>x1</td>
+						<td>$7.99</td>
+						<td><form action="#"><input type="radio" name="remove"></form></td>
+					</tr>
+					<tr>
+						<td>Minions</td>
+						<td>x1</td>
+						<td>$5.00</td>
+						<td><form action="#"><input type="radio" name="remove"></form></td>
+					</tr>
+				</table>
+				</div>
+				<div class="cart-buttons">
+					<form action="cart.html">
+						<input type="submit" value="Remove Selected">
+						<input type="submit" value="Buy Now">
 					</form>
 				</div>
 			</article>
