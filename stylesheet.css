@@ -20,53 +20,6 @@ header {
 		height: 50px;	
 	}
 
-.nav {
-	background: #7c0000;
-	float: left;
-	width: 20%;
-	height: 70vh;
-    padding: 10px;
-	min-width: 200px;
-	overflow: hidden;
-}
-
-	.nav ul {
-		list-style-type: none;
-		text-align: left;
-		padding: 5px;
-	}
-
-	.nav ul a {
-		color: white;
-		text-align: left;
-		font: 20px Helvetica;
-		text-decoration: none;
-		padding: 5px;
-	}
-
-	.nav ul a:hover{
-		color: gray;
-	}
-
-.article {
-	background-color: white;
-	padding: 20px;
-	overflow: auto;
-	float: left;
-	width: 80%;
-	height: 70vh;
-}
-
-	.article h1 {
-		font: 40px Helvetica;
-	}
-
-.section:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
 footer {
     background-color: #B22222;
     padding: 10px;
@@ -74,8 +27,6 @@ footer {
     color: white;
 	font: 15px Helvetica;	
 }
-
-
 
 form {
 	color: white;
@@ -100,6 +51,20 @@ table {
 	float: right;
 }
 
+
+.article {
+	background-color: white;
+	padding: 20px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	float: left;
+	width: 80%;
+	height: 70vh;
+}
+
+	.article h1 {
+		font: 40px Helvetica;
+	}
 
 .cart-table table {
 	height: 20%;
@@ -176,3 +141,37 @@ table {
 		height: 100px;
 		padding: 0;
 	}	
+	
+.nav {
+	background: #7c0000;
+	float: left;
+	width: 20%;
+	height: 70vh;
+    padding: 10px;
+	min-width: 200px;
+	overflow: hidden;
+}
+
+	.nav ul {
+		list-style-type: none;
+		text-align: left;
+		padding: 5px;
+	}
+
+	.nav ul a {
+		color: white;
+		text-align: left;
+		font: 20px Helvetica;
+		text-decoration: none;
+		padding: 5px;
+	}
+
+	.nav ul a:hover{
+		color: gray;
+	}
+	
+.section:after {
+    content: "";
+    display: table;
+    clear: both;
+}
