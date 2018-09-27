@@ -20,7 +20,7 @@ header {
 		height: 50px;	
 	}
 
-nav {
+.nav {
 	background: #7c0000;
 	float: left;
 	width: 20%;
@@ -30,13 +30,13 @@ nav {
 	overflow: hidden;
 }
 
-	nav ul {
+	.nav ul {
 		list-style-type: none;
 		text-align: left;
 		padding: 5px;
 	}
 
-	nav ul a {
+	.nav ul a {
 		color: white;
 		text-align: left;
 		font: 20px Helvetica;
@@ -44,11 +44,11 @@ nav {
 		padding: 5px;
 	}
 
-	nav ul a:hover{
+	.nav ul a:hover{
 		color: gray;
 	}
 
-article {
+.article {
 	background-color: white;
 	padding: 20px;
 	overflow: auto;
@@ -57,11 +57,11 @@ article {
 	height: 70vh;
 }
 
-	article h1 {
+	.article h1 {
 		font: 40px Helvetica;
 	}
 
-section:after {
+.section:after {
     content: "";
     display: table;
     clear: both;
