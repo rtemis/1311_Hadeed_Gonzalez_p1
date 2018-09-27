@@ -102,13 +102,8 @@ table {
 
 
 .cart-table table {
-	float: center;
 	height: 20%;
 	overflow-y: scroll;
-}
-
-.cart-buttons {
-	float: center;
 }
 
 .contact-form {
