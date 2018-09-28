@@ -1,51 +1,59 @@
 <!doctype html>
-<html>
-	<head>
-		<title>Movie Description</title>
-		<link rel="stylesheet" href="stylesheet.css">
-	</head>
+<html lang="en">
+<head>
+	<title>Movie Description</title>
+	<link rel="stylesheet" href="stylesheet.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 	<body>
 		<header>
-			<h1>		
-				<a href="deluxe_video_club.html"> <img src="http://getdrawings.com/image/movie-reel-drawing-53.jpg" alt="Home"> </img></a>
-				Deluxe Video Club
-			</h1>
-			The comfort of the cinema in your own home!
+			<div class="logo">
+				<h1>		
+					<a href="deluxe_video_club.html"> <img src="http://getdrawings.com/image/movie-reel-drawing-53.jpg" alt="Home"></a>
+					Deluxe Video Club
+				</h1>
+				The comfort of the cinema in your own home!
+			</div>
+			<div id="user-name">Welcome, user 1111!</div>
 		</header>
 		
 		<div class="mini-nav-bar"> 
 			<div class="search-container">
 				<form action="results.html">
 					<input type="text" placeholder="Search.." name="search">
-					<button type="submit"><i class="fa fa-search"></i></button>
+					<input type="submit" value="Search">
 				</form>
 			</div>
 		</div>
 		
 		
-		<section>
-			<nav>
-				<form action="deluxe_video_club.html">
-					<input type="submit" value="Logout"> </button>
-				</form>
+		<div class="section">
+			<div class="nav">
 				<ul>
+					<li><a href="deluxe_video_club.html">Logout</a></li>
 					<li><a href="user.html">Home</a></li>
-					<li><a href="#">Cart</a></li>
+					<li><a href="cart.html">Cart</a></li>
 					<li><a href="purchase-history.html">Purchase History</a></li>
-					<li><a href="#">Contact</a></li>
-					<li><a href="#">About Us</a></li>
+					<li><a href="contact-us.html">Contact</a></li>
+					<li><a href="about-us.html">About Us</a></li>
 				</ul>
-			</nav>
+			</div>
 			
-			<article>
-				<div class="foto">
-					<img src="images/harry_potter.jpg" alt="Harry Potter and the Philosopher's Stone"> </img>
+			<div class="article">
+				<div class="movie">
+					<img src="images/harry_potter.jpg" alt="Harry Potter and the Philosopher's Stone"> 
 					<h3>Harry Potter and the Philosopher's Stone</h3>
 					<p>PG-13 | Action, Adventure, Sci-fi | 134min</p>
-					<p><h4>Description:</h4> An orphaned boy enrolled in a school of wizardry, where he learns the truth about himself, his family and the terrible evil that haunts the magical world.</p>
+					<p><h4>Description:</h4> 
+					An orphaned boy enrolled in a school of wizardry, 
+					where he learns the truth about himself, his family 
+					and the terrible evil that haunts the magical world.
+					<form action="#">
+						<input type="submit" value="Add to Cart">
+					</form>
 				</div>
-			</article>
-		</section>
+			</div>
+		</div>
 		
 		<footer>
 			Deluxe Video Club © All rights reserved.
