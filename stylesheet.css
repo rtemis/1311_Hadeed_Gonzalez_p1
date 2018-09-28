@@ -22,10 +22,11 @@ header {
 
 footer {
     background-color: #B22222;
-    padding: 10px;
     text-align: center;
     color: white;
-	font: 15px Helvetica;	
+	font: 15px Helvetica;
+	width: 100%;
+	position: absolute;
 }
 
 form {
@@ -53,6 +54,7 @@ table {
 
 
 .article {
+	top: 30%;
 	background-color: white;
 	padding: 20px;
 	overflow-y: scroll;
@@ -90,12 +92,13 @@ table {
 	text-align: right;	
 	height: 30px;
 	background-color: #e1e6ef;
+	width: 100%;
 }
 
 	.mini-nav-bar .search-container {
 		float: right;
 	}
-
+	
 	.mini-nav-bar input[type=text] {
 		padding: 2px;
 		font: 15px Helvetica;
