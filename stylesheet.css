@@ -28,7 +28,7 @@ footer {
     color: white;
 	font: 15px Helvetica;
 	width: 100%;
-	position: absolute;
+	position: relative;
 }
 
 form {
