@@ -8,11 +8,13 @@ body {
 }
 
 header {
-    background-color: #B22222;
+    background-color: #061320;
     padding: 10px;
     text-align: left;
     color: white;
 	font: 20px sans-serif;
+	
+	border-radius: 25px;
 }
 
 	header img {
@@ -21,7 +23,7 @@ header {
 	}
 
 footer {
-    background-color: #B22222;
+    background-color: #061320;
     text-align: center;
     color: white;
 	font: 15px Helvetica;
@@ -78,8 +80,8 @@ table {
 	width: 100%;
 	height: 100%;
 	padding: 10px;
-	overflow-y: scroll;
-	overflow-x: hidden;
+	overflow: auto;
+	border-radius: 25px;
 }
 
 	.contact-form textarea {
@@ -146,7 +148,7 @@ table {
 	}	
 	
 .nav {
-	background: #7c0000;
+	background: #448C6F;
 	float: left;
 	width: 20%;
 	height: 65vh;
