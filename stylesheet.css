@@ -129,17 +129,13 @@ table {
 	float: left;
 	text-align: center;
 	margin: 15px;
-	font: 10px Arial;
+	font: 12px Arial;
 	width: 120px;
 	height: 210px;
+	text-decoration: none;
+	color: #38023B;
+	font-weight: bold;
 }
-
-	.movie-desc a {
-		text-align: center;
-		text-decoration: none;
-		color: #38023B;
-		font: 12px Arial;
-	}
 
 	.movie-desc img {
 		width: 100px;
@@ -150,12 +146,10 @@ table {
 	.movie-desc:hover {
 		width: 130px;
 		height: 210px;
-	}
-	
-	.movie-desc:hover a{
 		color: #F2F0F0;
+		
 	}
-	
+
 	.movie-desc:hover img{
 		width: 140px;
 		height: 230px;
