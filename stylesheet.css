@@ -13,6 +13,10 @@ header {
     text-align: left;
     color: white;
 	font: 20px sans-serif;
+	position: static;
+	top: 0;
+	left: 0;
+	width: 100%;
 }
 
 	header img {
@@ -20,6 +24,10 @@ header {
 		height: 50px;	
 	}
 
+section {
+	position: static;
+}
+	
 footer {
     background-color: #B22222;
     text-align: center;
@@ -27,6 +35,8 @@ footer {
 	font: 15px Helvetica;
 	width: 100%;
 	position: absolute;
+	bottom: 0;
+	left: 0;
 }
 
 form {
@@ -47,21 +57,20 @@ table {
 }
 
 
-
 #user-name {
 	float: right;
 }
 
 
 .article {
-	top: 30%;
+	position: relative;
 	background-color: white;
 	padding: 20px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	float: left;
 	width: 80%;
-	height: 70vh;
+	height: 65vh;
 }
 
 	.article h1 {
@@ -148,10 +157,10 @@ table {
 .nav {
 	background: #7c0000;
 	float: left;
+	
 	width: 20%;
-	height: 70vh;
+	height: 65vh;
     padding: 10px;
-	min-width: 200px;
 	overflow: hidden;
 }
 
