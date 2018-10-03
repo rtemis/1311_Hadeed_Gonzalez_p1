@@ -3,25 +3,22 @@
 }
 
 body {
-    background-color: white;
+    background-color: #FFFFFF;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
 header {
-    background-color: #B22222;
-    padding: 30px;
-    text-align: left;
-    color: white;
+    background-color: #8B2635;
+    padding: 10px;
+    text-align: center;
+    color: #FFFFFF;
 	font: 20px sans-serif;
-	position: static;
-	top: 0;
-	left: 0;
-	width: 100%;
 }
 
 	header img {
 		width: 50px;
 		height: 50px;	
+		border-radius: 15px;
 	}
 
 section {
@@ -29,18 +26,19 @@ section {
 }
 	
 footer {
-    background-color: #B22222;
+    background-color: #8B2635;
     text-align: center;
-    color: white;
-	font: 15px Helvetica;
+    color: #FFFFFF;
+	font: 15px sans-serif;
 	width: 100%;
-	position: absolute;
+	position: relative;
 	bottom: 0;
 	left: 0;
+	padding: 10px;
 }
 
 form {
-	color: white;
+	color: #FFFFFF;
 	text-align: left;
 	padding: 5px;
 }
@@ -58,14 +56,13 @@ table {
 
 
 #user-name {
-	float: right;
+	text-align : right;
 }
 
 
 .article {
-	position: relative;
-	background-color: white;
-	padding: 20px;
+	background-color: #FFD9CE;
+	padding: 10px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	float: left;
@@ -86,9 +83,9 @@ table {
 	background-color: #B22222;
 	width: 100%;
 	height: 100%;
-	padding: 20px;
-	overflow-y: scroll;
-	overflow-x: hidden;
+	padding: 10px;
+	overflow: auto;
+	border-radius: 25px;
 }
 
 	.contact-form textarea {
@@ -100,8 +97,9 @@ table {
 .mini-nav-bar {
 	text-align: right;	
 	height: 30px;
-	background-color: #e1e6ef;
+	background-color: #F25757;
 	width: 100%;
+	color: #FFD9CE;
 }
 
 	.mini-nav-bar .search-container {
@@ -115,7 +113,7 @@ table {
 	}
 
 .movie {
-	padding: 20px;
+	padding: 10px;
 	width: 50%;
 	height: 50%;
 }
@@ -128,36 +126,48 @@ table {
 	}	
 
 .movie-desc {
-	background-color: white;
 	float: left;
 	text-align: center;
-	margin: 10px;
+	margin: 15px;
 	font: 10px Arial;
-	width: 100px;
-	height: 180px;
+	width: 110px;
+	height: 200px;
 }
 
 	.movie-desc a {
 		text-align: center;
 		text-decoration: none;
-		font-size: 10px;
-		padding: 0;
+		color: #38023B;
+		font: 12px Arial;
 	}
 
 	.movie-desc a:hover {
-		color: red;
+		color: #A40E4C;
 	}
 
 	.movie-desc img {
-		width: 70px;
-		height: 100px;
-		padding: 0;
-	}	
+		width: 100px;
+		height: 150px;
+		border-radius: 15px;
+	}
+	
+	.movie-desc:hover {
+		width: 200px;
+		height: 250px;
+	}
+	
+	.movie-desc:hover a{
+		font-size: 18px;
+	}
+	
+	.movie-desc:hover img{
+		width: 170px;
+		height: 240px;
+	}		
 	
 .nav {
-	background: #7c0000;
+	background: #4F000B;
 	float: left;
-	
 	width: 20%;
 	height: 65vh;
     padding: 10px;
@@ -171,7 +181,7 @@ table {
 	}
 
 	.nav ul a {
-		color: white;
+		color: #FFFFFF;
 		text-align: left;
 		font: 20px Helvetica;
 		text-decoration: none;
@@ -179,11 +189,20 @@ table {
 	}
 
 	.nav ul a:hover{
-		color: gray;
+		color: #A40E4C;
 	}
-	
+
 .section:after {
     content: "";
     display: table;
     clear: both;
+}
+
+@media (max-width: 1023px) {
+  .nav {
+	width:200px;
+  }
+  .article{
+	width:calc(100% - 200px);
+  }
 }
