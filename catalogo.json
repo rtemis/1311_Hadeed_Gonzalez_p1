@@ -1,0 +1,33 @@
+{
+  "peliculas": [
+    {
+      "titulo": "Aladdin",
+      "poster": "images/aladdin.jpg",
+      "director":[ "Ron Clements", "John Musker"],
+      "precio": 15.5,
+      "categoria": ["Animation", "Adventure", "Family"],
+      "anno": 1999,
+      "actores": [
+        {
+          "nombre": "Scott Weinger",
+          "personaje": "Anakin Skywalker",
+          "foto": "imagenes/anakin.jpg"
+        },
+        {
+        "nombre": "Ewan McGregor",
+        "personaje": "Obi-Wan Kenobi",
+        "foto": "imagenes/kenobi.jpg"
+        }
+      ]
+    }
+  ]
+}
+
+
+Robin Williams
+Jonathan Freeman
+Linda Larkin
+Frank Welker
+Gilbert Gottfried
+Douglas Seale
+Jim Cummings
