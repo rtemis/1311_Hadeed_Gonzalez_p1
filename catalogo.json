@@ -10,13 +10,109 @@
       "actores": [
         {
           "nombre": "Scott Weinger",
-          "personaje": "Anakin Skywalker",
-          "foto": "imagenes/anakin.jpg"
+          "personaje": "Aladdin",
+          "foto": "imagenes/caracter_aladdin.jpg"
         },
         {
-        "nombre": "Ewan McGregor",
-        "personaje": "Obi-Wan Kenobi",
-        "foto": "imagenes/kenobi.jpg"
+        "nombre": "Robin Williams",
+        "personaje": "Genie",
+        "foto": "imagenes/caracter_genie.jpg"
+        },
+        {
+        "nombre": "Jonathan Freeman",
+        "personaje": "Jafar",
+        "foto": "imagenes/caracter_genie.jpg"
+        },
+        {
+        "nombre": "Robin Williams",
+        "personaje": "Genie",
+        "foto": "imagenes/caracter_jaffar.jpg"
+        },
+        {
+        "nombre": "Linda Larkin",
+        "personaje": "Jasmine",
+        "foto": "imagenes/caracter_jasmine.jpg"
+        }
+      ]
+    },
+    {
+      "titulo": "Black Panther",
+      "poster": "images/black_panther.jpg",
+      "director":"Ryan Coogler",
+      "precio": 28,
+      "categoria": ["Action", "Adventure", "Sci-Fi"],
+      "anno": 2018,
+      "actores": [
+        {
+          "nombre": "Chadwick Boseman",
+          "personaje": "T'Challa",
+          "foto": "imagenes/.jpg"
+        },
+        {
+        "nombre": "Michael B.Jordan",
+        "personaje": "Erik Killmonger",
+        "foto": "imagenes/.jpg"
+        },
+        {
+        "nombre": "Lupita Nyong'o",
+        "personaje": "Nakia",
+        "foto": "imagenes/.jpg"
+      },
+      {
+        "nombre": "Danai Gurira",
+        "personaje": "Okoye",
+        "foto": "imagenes/.jpg"
+        }
+      ]
+    },
+    {
+      "titulo": "Captain America: The First Avenger",
+      "poster": "images/.jpg",
+      "director":"Joe Johnston",
+      "precio": 23.99,
+      "categoria": ["Action", "Adventure", "Sci-Fi"],
+      "anno": 2011,
+      "actores": [
+        {
+          "nombre": "Chris Evans",
+          "personaje": "Steve Rogers",
+          "foto": "imagenes/.jpg"
+        },
+        {
+        "nombre": "Hayley Atwell",
+        "personaje": "Peggy Carter",
+        "foto": "imagenes/.jpg"
+        },
+        {
+        "nombre": "Sebastian Stan",
+        "personaje": "James Buchanan 'Bucky' Banrnes",
+        "foto": "imagenes/.jpg"
+      }
+
+      ]
+    },
+    {
+      "titulo": "Coco",
+      "poster": "images/.jpg",
+      "director":["Lee Inkrich", "Adrian Molina"],
+      "precio": 27,
+      "categoria": ["Animation", "Adventure", "Comedy"],
+      "anno": 2017,
+      "actores": [
+        {
+          "nombre": "Anthony Gonzalez",
+          "personaje": "Miguel",
+          "foto": "imagenes/.jpg"
+        },
+        {
+        "nombre": "Gael Garcia Bernal",
+        "personaje": "Hector",
+        "foto": "imagenes/.jpg"
+        },
+        {
+        "nombre": "Benjamin Bratt",
+        "personaje": "Ernesto de la Cruz",
+        "foto": "imagenes/.jpg"
         }
       ]
     },
@@ -390,3 +486,31 @@
 		}
       ]
     },
+    {
+      "titulo": "Coherence",
+      "poster": "images/coherence.jpg",
+      "director":["Lee Inkrich", "Adrian Molina"],
+      "precio": 27,
+      "categoria": ["Animation", "Adventure", "Comedy"],
+      "anno": 2017,
+      "actores": [
+        {
+          "nombre": "Anthony Gonzalez",
+          "personaje": "Miguel",
+          "foto": "imagenes/.jpg"
+        },
+        {
+        "nombre": "Gael Garcia Bernal",
+        "personaje": "Hector",
+        "foto": "imagenes/.jpg"
+        },
+        {
+        "nombre": "Benjamin Bratt",
+        "personaje": "Ernesto de la Cruz",
+        "foto": "imagenes/.jpg"
+        }
+      ]
+    },
+  ]
+}
+
