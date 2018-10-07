@@ -19,15 +19,374 @@
         "foto": "imagenes/kenobi.jpg"
         }
       ]
-    }
-  ]
-}
-
-
-Robin Williams
-Jonathan Freeman
-Linda Larkin
-Frank Welker
-Gilbert Gottfried
-Douglas Seale
-Jim Cummings
+    },
+	{
+		"titulo": "Mary Poppins",
+		"poster": "images/mary_poppins.jpg",
+		"director":[ "Robert Stevenson"],
+		"precio": 13.99,
+		"categoria": ["Comedy", "Family", "Fantasy", "Musical"],
+		"anno": 1964,
+		"actores": [
+        {
+			"nombre": "Julie Andrews",
+			"personaje": "Mary Poppins",
+			"foto": "images/character_mary_poppins.jpg"
+        },
+        {
+			"nombre": "Dick Van Dyke",
+			"personaje": "Bert",
+			"foto": "images/character_bert.jpg"
+        }
+		{
+			"nombre": "David Tomlinson",
+			"personaje": "Mr Banks",
+			"foto": "images/character_mr_banks.jpg"
+        },
+        {
+			"nombre": "Karen Dotrice",
+			"personaje": "Jane Banks",
+			"foto": "images/character_jane_banks.jpg"
+        }
+		{
+			"nombre": "Matthew Garber",
+			"personaje": "Michael Banks",
+			"foto": "images/character_michael_banks.jpg"
+		}
+      ]
+    },
+	{
+		"titulo": "Pulp Fiction",
+		"poster": "images/pulp_fiction.jpg",
+		"director":[ "Quentin Tarantino"],
+		"precio": 7.99,
+		"categoria": ["Crime", "Drama"],
+		"anno": 1994,
+		"actores": [
+        {
+			"nombre": "John Travolta",
+			"personaje": "Vincent Vega",
+			"foto": "images/character_vincent_vega.jpg"
+        },
+        {
+			"nombre": "Samuel L. Jackson",
+			"personaje": "Jules Winnfield",
+			"foto": "images/character_jules_winnfield.jpg"
+        },
+		{ 
+			"nombre": "Bruce Willis",
+			"personaje": "Butch Coolidge",
+			"foto": "images/character_butch_coolidge.jpg"
+		}
+      ]
+    },
+	{
+		"titulo": "The Avengers",
+		"poster": "images/the_avengers.jpg",
+		"director":[ "Joss Wheldon"],
+		"precio": 5.99,
+		"categoria": ["Action", "Adventure", "Sci-Fi"],
+		"anno": 2012,
+		"actores": [
+        {
+			"nombre": "Robert Downey Jr",
+			"personaje": "Tony Stark",
+			"foto": "images/character_tony_stark.jpg"
+        },
+        {
+			"nombre": "Chris Evans",
+			"personaje": "Captain America",
+			"foto": "images/character_captain_america.jpg"
+        },
+		{ 
+			"nombre": "Scarlett Johansson",
+			"personaje": "Black Widow",
+			"foto": "images/character_black_widow.jpg"
+		}
+		{
+			"nombre": "Mark Ruffalo",
+			"personaje": "Bruce Banner / The Hulk",
+			"foto": "images/character_hulk.jpg"
+        },
+        {
+			"nombre": "Chris Hemsworth",
+			"personaje": "Thor",
+			"foto": "images/character_thor.jpg"
+        },
+		{ 
+			"nombre": "Tom Hiddleston",
+			"personaje": "Loki",
+			"foto": "images/character_loki.jpg"
+		}
+      ]
+    },
+	{
+		"titulo": "The Godfather",
+		"poster": "images/the_godfather.jpg",
+		"director":[ "Francis Ford Coppola"],
+		"precio": 5.99,
+		"categoria": ["Crime", "Drama"],
+		"anno": 1972,
+		"actores": [
+        {
+			"nombre": "Al Pacino",
+			"personaje": "Michael Corleone",
+			"foto": "images/character_michael_corleone.jpg"
+        },
+        {
+			"nombre": "Marlon Brando",
+			"personaje": "Don Vito Corleone",
+			"foto": "images/character_don_vito.jpg"
+        }
+		{
+			"nombre": "James Caan",
+			"personaje": "Sonny Corleone",
+			"foto": "images/character_sonny_corleone.jpg"
+        },
+        {
+			"nombre": "Diane Keaton",
+			"personaje": "Kay Adams",
+			"foto": "images/character_kay_adams.jpg"
+        }
+      ]
+    },
+	{
+		"titulo": "The Hunger Games",
+		"poster": "images/the_hunger_games_1.jpg",
+		"director":[ "Gary Ross"],
+		"precio": 7.99,
+		"categoria": ["Adventure", "Sci-Fi", "Thriller"],
+		"anno": 2012,
+		"actores": [
+        {
+			"nombre": "Jennifer Lawrence",
+			"personaje": "Katniss Everdeen",
+			"foto": "images/character_katniss_everdeen.jpg"
+        },
+        {
+			"nombre": "Josh Hutcherson",
+			"personaje": "Peeta Mellark",
+			"foto": "images/character_peeta_mellark.jpg"
+        },
+		{ 
+			"nombre": "Liam Hemsworth",
+			"personaje": "Gale Hawthorne",
+			"foto": "images/character_gale_hawthorne.jpg"
+		}
+		{
+			"nombre": "Stanley Tucci",
+			"personaje": "Caesar Flickerman",
+			"foto": "images/character_caesar_flickerman.jpg"
+		}
+      ]
+    },
+	{
+		"titulo": "The Hunger Games: Catching Fire",
+		"poster": "images/the_hunger_games_2.jpg",
+		"director":[ "Francis Lawrence"],
+		"precio": 7.99,
+		"categoria": ["Action", "Adventure", "Mystery"],
+		"anno": 2013,
+		"actores": [
+        {
+			"nombre": "Jennifer Lawrence",
+			"personaje": "Katniss Everdeen",
+			"foto": "images/character_katniss_everdeen.jpg"
+        },
+        {
+			"nombre": "Josh Hutcherson",
+			"personaje": "Peeta Mellark",
+			"foto": "images/character_peeta_mellark.jpg"
+        },
+		{ 
+			"nombre": "Liam Hemsworth",
+			"personaje": "Gale Hawthorne",
+			"foto": "images/character_gale_hawthorne.jpg"
+		}
+		{
+			"nombre": "Stanley Tucci",
+			"personaje": "Caesar Flickerman",
+			"foto": "images/character_caesar_flickerman.jpg"
+		}
+      ]
+    },
+	{
+		"titulo": "The Hunger Games: Mocking Jay Part I",
+		"poster": "images/the_hunger_games_3.jpg",
+		"director":[ "Francis Lawrence"],
+		"precio": 12.99,
+		"categoria": ["Action", "Adventure", "Sci-Fi", "Thriller"],
+		"anno": 2014,
+		"actores": [
+        {
+			"nombre": "Jennifer Lawrence",
+			"personaje": "Katniss Everdeen",
+			"foto": "images/character_katniss_everdeen.jpg"
+        },
+        {
+			"nombre": "Josh Hutcherson",
+			"personaje": "Peeta Mellark",
+			"foto": "images/character_peeta_mellark.jpg"
+        },
+		{ 
+			"nombre": "Liam Hemsworth",
+			"personaje": "Gale Hawthorne",
+			"foto": "images/character_gale_hawthorne.jpg"
+		}
+		{
+			"nombre": "Stanley Tucci",
+			"personaje": "Caesar Flickerman",
+			"foto": "images/character_caesar_flickerman.jpg"
+		}
+      ]
+    },
+	{
+		"titulo": "The Hunger Games: Mocking Jay Part II",
+		"poster": "images/the_hunger_games_4.jpg",
+		"director":[ "Francis Lawrence"],
+		"precio": 15.99,
+		"categoria": ["Action", "Adventure", "Sci-Fi", "Thriller"],
+		"anno": 2015,
+		"actores": [
+        {
+			"nombre": "Jennifer Lawrence",
+			"personaje": "Katniss Everdeen",
+			"foto": "images/character_katniss_everdeen.jpg"
+        },
+        {
+			"nombre": "Josh Hutcherson",
+			"personaje": "Peeta Mellark",
+			"foto": "images/character_peeta_mellark.jpg"
+        },
+		{ 
+			"nombre": "Liam Hemsworth",
+			"personaje": "Gale Hawthorne",
+			"foto": "images/character_gale_hawthorne.jpg"
+		}
+		{
+			"nombre": "Stanley Tucci",
+			"personaje": "Caesar Flickerman",
+			"foto": "images/character_caesar_flickerman.jpg"
+		}
+      ]
+    },
+	{
+		"titulo": "Lord of the Rings: The Fellowship of the Ring",
+		"poster": "images/the_lord_of_the_rings_1.jpg",
+		"director":[ "Peter Jackson"],
+		"precio": 8.99,
+		"categoria": ["Adventure", "Drama", "Fantasy"],
+		"anno": 2001,
+		"actores": [
+        {
+			"nombre": "Sean Asten",
+			"personaje": "Sam",
+			"foto": "images/character_sam.jpg"
+        },
+        {
+			"nombre": "Sean Bean",
+			"personaje": "Boromir",
+			"foto": "images/character_boromir.jpg"
+        },
+		{ 
+			"nombre": "Orlando Bloom",
+			"personaje": "Legolas",
+			"foto": "images/character_legolas.jpg"
+		}
+		{
+			"nombre": "Ian Holm",
+			"personaje": "Bilbo",
+			"foto": "images/character_bilbo.jpg"
+        },
+        {
+			"nombre": "Christopher Lee",
+			"personaje": "Saruman",
+			"foto": "images/character_saruman.jpg"
+        },
+		{ 
+			"nombre": "Ian McKellen",
+			"personaje": "Gandalf",
+			"foto": "images/character_gandalf.jpg"
+		}
+      ]
+    },
+	{
+		"titulo": "Lord of the Rings: The Two Towers",
+		"poster": "images/the_lord_of_the_rings_2.jpg",
+		"director":[ "Peter Jackson"],
+		"precio": 8.99,
+		"categoria": ["Adventure", "Drama", "Fantasy"],
+		"anno": 2002,
+		"actores": [
+        {
+			"nombre": "Sean Asten",
+			"personaje": "Sam",
+			"foto": "images/character_sam.jpg"
+        },
+        {
+			"nombre": "Sean Bean",
+			"personaje": "Boromir",
+			"foto": "images/character_boromir.jpg"
+        },
+		{ 
+			"nombre": "Orlando Bloom",
+			"personaje": "Legolas",
+			"foto": "images/character_legolas.jpg"
+		}
+		{
+			"nombre": "Ian Holm",
+			"personaje": "Bilbo",
+			"foto": "images/character_bilbo.jpg"
+        },
+        {
+			"nombre": "Christopher Lee",
+			"personaje": "Saruman",
+			"foto": "images/character_saruman.jpg"
+        },
+		{ 
+			"nombre": "Ian McKellen",
+			"personaje": "Gandalf",
+			"foto": "images/character_gandalf.jpg"
+		}
+      ]
+    },
+	{
+		"titulo": "Lord of the Rings: The Return of the King",
+		"poster": "images/the_lord_of_the_rings_1.jpg",
+		"director":[ "Peter Jackson"],
+		"precio": 8.99,
+		"categoria": ["Adventure", "Drama", "Fantasy"],
+		"anno": 2003,
+		"actores": [
+        {
+			"nombre": "Sean Asten",
+			"personaje": "Sam",
+			"foto": "images/character_sam.jpg"
+        },
+        {
+			"nombre": "Sean Bean",
+			"personaje": "Boromir",
+			"foto": "images/character_boromir.jpg"
+        },
+		{ 
+			"nombre": "Orlando Bloom",
+			"personaje": "Legolas",
+			"foto": "images/character_legolas.jpg"
+		}
+		{
+			"nombre": "Ian Holm",
+			"personaje": "Bilbo",
+			"foto": "images/character_bilbo.jpg"
+        },
+        {
+			"nombre": "Christopher Lee",
+			"personaje": "Saruman",
+			"foto": "images/character_saruman.jpg"
+        },
+		{ 
+			"nombre": "Ian McKellen",
+			"personaje": "Gandalf",
+			"foto": "images/character_gandalf.jpg"
+		}
+      ]
+    },
