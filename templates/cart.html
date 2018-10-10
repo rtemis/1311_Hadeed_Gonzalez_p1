@@ -1,100 +1,33 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<title>Cart</title>
-	<link rel="stylesheet" href="stylesheet.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-	<body>
-		<header>
-			<div class="logo">
-				<h1>		
-					<a href="index.html"> <img src="http://getdrawings.com/image/movie-reel-drawing-53.jpg" alt="Home"> </a>
-					Deluxe Video Club
-				</h1>
-				The comfort of the cinema in your own home!
-			</div>
-			<div id="user-name">Welcome, user 1111!</div>
-		</header>
-		
-		<div class="mini-nav-bar"> 
-			<div class="search-container">
-				<form action="results.html">
-					<select>
-						<option value="action">Action</option>
-						<option value="adventure">Adventure</option>
-						<option value="comedy">Comedy</option>
-						<option value="drama">Drama</option>
-						<option value="horror">Horror</option>
-						<option value="romance">Romance</option>
-						<option value="scifi">Sci-fi</option>
-						<option value="western">Western</option>
-					</select>
-					<input type="text" placeholder="Search.." name="search">
-					<input type="submit" value="Search">
-				</form>
-			</div>
-		</div>
+{% extends 'base.html' %}
 
-		<div class="section">
-			<div class="nav">
-				<ul>
-					<li><a href="index.html">Logout</a></li>
-					<li><a href="user.html">Home</a></li>
-					<li><a href="cart.html">Cart</a></li>
-					<li><a href="purchase-history.html">Purchase History</a></li>
-					<li><a href="contact-us.html">Contact</a></li>
-					<li><a href="about-us.html">About Us</a></li>
-				</ul>
-			</div>
-			
-			<div class="article">
-				<div class="cart-table">
-				<table>
-					<tr>
-						<th>Movie</th>
-						<th>Quantity</th>
-						<th>Price (Ud.)</th>
-						<th>Remove from Cart</th>
-					</tr>
-					<tr>
-						<td>Black Panther</td>
-						<td>x1</td>
-						<td>$12.50</td>
-						<td><form action="#"><input type="radio" name="remove"></form></td>
-					</tr>
-					<tr>
-						<td>The Usual Suspects</td>
-						<td>x1</td>
-						<td>$19.50</td>
-						<td><form action="#"><input type="radio" name="remove"></form></td>
-					</tr>
-					<tr>
-						<td>The Slipper and the Rose</td>
-						<td>x1</td>
-						<td>$7.99</td>
-						<td><form action="#"><input type="radio" name="remove"></form></td>
-					</tr>
-					<tr>
-						<td>Minions</td>
-						<td>x1</td>
-						<td>$5.00</td>
-						<td><form action="#"><input type="radio" name="remove"></form></td>
-					</tr>
-				</table>
-				</div>
-				<div class="cart-buttons">
-					<form action="cart.html">
-						<input type="submit" value="Remove Selected">
-						<input type="submit" value="Buy Now">
-					</form>
-				</div>
-			</div>
-		</div>
-		
-		<footer>
-			Deluxe Video Club © All rights reserved.
-		</footer>
-		
-	</body>
-</html>
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block article %}
+	<div class="cart-table">
+		<table>
+			<tr>
+				<th>Movie</th>
+				<th>Quantity</th>
+				<th>Price (Ud.)</th>
+				<th>Remove from Cart</th>
+			</tr>
+			<tr>
+		{% for m in movies %}
+			<tr>
+				<td>{{ m.title }}</td>
+				<td>{{ m.precio }}</td>
+				<td>date: 00-00-0000</td>
+				<td><form action="#"><input type="radio" name="remove"></form></td>
+			</tr>
+		{% endfor %}
+		</table>
+	</div>
+	<div class="cart-buttons">
+		<form action="cart.html">
+			<input type="submit" value="Remove Selected">
+			<input type="submit" value="Buy Now">
+		</form>
+	</div>
+{% endblock %}

@@ -1,87 +1,17 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<title>Purchase History</title>
-	<link rel="stylesheet" href="stylesheet.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-	<body>
-		<header>
-			<div class="logo">
-				<h1>		
-					<a href="index.html"> <img src="http://getdrawings.com/image/movie-reel-drawing-53.jpg" alt="Home"> </a>
-					Deluxe Video Club
-				</h1>
-				The comfort of the cinema in your own home!
-			</div>
-			<div id="user-name">Welcome, user 1111!</div>
-		</header>
-		
-		<div class="mini-nav-bar"> 
-			<div class="search-container">
-				<form action="results.html">
-					<select>
-						<option value="action">Action</option>
-						<option value="adventure">Adventure</option>
-						<option value="comedy">Comedy</option>
-						<option value="drama">Drama</option>
-						<option value="horror">Horror</option>
-						<option value="romance">Romance</option>
-						<option value="scifi">Sci-fi</option>
-						<option value="western">Western</option>
-					</select>
-					<input type="text" placeholder="Search.." name="search">
-					<input type="submit" value="Search">
-				</form>
-			</div>
-		</div>
+{%extends 'base.html'%}
 
-		<div class="section">
-			<div class="nav">
-				<ul>
-					<li><a href="index.html">Logout</a></li>
-					<li><a href="user.html">Home</a></li>
-					<li><a href="cart.html">Cart</a></li>
-					<li><a href="purchase-history.html">Purchase History</a></li>
-					<li><a href="contact-us.html">Contact</a></li>
-					<li><a href="about-us.html">About Us</a></li>
-				</ul>
-			</div>
-			
-			<div class="article">
-				<table>
-					<tr>
-						<th>Movie</th>
-						<th>Price</th>
-						<th>Date of Purchase</th>
-					</tr>
-					<tr>
-						<td>Black Panther</td>
-						<td>$12.50</td>
-						<td>23/09/2018</td>
-					</tr>
-					<tr>
-						<td>The Usual Suspects</td>
-						<td>$5.00</td>
-						<td>30/12/1997</td>
-					</tr>
-					<tr>
-						<td>The Slipper and the Rose</td>
-						<td>$7.99</td>
-						<td>12/01/2017</td>
-					</tr>
-					<tr>
-						<td>Minions</td>
-						<td>$5.00</td>
-						<td>30/05/2016</td>
-					</tr>
-				</table>
-			</div>
-		</div>
+{% block title %}
+{% endblock %}
+
+{% block article %}
+	<table>
+		{% for m in movies %}
+			<tr>
+				<th> {{ m.title }}</th>
+				<th>{{ m.precio }}</th>
+				<th></th>
+			</tr>
+		{% endfor %}
+	</table>
 		
-		<footer>
-			Deluxe Video Club © All rights reserved.
-		</footer>
-		
-	</body>
-</html>
+{% endblock %}

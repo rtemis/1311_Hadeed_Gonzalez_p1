@@ -19,6 +19,10 @@ def about():
 def contact():
 	return render_template('contact-us.html', title="Contact Us")
 
+@app.route("/<title>")
+def description(movie):
+	return render_template('description.html', title='movie["titulo"]', movie=m)
+
 @app.route("/cart")
 def cart():
 	return render_template('cart.html', title="Cart")
