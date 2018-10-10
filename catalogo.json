@@ -10,23 +10,23 @@
 		    "actores": [
 		        {
 		        	"nombre": "Scott Weinger",
-		        	"personaje": "Aladdin",
+		        	"personaje": "Aladdin"
 		        },
 		        {
 		        	"nombre": "Robin Williams",
-		    	   	"personaje": "Genie",
+		    	   	"personaje": "Genie"
 		        },
 		        {
 		    	    "nombre": "Jonathan Freeman",
-			        "personaje": "Jafar",
+			        "personaje": "Jafar"
 		        },
 		        {
 			        "nombre": "Robin Williams",
-			        "personaje": "Genie",
+			        "personaje": "Genie"
 		        },
 		        {
 			        "nombre": "Linda Larkin",
-			        "personaje": "Jasmine",
+			        "personaje": "Jasmine"
 		        }
 	    	]
     	},
@@ -40,19 +40,19 @@
 	      	"actores": [
 		        {
 		          "nombre": "Chadwick Boseman",
-		          "personaje": "T'Challa",
+		          "personaje": "T'Challa"
 		        },
 		        {
 			        "nombre": "Michael B.Jordan",
-			        "personaje": "Erik Killmonger",
+			        "personaje": "Erik Killmonger"
 		        },
 		        {
 			        "nombre": "Lupita Nyong'o",
-			        "personaje": "Nakia",
+			        "personaje": "Nakia"
 		      	},
 			    {
 	        		"nombre": "Danai Gurira",
-	        		"personaje": "Okoye",
+	        		"personaje": "Okoye"
 		        }
       		]	
     	},
@@ -66,15 +66,15 @@
 	      	"actores": [
 		        {
 		        	"nombre": "Chris Evans",
-		        	"personaje": "Steve Rogers",
+		        	"personaje": "Steve Rogers"
 		        },
 		        {
 		        "nombre": "Hayley Atwell",
-		        "personaje": "Peggy Carter",
+		        "personaje": "Peggy Carter"
 		        },
 		        {
 		        "nombre": "Sebastian Stan",
-		        "personaje": "James Buchanan 'Bucky' Banrnes",
+		        "personaje": "James Buchanan 'Bucky' Banrnes"
 			     }
 	      	]
 	    },
@@ -88,15 +88,15 @@
 	      	"actores": [
 		        {
 		          	"nombre": "Anthony Gonzalez",
-		          	"personaje": "Miguel",
+		          	"personaje": "Miguel"
 		        },
 		        {
 			        "nombre": "Gael Garcia Bernal",
-			        "personaje": "Hector",
+			        "personaje": "Hector"
 		        },
 		        {
 			        "nombre": "Benjamin Bratt",
-			        "personaje": "Ernesto de la Cruz",
+			        "personaje": "Ernesto de la Cruz"
 		        }
 	      	]
 	    },
@@ -110,23 +110,23 @@
 			"actores": [
 		        {
 					"nombre": "Julie Andrews",
-					"personaje": "Mary Poppins",
+					"personaje": "Mary Poppins"
 		        },
 		        {
 					"nombre": "Dick Van Dyke",
-					"personaje": "Bert",
-		        }
+					"personaje": "Bert"
+		        },
 				{
 					"nombre": "David Tomlinson",
-					"personaje": "Mr Banks",
+					"personaje": "Mr Banks"
 		        },
 		        {
 					"nombre": "Karen Dotrice",
-					"personaje": "Jane Banks",
-		        }
+					"personaje": "Jane Banks"
+		        },
 				{
 					"nombre": "Matthew Garber",
-					"personaje": "Michael Banks",
+					"personaje": "Michael Banks"
 				}
 	      	]
 	    },
@@ -140,15 +140,15 @@
 			"actores": [
 		        {
 					"nombre": "John Travolta",
-					"personaje": "Vincent Vega",
+					"personaje": "Vincent Vega"
 		        },
 		        {
 					"nombre": "Samuel L. Jackson",
-					"personaje": "Jules Winnfield",
+					"personaje": "Jules Winnfield"
 		        },
 				{ 
 					"nombre": "Bruce Willis",
-					"personaje": "Butch Coolidge",
+					"personaje": "Butch Coolidge"
 				}
 		    ]
 		},
@@ -162,27 +162,27 @@
 			"actores": [
 		        {
 					"nombre": "Robert Downey Jr",
-					"personaje": "Tony Stark",
+					"personaje": "Tony Stark"
 		        },
 		        {
 					"nombre": "Chris Evans",
-					"personaje": "Captain America",
+					"personaje": "Captain America"
 		        },
 				{ 
 					"nombre": "Scarlett Johansson",
-					"personaje": "Black Widow",
-				}
+					"personaje": "Black Widow"
+				},
 				{
 					"nombre": "Mark Ruffalo",
-					"personaje": "Bruce Banner / The Hulk",
+					"personaje": "Bruce Banner / The Hulk"
 		        },
 		        {
 					"nombre": "Chris Hemsworth",
-					"personaje": "Thor",
+					"personaje": "Thor"
 		        },
 				{ 
 					"nombre": "Tom Hiddleston",
-					"personaje": "Loki",
+					"personaje": "Loki"
 				}
 	      	]
 	    },
@@ -196,19 +196,19 @@
 			"actores": [
 		        {
 					"nombre": "Al Pacino",
-					"personaje": "Michael Corleone",
+					"personaje": "Michael Corleone"
 		        },
 		        {
 					"nombre": "Marlon Brando",
-					"personaje": "Don Vito Corleone",
-		        }
+					"personaje": "Don Vito Corleone"
+		        },
 				{
 					"nombre": "James Caan",
-					"personaje": "Sonny Corleone",
+					"personaje": "Sonny Corleone"
 		        },
 		        {
 					"nombre": "Diane Keaton",
-					"personaje": "Kay Adams",
+					"personaje": "Kay Adams"
 		        }
 		    ]
 	    },
@@ -222,19 +222,19 @@
 			"actores": [
 		        {
 					"nombre": "Jennifer Lawrence",
-					"personaje": "Katniss Everdeen",
+					"personaje": "Katniss Everdeen"
 		        },
 		        {
 					"nombre": "Josh Hutcherson",
-					"personaje": "Peeta Mellark",
+					"personaje": "Peeta Mellark"
 		        },
 				{ 
 					"nombre": "Liam Hemsworth",
-					"personaje": "Gale Hawthorne",
-				}
+					"personaje": "Gale Hawthorne"
+				},
 				{
 					"nombre": "Stanley Tucci",
-					"personaje": "Caesar Flickerman",
+					"personaje": "Caesar Flickerman"
 				}
 	      	]
 	    },
@@ -248,19 +248,19 @@
 			"actores": [
 		        {
 					"nombre": "Jennifer Lawrence",
-					"personaje": "Katniss Everdeen",
+					"personaje": "Katniss Everdeen"
 		        },
 		        {
 					"nombre": "Josh Hutcherson",
-					"personaje": "Peeta Mellark",
+					"personaje": "Peeta Mellark"
 		        },
 				{ 
 					"nombre": "Liam Hemsworth",
-					"personaje": "Gale Hawthorne",
-				}
+					"personaje": "Gale Hawthorne"
+				},
 				{
 					"nombre": "Stanley Tucci",
-					"personaje": "Caesar Flickerman",
+					"personaje": "Caesar Flickerman"
 				}
 	      	]
 	    },
@@ -274,19 +274,19 @@
 			"actores": [
 		        {
 					"nombre": "Jennifer Lawrence",
-					"personaje": "Katniss Everdeen",
+					"personaje": "Katniss Everdeen"
 		        },
 		        {
 					"nombre": "Josh Hutcherson",
-					"personaje": "Peeta Mellark",
+					"personaje": "Peeta Mellark"
 		        },
 				{ 
 					"nombre": "Liam Hemsworth",
-					"personaje": "Gale Hawthorne",
-				}
+					"personaje": "Gale Hawthorne"
+				},
 				{
 					"nombre": "Stanley Tucci",
-					"personaje": "Caesar Flickerman",
+					"personaje": "Caesar Flickerman"
 				}
 	      	]
 	    },
@@ -300,19 +300,19 @@
 			"actores": [
 		        {
 					"nombre": "Jennifer Lawrence",
-					"personaje": "Katniss Everdeen",
+					"personaje": "Katniss Everdeen"
 		        },
 		        {
 					"nombre": "Josh Hutcherson",
-					"personaje": "Peeta Mellark",
+					"personaje": "Peeta Mellark"
 		        },
 				{ 
 					"nombre": "Liam Hemsworth",
-					"personaje": "Gale Hawthorne",
-				}
+					"personaje": "Gale Hawthorne"
+				},
 				{
 					"nombre": "Stanley Tucci",
-					"personaje": "Caesar Flickerman",
+					"personaje": "Caesar Flickerman"
 				}
 	      	]
 	    },
@@ -326,31 +326,31 @@
 			"actores": [
 		        {
 		        	"nombre": "Elijah Wood",
-		        	"personaje": "Frodo",
-		        }
+		        	"personaje": "Frodo"
+		        },
 		        {
 					"nombre": "Sean Asten",
-					"personaje": "Sam",
+					"personaje": "Sam"
 		        },
 		        {
 					"nombre": "Sean Bean",
-					"personaje": "Boromir",
+					"personaje": "Boromir"
 		        },
 				{ 
 					"nombre": "Orlando Bloom",
-					"personaje": "Legolas",
-				}
+					"personaje": "Legolas"
+				},
 				{
 					"nombre": "Ian Holm",
-					"personaje": "Bilbo",
+					"personaje": "Bilbo"
 		        },
 		        {
 					"nombre": "Christopher Lee",
-					"personaje": "Saruman",
+					"personaje": "Saruman"
 		        },
 				{ 
 					"nombre": "Ian McKellen",
-					"personaje": "Gandalf",
+					"personaje": "Gandalf"
 				}
 		    ]
 		},
@@ -364,31 +364,31 @@
 			"actores": [
 				{
 		        	"nombre": "Elijah Wood",
-		        	"personaje": "Frodo",
-		        }
+		        	"personaje": "Frodo"
+		        },
 		        {
 					"nombre": "Sean Asten",
-					"personaje": "Sam",
+					"personaje": "Sam"
 		        },
 		        {
 					"nombre": "Sean Bean",
-					"personaje": "Boromir",
+					"personaje": "Boromir"
 		        },
 				{ 
 					"nombre": "Orlando Bloom",
-					"personaje": "Legolas",
-				}
+					"personaje": "Legolas"
+				},
 				{
 					"nombre": "Ian Holm",
-					"personaje": "Bilbo",
+					"personaje": "Bilbo"
 		        },
 		        {
 					"nombre": "Christopher Lee",
-					"personaje": "Saruman",
+					"personaje": "Saruman"
 		        },
 				{ 
 					"nombre": "Ian McKellen",
-					"personaje": "Gandalf",
+					"personaje": "Gandalf"
 				}
 	      	]
 	    },
@@ -402,31 +402,31 @@
 			"actores": [
 		        {
 		        	"nombre": "Elijah Wood",
-		        	"personaje": "Frodo",
-		        }
+		        	"personaje": "Frodo"
+		        },
 		        {
 					"nombre": "Sean Asten",
-					"personaje": "Sam",
+					"personaje": "Sam"
 		        },
 		        {
 					"nombre": "Sean Bean",
-					"personaje": "Boromir",
+					"personaje": "Boromir"
 		        },
 				{ 
 					"nombre": "Orlando Bloom",
-					"personaje": "Legolas",
-				}
+					"personaje": "Legolas"
+				},
 				{
 					"nombre": "Ian Holm",
-					"personaje": "Bilbo",
+					"personaje": "Bilbo"
 		        },
 		        {
 					"nombre": "Christopher Lee",
-					"personaje": "Saruman",
+					"personaje": "Saruman"
 		        },
 				{ 
 					"nombre": "Ian McKellen",
-					"personaje": "Gandalf",
+					"personaje": "Gandalf"
 				}
 		    ]
 	    },
@@ -440,18 +440,18 @@
 	      	"actores": [
 		        {
 		          	"nombre": "Anthony Gonzalez",
-		          	"personaje": "Miguel",
+		          	"personaje": "Miguel"
 		        },
 		        {
 			        "nombre": "Gael Garcia Bernal",
-			        "personaje": "Hector",
+			        "personaje": "Hector"
 		        },
 		        {
 			        "nombre": "Benjamin Bratt",
-			        "personaje": "Ernesto de la Cruz",
+			        "personaje": "Ernesto de la Cruz"
 		        }
 		    ]
-		},
+		}
 	]
 }
 

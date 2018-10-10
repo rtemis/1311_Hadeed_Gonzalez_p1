@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>{% block title %} {% endblock %}</title>
-	<link rel="stylesheet" href="stylesheet.css">
+	<title>{% block title %} {{ title }} {% endblock %}</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='stylesheet.css') }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>	
 	<header>
 		<h1>		
-			<a href={{ url_for('index') }}> <img src="http://getdrawings.com/image/movie-reel-drawing-53.jpg" alt="Home"></a>
+			<a href={{ url_for('index') }}> <img src="images/logo.jpeg" alt="Home"></a>
 			Deluxe Video Club
 		</h1>
 		The comfort of the cinema in your own home!
@@ -50,21 +50,17 @@
 						<input type="submit" value="Submit">
 					</form>	
 					<ul>
-						<li>
-							<a href={{ url_for('index') }}>{{ title }}</a>
-							<a href={{ url_for('about') }}>{{ title }}</a>
-							<a href={{ url_for('contact') }}>{{ title }}</a>
-						</li>
+						<li><a href={{ url_for('index') }}>Home</a></li>
+						<li><a href={{ url_for('about') }}>About Us</a></li>
+						<li><a href={{ url_for('contact') }}>Contact Us</a></li>
 					</ul>
 				{% else %}
 					<ul>
-						<li>
-							<a href={{ url_for('index') }}>{{ title }}</a>
-							<a href={{ url_for('cart') }}>{{ title }}</a>
-							<a href={{ url_for('history') }}>{{ title }}</a>
-							<a href={{ url_for('about') }}>{{ title }}</a>
-							<a href={{ url_for('contact') }}>{{ title }}</a>
-						<li>
+						<li><a href={{ url_for('index') }}>Home</a></li>
+						<li><a href={{ url_for('cart') }}>Cart</a></li>
+						<li><a href={{ url_for('history') }}>Purchase History</a></li>
+						<li><a href={{ url_for('about') }}>About Us</a></li>
+						<li><a href={{ url_for('contact') }}>Contact Us</a></li>
 					</ul>
 				{% endif %}
 			</div>
