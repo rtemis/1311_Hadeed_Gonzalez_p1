@@ -4,11 +4,12 @@
 	{{ title }}
 {% endblock %}
 
-{% block nav %}
-	
-{% endblock %}
-
 {% block article %}
-	{% for m in movies %}
+	{% for m in catalogue.peliculas %}
+		<div class="movie-desc">
+			<a href="description.html">
+			<img src="{{ m.poster }}" alt="{{ m.titulo }}"> </a>
+			{{ m.titulo }}
+		</div>
 	{% endfor %}
 {% endblock %}

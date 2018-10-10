@@ -7,11 +7,9 @@ app = Flask(__name__)
 @app.route("/")
 def index():
 	with open('catalogo.json', 'r') as data:
-		catalogue = json.load(data)
-		movies = {}
-		for p in catalogue['peliculas']:
-			movies['p.titulo'] = p['poster']	
-	return render_template('index.html', title="Index", user=False)
+		catalogue = {}
+		catalogue = json.load(data)	
+	return render_template('index.html', title="Index", user=False, catalogue=catalogue)
 
 @app.route("/about")
 def about():

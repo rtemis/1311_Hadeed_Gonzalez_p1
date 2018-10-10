@@ -1,76 +1,21 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<title>Contact</title>
-	<link rel="stylesheet" href="stylesheet.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-	<body>
-		<header>
-			<h1>		
-				<a href="index.html"> <img src="http://getdrawings.com/image/movie-reel-drawing-53.jpg" alt="Home"> </a>
-				Deluxe Video Club
-			</h1>
-			The comfort of the cinema in your own home!
+{% extends 'base.html' %}
 
-		</header>
+{% block title %}
+	{{ title }}
+{% endblock %}
 
-		<div class="mini-nav-bar"> 
-			<div class="search-container">
-				<form action="results.html">
-					<select>
-						<option value="action">Action</option>
-						<option value="adventure">Adventure</option>
-						<option value="comedy">Comedy</option>
-						<option value="drama">Drama</option>
-						<option value="horror">Horror</option>
-						<option value="romance">Romance</option>
-						<option value="scifi">Sci-fi</option>
-						<option value="western">Western</option>
-					</select>
-					<input type="text" placeholder="Search.." name="search">
-					<input type="submit" value="Search">
-				</form>
-			</div>
-		</div>
-		
-		<div class="section">
-			<div class="nav">
-				<form action="user.html" method="post">
-					Username:<br>
-					<input type="text" name="username">
-					<br>
-					Password:<br>
-					<input type="password" name="password">
-					<p>
-					<input type="submit" value="Submit">
-				</form>	
-				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="contact-us.html">Contact</a></li>
-					<li><a href="about-us.html">About Us</a></li>
-				</ul>
-			</div>
-			
-			<div class="article">
-				<div class="contact-form">
-					<form action="index.html">
-						<input type="text" placeholder="Name.." name="name">
-						<br><br>
-						<input type="text" placeholder="Email.." name="email">
-						<br><br>
-						<input type="text" placeholder="Telephone.." name="telephone">
-						<br><br>
-						<textarea id="comment" placeholder="Comments.." name="comment"></textarea>
-						<br><br>
-						<input type="submit" value="submit">
-					</form>
-				</div>
-			</div>
-		</div>
-		
-		<footer>
-			Deluxe Video Club © All rights reserved.
-		</footer>
-	</body>
-</html>
+{% block article %}
+	<div class="contact-form">
+		<form action="index.html">
+			<input type="text" placeholder="Name.." name="name">
+			<br><br>
+			<input type="text" placeholder="Email.." name="email">
+			<br><br>
+			<input type="text" placeholder="Telephone.." name="telephone">
+			<br><br>
+			<textarea id="comment" placeholder="Comments.." name="comment"></textarea>
+			<br><br>
+			<input type="submit" value="submit">
+		</form>
+	</div>
+{% endblock %}
