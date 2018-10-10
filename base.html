@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>{% block title %} {% endblock %}</title>
+	<link rel="stylesheet" href="stylesheet.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>	
+	<header>
+		<h1>		
+			<a href={{ url_for('index') }}> <img src="http://getdrawings.com/image/movie-reel-drawing-53.jpg" alt="Home"></a>
+			Deluxe Video Club
+		</h1>
+		The comfort of the cinema in your own home!
+		{% if user %}
+			{% block username %} {% endblock %}
+		{% endif %}
+	</header>
+		
+		<div class="mini-nav-bar"> 
+			<div class="search-container">
+				<form action="results.html">
+					<select>
+						<option value="action">Action</option>
+						<option value="adventure">Adventure</option>
+						<option value="comedy">Comedy</option>
+						<option value="drama">Drama</option>
+						<option value="horror">Horror</option>
+						<option value="romance">Romance</option>
+						<option value="scifi">Sci-fi</option>
+						<option value="western">Western</option>
+					</select>
+					<input type="text" placeholder="Search.." name="search">
+					<input type="submit" value="Search">
+				</form>
+			</div>
+		</div>
+		
+		<div class="section">
+			<div class="nav">
+				{% if user == False %}
+					<form action="user.html" method="post">
+						Username:<br>
+						<input type="text" name="username">
+						<br>
+						Password:<br>
+						<input type="password" name="password">
+						<p>
+						<input type="submit" value="Submit">
+					</form>	
+					<ul>
+						<li>
+							<a href={{ url_for('index') }}>{{ title }}</a>
+							<a href={{ url_for('about') }}>{{ title }}</a>
+							<a href={{ url_for('contact') }}>{{ title }}</a>
+						</li>
+					</ul>
+				{% else %}
+					<ul>
+						<li>
+							<a href={{ url_for('index') }}>{{ title }}</a>
+							<a href={{ url_for('cart') }}>{{ title }}</a>
+							<a href={{ url_for('history') }}>{{ title }}</a>
+							<a href={{ url_for('about') }}>{{ title }}</a>
+							<a href={{ url_for('contact') }}>{{ title }}</a>
+						<li>
+					</ul>
+				{% endif %}
+			</div>
+			
+			<div class="article">
+				{% block article %}	{% endblock %}
+			</div>
+		</div>
+		
+		<footer>
+			Deluxe Video Club © All rights reserved.
+		</footer>
+		
+	</body>	
+</html>
