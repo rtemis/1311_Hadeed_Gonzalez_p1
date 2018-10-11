@@ -14,7 +14,7 @@
 		</h1>
 		The comfort of the cinema in your own home!
 		{% if user %}
-			{% block username %} {% endblock %}
+			<div id="username">Welcome, {{ username }}</div>
 		{% endif %}
 	</header>
 		
@@ -40,6 +40,15 @@
 		<div class="section">
 			<div class="nav">
 				{% if user == False %}
+					<form action={{ url_for('user')}} method="post">
+						Username:<br>
+						<input type="text" name="username">
+						<br>
+						Password:<br>
+						<input type="password" name="password">
+						<p>
+						<input type="submit" value="Submit">
+					</form>	
 					<ul>
 						<li><a href={{ url_for('register') }}>Register</a></li>
 						<li><a href={{ url_for('index') }}>Home</a></li>

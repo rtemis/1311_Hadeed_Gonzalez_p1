@@ -11,6 +11,16 @@ def index():
 		catalogue = json.load(data)	
 	return render_template('index.html', title="Index", user=False, catalogue=catalogue)
 
+@app.route("/~", methods=['POST'])
+def user():
+	username = request.form['username']
+	password = request.form['password']
+	user = True
+	with open('catalogo.json', 'r') as data:
+		catalogue = {}
+		catalogue = json.load(data)	
+	return render_template('index.html', title="Index", user=user, catalogue=catalogue, username=username)
+
 @app.route("/about")
 def about():
 	return render_template('about-us.html', title="About Us")
@@ -45,8 +55,9 @@ def results():
 		moviebase = {}
 		movies = {}
 		for p in catalogue.peliculas:
-			if genero in p.categoria:
-				moviebase[genero] = p
+			for i in p.genero:
+				if genero == i:
+					moviebase[genero] = p
 		for p in moviebase:
 			if p.titulo.lower().contains(busqueda.lower()):
 				movies[p.titulo] = p
