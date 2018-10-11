@@ -20,8 +20,8 @@
 		
 		<div class="mini-nav-bar"> 
 			<div class="search-container">
-				<form action="results.html">
-					<select>
+				<form action="{{ url_for('results')}}" method="get">
+					<select name="select">
 						<option value="action">Action</option>
 						<option value="adventure">Adventure</option>
 						<option value="comedy">Comedy</option>

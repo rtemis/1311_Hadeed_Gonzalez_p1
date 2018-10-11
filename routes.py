@@ -35,5 +35,22 @@ def history():
 def register():
 	return render_template('register.html', title="Register")
 
+@app.route("/results", methods=['GET']) 
+def results():
+	genero = request.form['select']
+	busqueda = request.form['search']
+	with open('catalogo.json', 'r') as data:
+		catalogue = {}
+		catalogue = json.load(data)	
+		moviebase = {}
+		movies = {}
+		for p in catalogue.peliculas:
+			if genero in p.categoria:
+				moviebase[genero] = p
+		for p in moviebase:
+			if p.titulo.lower().contains(busqueda.lower()):
+				movies[p.titulo] = p
+	return render_template('results.html', title="Results", movies=movies)
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5001, debug=True)
