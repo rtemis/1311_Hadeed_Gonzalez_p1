@@ -7,8 +7,8 @@
 {% block article %}
 	{% for m in catalogue.peliculas %}
 		<div class="movie-desc">
-			<a href="description.html">
-			<img src="{{ m.poster }}" alt="{{ m.titulo }}"> </a>
+			<a href={{ url_for('description', m=movie) }} method="get">
+			<img src="{{ url_for('static', filename=m.poster) }}" alt="{{ m.titulo }}"> </a>
 			{{ m.titulo }}
 		</div>
 	{% endfor %}

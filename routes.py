@@ -29,7 +29,7 @@ def about():
 def contact():
 	return render_template('contact-us.html', title="Contact Us")
 
-@app.route("/<title>")
+@app.route("/description", methods=['GET'])
 def description(movie):
 	return render_template('description.html', title='movie["titulo"]', movie=m)
 
