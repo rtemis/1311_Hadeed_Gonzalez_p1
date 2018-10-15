@@ -1,0 +1,473 @@
+{
+  	"peliculas": [
+    	{
+		    "titulo": "Aladdin",
+		    "poster": "images/aladdin.jpg",
+		    "director":[ "Ron Clements", "John Musker"],
+		    "precio": 15.5,
+		    "categoria": ["Animation", "Adventure", "Family"],
+		    "anno": 1999,
+		    "desc": "When a street urchin vies for the love of a beautiful princess, he uses a genie's magic power to make himself off as a prince in order to marry her.",
+		    "actores": [
+		        {
+		        	"nombre": "Scott Weinger",
+		        	"personaje": "Aladdin"
+		        },
+		        {
+		        	"nombre": "Robin Williams",
+		    	   	"personaje": "Genie"
+		        },
+		        {
+		    	    "nombre": "Jonathan Freeman",
+			        "personaje": "Jafar"
+		        },
+		        {
+			        "nombre": "Robin Williams",
+			        "personaje": "Genie"
+		        },
+		        {
+			        "nombre": "Linda Larkin",
+			        "personaje": "Jasmine"
+		        }
+	    	]
+    	},
+    	{
+	      	"titulo": "Black Panther",
+	      	"poster": "images/black_panther.jpg",
+	      	"director":["Ryan Coogler"],
+	      	"precio": 28,
+	      	"categoria": ["Action", "Adventure", "Sci-Fi"],
+		"anno": 2018,
+		"desc":"T'Challa, heir to the hidden but advanced kingdom of Wakanda, must step forward to lead his people into a new future and must confront a challenger from his country's past.",
+	      	"actores": [
+		        {
+		          "nombre": "Chadwick Boseman",
+		          "personaje": "T'Challa"
+		        },
+		        {
+			        "nombre": "Michael B.Jordan",
+			        "personaje": "Erik Killmonger"
+		        },
+		        {
+			        "nombre": "Lupita Nyong'o",
+			        "personaje": "Nakia"
+		      	},
+			    {
+	        		"nombre": "Danai Gurira",
+	        		"personaje": "Okoye"
+		        }
+      		]	
+    	},
+    	{
+	      	"titulo": "Captain America: The First Avenger",
+	      	"poster": "images/captain_america.jpg",
+	      	"director":["Joe Johnston"],
+	      	"precio": 23.99,
+	      	"categoria": ["Action", "Adventure", "Sci-Fi"],
+	      	"anno": 2011,
+		"desc": "Steve Rogers, a rejected military soldier transforms into Captain America after taking a dose of a 'Super-Soldier serum'. But being Captain America comes at a price as he attempts to take down a war monger and a terrorist organization.",
+	      	"actores": [
+		        {
+		        	"nombre": "Chris Evans",
+		        	"personaje": "Steve Rogers"
+		        },
+		        {
+		        "nombre": "Hayley Atwell",
+		        "personaje": "Peggy Carter"
+		        },
+		        {
+		        "nombre": "Sebastian Stan",
+		        "personaje": "James Buchanan 'Bucky' Banrnes"
+			     }
+	      	]
+	    },
+    	{
+	      	"titulo": "Coco",
+	      	"poster": "images/coco.jpg",
+	      	"director":["Lee Inkrich", "Adrian Molina"],
+	      	"precio": 27,
+	      	"categoria": ["Animation", "Adventure", "Comedy"],
+	      	"anno": 2017,
+		"desc": "Aspiring musician Miguel, confronted with his family's ancestral ban on music, enters the Land of the Dead to find his great-great-grandfather, a legendary singer.",
+	      	"actores": [
+		        {
+		          	"nombre": "Anthony Gonzalez",
+		          	"personaje": "Miguel"
+		        },
+		        {
+			        "nombre": "Gael Garcia Bernal",
+			        "personaje": "Hector"
+		        },
+		        {
+			        "nombre": "Benjamin Bratt",
+			        "personaje": "Ernesto de la Cruz"
+		        }
+	      	]
+	    },
+		{
+			"titulo": "Mary Poppins",
+			"poster": "images/mary_poppins.jpg",
+			"director":["Robert Stevenson"],
+			"precio": 13.99,
+			"categoria": ["Comedy", "Family", "Fantasy", "Musical"],
+			"anno": 1964,
+			"desc": "In turn of the century London, a magical nanny employs music and adventure to help two neglected children become closer to their father.",
+			"actores": [
+		        {
+					"nombre": "Julie Andrews",
+					"personaje": "Mary Poppins"
+		        },
+		        {
+					"nombre": "Dick Van Dyke",
+					"personaje": "Bert"
+		        },
+				{
+					"nombre": "David Tomlinson",
+					"personaje": "Mr Banks"
+		        },
+		        {
+					"nombre": "Karen Dotrice",
+					"personaje": "Jane Banks"
+		        },
+				{
+					"nombre": "Matthew Garber",
+					"personaje": "Michael Banks"
+				}
+	      	]
+	    },
+		{
+			"titulo": "Pulp Fiction",
+			"poster": "images/pulp_fiction.jpg",
+			"director":[ "Quentin Tarantino"],
+			"precio": 7.99,
+			"categoria": ["Crime", "Drama"],
+			"anno": 1994,
+			"desc": "The lives of two mob hitmen, a boxer, a gangster's wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
+			"actores": [
+		        {
+					"nombre": "John Travolta",
+					"personaje": "Vincent Vega"
+		        },
+		        {
+					"nombre": "Samuel L. Jackson",
+					"personaje": "Jules Winnfield"
+		        },
+				{ 
+					"nombre": "Bruce Willis",
+					"personaje": "Butch Coolidge"
+				}
+		    ]
+		},
+		{
+			"titulo": "The Avengers",
+			"poster": "images/the_avengers.jpg",
+			"director":[ "Joss Wheldon"],
+			"precio": 5.99,
+			"categoria": ["Action", "Adventure", "Sci-Fi"],
+			"anno": 2012,
+			"desc": "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
+			"actores": [
+		        {
+					"nombre": "Robert Downey Jr",
+					"personaje": "Tony Stark"
+		        },
+		        {
+					"nombre": "Chris Evans",
+					"personaje": "Captain America"
+		        },
+				{ 
+					"nombre": "Scarlett Johansson",
+					"personaje": "Black Widow"
+				},
+				{
+					"nombre": "Mark Ruffalo",
+					"personaje": "Bruce Banner / The Hulk"
+		        },
+		        {
+					"nombre": "Chris Hemsworth",
+					"personaje": "Thor"
+		        },
+				{ 
+					"nombre": "Tom Hiddleston",
+					"personaje": "Loki"
+				}
+	      	]
+	    },
+		{
+			"titulo": "The Godfather",
+			"poster": "images/the_godfather.jpg",
+			"director":[ "Francis Ford Coppola"],
+			"precio": 5.99,
+			"categoria": ["Crime", "Drama"],
+			"anno": 1972,
+			"desc": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+			"actores": [
+		        {
+					"nombre": "Al Pacino",
+					"personaje": "Michael Corleone"
+		        },
+		        {
+					"nombre": "Marlon Brando",
+					"personaje": "Don Vito Corleone"
+		        },
+				{
+					"nombre": "James Caan",
+					"personaje": "Sonny Corleone"
+		        },
+		        {
+					"nombre": "Diane Keaton",
+					"personaje": "Kay Adams"
+		        }
+		    ]
+	    },
+		{
+			"titulo": "The Hunger Games",
+			"poster": "images/the_hunger_games_1.jpg",
+			"director":[ "Gary Ross"],
+			"precio": 7.99,
+			"categoria": ["Adventure", "Sci-Fi", "Thriller"],
+			"anno": 2012,
+			"desc": "Katniss Everdeen voluntarily takes her younger sister's place in the Hunger Games: a televised competition in which two teenagers from each of the twelve Districts of Panem are chosen at random to fight to the death.",
+			"actores": [
+		        {
+					"nombre": "Jennifer Lawrence",
+					"personaje": "Katniss Everdeen"
+		        },
+		        {
+					"nombre": "Josh Hutcherson",
+					"personaje": "Peeta Mellark"
+		        },
+				{ 
+					"nombre": "Liam Hemsworth",
+					"personaje": "Gale Hawthorne"
+				},
+				{
+					"nombre": "Stanley Tucci",
+					"personaje": "Caesar Flickerman"
+				}
+	      	]
+	    },
+		{
+			"titulo": "The Hunger Games: Catching Fire",
+			"poster": "images/the_hunger_games_2.jpg",
+			"director":[ "Francis Lawrence"],
+			"precio": 7.99,
+			"categoria": ["Action", "Adventure", "Mystery"],
+			"anno": 2013,
+			"desc": "Katniss Everdeen and Peeta Mellark become targets of the Capitol after their victory in the 74th Hunger Games sparks a rebellion in the Districts of Panem.",
+			"actores": [
+		        {
+					"nombre": "Jennifer Lawrence",
+					"personaje": "Katniss Everdeen"
+		        },
+		        {
+					"nombre": "Josh Hutcherson",
+					"personaje": "Peeta Mellark"
+		        },
+				{ 
+					"nombre": "Liam Hemsworth",
+					"personaje": "Gale Hawthorne"
+				},
+				{
+					"nombre": "Stanley Tucci",
+					"personaje": "Caesar Flickerman"
+				}
+	      	]
+	    },
+		{
+			"titulo": "The Hunger Games: Mocking Jay Part I",
+			"poster": "images/the_hunger_games_3.jpg",
+			"director":[ "Francis Lawrence"],
+			"precio": 12.99,
+			"categoria": ["Action", "Adventure", "Sci-Fi", "Thriller"],
+			"anno": 2014,
+			"desc": "Katniss Everdeen is in District 13 after she shatters the games forever. Under the leadership of President Coin and the advice of her trusted friends, Katniss spreads her wings as she fights to save Peeta and a nation moved by her courage.",
+			"actores": [
+		        {
+					"nombre": "Jennifer Lawrence",
+					"personaje": "Katniss Everdeen"
+		        },
+		        {
+					"nombre": "Josh Hutcherson",
+					"personaje": "Peeta Mellark"
+		        },
+				{ 
+					"nombre": "Liam Hemsworth",
+					"personaje": "Gale Hawthorne"
+				},
+				{
+					"nombre": "Stanley Tucci",
+					"personaje": "Caesar Flickerman"
+				}
+	      	]
+	    },
+		{
+			"titulo": "The Hunger Games: Mocking Jay Part II",
+			"poster": "images/the_hunger_games_4.jpg",
+			"director":[ "Francis Lawrence"],
+			"precio": 15.99,
+			"categoria": ["Action", "Adventure", "Sci-Fi", "Thriller"],
+			"anno": 2015,
+			"desc": "Katniss and a team of rebels from District 13 prepare for the final battle that will decide the future of Panem.",
+			"actores": [
+		        {
+					"nombre": "Jennifer Lawrence",
+					"personaje": "Katniss Everdeen"
+		        },
+		        {
+					"nombre": "Josh Hutcherson",
+					"personaje": "Peeta Mellark"
+		        },
+				{ 
+					"nombre": "Liam Hemsworth",
+					"personaje": "Gale Hawthorne"
+				},
+				{
+					"nombre": "Stanley Tucci",
+					"personaje": "Caesar Flickerman"
+				}
+	      	]
+	    },
+		{
+			"titulo": "Lord of the Rings: The Fellowship of the Ring",
+			"poster": "images/the_lord_of_the_rings_1.jpg",
+			"director":[ "Peter Jackson"],
+			"precio": 8.99,
+			"categoria": ["Adventure", "Drama", "Fantasy"],
+			"anno": 2001,
+			"desc": "A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron.",
+			"actores": [
+		        {
+		        	"nombre": "Elijah Wood",
+		        	"personaje": "Frodo"
+		        },
+		        {
+					"nombre": "Sean Asten",
+					"personaje": "Sam"
+		        },
+		        {
+					"nombre": "Sean Bean",
+					"personaje": "Boromir"
+		        },
+				{ 
+					"nombre": "Orlando Bloom",
+					"personaje": "Legolas"
+				},
+				{
+					"nombre": "Ian Holm",
+					"personaje": "Bilbo"
+		        },
+		        {
+					"nombre": "Christopher Lee",
+					"personaje": "Saruman"
+		        },
+				{ 
+					"nombre": "Ian McKellen",
+					"personaje": "Gandalf"
+				}
+		    ]
+		},
+		{
+			"titulo": "Lord of the Rings: The Two Towers",
+			"poster": "images/the_lord_of_the_rings_2.jpg",
+			"director":[ "Peter Jackson"],
+			"precio": 8.99,
+			"categoria": ["Adventure", "Drama", "Fantasy"],
+			"anno": 2002,
+			"desc": "While Frodo and Sam edge closer to Mordor with the help of the shifty Gollum, the divided fellowship makes a stand against Sauron's new ally, Saruman, and his hordes of Isengard.",
+			"actores": [
+				{
+		        	"nombre": "Elijah Wood",
+		        	"personaje": "Frodo"
+		        },
+		        {
+					"nombre": "Sean Asten",
+					"personaje": "Sam"
+		        },
+		        {
+					"nombre": "Sean Bean",
+					"personaje": "Boromir"
+		        },
+				{ 
+					"nombre": "Orlando Bloom",
+					"personaje": "Legolas"
+				},
+				{
+					"nombre": "Ian Holm",
+					"personaje": "Bilbo"
+		        },
+		        {
+					"nombre": "Christopher Lee",
+					"personaje": "Saruman"
+		        },
+				{ 
+					"nombre": "Ian McKellen",
+					"personaje": "Gandalf"
+				}
+	      	]
+	    },
+		{
+			"titulo": "Lord of the Rings: The Return of the King",
+			"poster": "images/the_lord_of_the_rings_1.jpg",
+			"director":[ "Peter Jackson"],
+			"precio": 8.99,
+			"categoria": ["Adventure", "Drama", "Fantasy"],
+			"anno": 2003,
+			"desc": "Gandalf and Aragorn lead the World of Men against Sauron's army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring.", 
+			"actores": [
+		        {
+		        	"nombre": "Elijah Wood",
+		        	"personaje": "Frodo"
+		        },
+		        {
+					"nombre": "Sean Asten",
+					"personaje": "Sam"
+		        },
+		        {
+					"nombre": "Sean Bean",
+					"personaje": "Boromir"
+		        },
+				{ 
+					"nombre": "Orlando Bloom",
+					"personaje": "Legolas"
+				},
+				{
+					"nombre": "Ian Holm",
+					"personaje": "Bilbo"
+		        },
+		        {
+					"nombre": "Christopher Lee",
+					"personaje": "Saruman"
+		        },
+				{ 
+					"nombre": "Ian McKellen",
+					"personaje": "Gandalf"
+				}
+		    ]
+	    },
+	    {
+	      	"titulo": "Coherence",
+	      	"poster": "images/coherence.jpg",
+	      	"director":["Lee Inkrich", "Adrian Molina"],
+	      	"precio": 27,
+	      	"categoria": ["Animation", "Adventure", "Comedy"],
+	      	"anno": 2017,
+		"desc": "Strange things begin to happen when a group of friends gather for a dinner party on an evening when a comet is passing overhead.",
+	      	"actores": [
+		        {
+		          	"nombre": "Anthony Gonzalez",
+		          	"personaje": "Miguel"
+		        },
+		        {
+			        "nombre": "Gael Garcia Bernal",
+			        "personaje": "Hector"
+		        },
+		        {
+			        "nombre": "Benjamin Bratt",
+			        "personaje": "Ernesto de la Cruz"
+		        }
+		    ]
+		}
+	]
+}
+

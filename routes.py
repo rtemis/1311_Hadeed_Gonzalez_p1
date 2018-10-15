@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-	with open('catalogo.json', 'r') as data:
+	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
 		catalogue = json.load(data)	
 	return render_template('index.html', title="Index", user=False, catalogue=catalogue)
@@ -16,7 +16,7 @@ def user():
 	username = request.form['username']
 	password = request.form['password']
 	user = True
-	with open('catalogo.json', 'r') as data:
+	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
 		catalogue = json.load(data)	
 	return render_template('index.html', title="Index", user=user, catalogue=catalogue, username=username)
@@ -29,9 +29,15 @@ def about():
 def contact():
 	return render_template('contact-us.html', title="Contact Us")
 
-@app.route("/description", methods=['GET'])
-def description(movie):
-	return render_template('description.html', title='movie["titulo"]', movie=m)
+@app.route("/description/<title>", methods=['GET'])
+def description(title):
+	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
+		catalogue = {}
+		catalogue = json.load(data)
+		for x in catalogue['peliculas']:
+			if x['titulo'] == title:
+				movie = x	
+	return render_template('description.html', title=title, m=movie)
 
 @app.route("/cart")
 def cart():
@@ -49,7 +55,7 @@ def register():
 def results():
 	genero = request.form['select']
 	busqueda = request.form['search']
-	with open('catalogo.json', 'r') as data:
+	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
 		catalogue = json.load(data)	
 		moviebase = {}
