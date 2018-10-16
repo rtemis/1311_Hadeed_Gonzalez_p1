@@ -54,8 +54,8 @@ def register():
 
 @app.route("/results", methods=['POST'])
 def results():
-	genre = request.args.get("select")
-	busqueda = request.args.get("search")
+	genero = request.form['select']
+	busqueda = request.form['search']
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
 		catalogue = json.load(data)
@@ -68,7 +68,7 @@ def results():
 		else:
 			for x in catalogue['peliculas']:
 				if x['titulo'].lower() == busqueda.lower():
-					movies.append(x)
+					movies.append(x)		
 	return render_template('results.html', title="Results", movies=movies)
 
 if __name__ == "__main__":
