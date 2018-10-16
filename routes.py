@@ -37,6 +37,7 @@ def description(title):
 		for x in catalogue['peliculas']:
 			if x['titulo'] == title:
 				movie = x
+
 	return render_template('description.html', title=title, m=movie)
 
 @app.route("/cart")
