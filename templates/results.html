@@ -5,10 +5,13 @@
 {% endblock %}
 
 {% block article %}
+	{% if movies.length == 0 %}
+	<h3>Sorry, we don't have that film in our data base, try to look for somethin else!</h3>
+	{% endif%}
 	{% for m in movies %}
 		<div class="movie-desc">
-			<a href="description.html">
-			<img src="{{ m.poster }}" alt="{{ m.titulo }}"> </a>
+			<a href={{ url_for('description', title=m.titulo) }} method="post">
+			<img src={{ url_for('static', filename=m.poster) }} alt={{ m.titulo }}> </a>
 			{{ m.titulo }}
 		</div>
 	{% endfor %}

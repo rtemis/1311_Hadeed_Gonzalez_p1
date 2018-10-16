@@ -6,9 +6,9 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-	with open('catalogo.json', 'r') as data:
+	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
-		catalogue = json.load(data)	
+		catalogue = json.load(data)
 	return render_template('index.html', title="Index", user=False, catalogue=catalogue)
 
 @app.route("/~", methods=['POST'])
@@ -16,9 +16,9 @@ def user():
 	username = request.form['username']
 	password = request.form['password']
 	user = True
-	with open('catalogo.json', 'r') as data:
+	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
-		catalogue = json.load(data)	
+		catalogue = json.load(data)
 	return render_template('index.html', title="Index", user=user, catalogue=catalogue, username=username)
 
 @app.route("/about")
@@ -29,9 +29,15 @@ def about():
 def contact():
 	return render_template('contact-us.html', title="Contact Us")
 
-@app.route("/<title>")
-def description(movie):
-	return render_template('description.html', title='movie["titulo"]', movie=m)
+@app.route("/description/<title>", methods=['GET'])
+def description(title):
+	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
+		catalogue = {}
+		catalogue = json.load(data)
+		for x in catalogue['peliculas']:
+			if x['titulo'] == title:
+				movie = x
+	return render_template('description.html', title=title, m=movie)
 
 @app.route("/cart")
 def cart():
@@ -45,22 +51,25 @@ def history():
 def register():
 	return render_template('register.html', title="Register")
 
-@app.route("/results", methods=['GET']) 
+@app.route("/results", methods=['POST'])
 def results():
 	genero = request.form['select']
 	busqueda = request.form['search']
-	with open('catalogo.json', 'r') as data:
+	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
-		catalogue = json.load(data)	
-		moviebase = {}
-		movies = {}
-		for p in catalogue.peliculas:
-			for i in p.genero:
-				if genero == i:
-					moviebase[genero] = p
-		for p in moviebase:
-			if p.titulo.lower().contains(busqueda.lower()):
-				movies[p.titulo] = p
+		catalogue = json.load(data)
+		#moviebase = {}
+		movies = []
+		if not busqueda:
+			for x in catalogue['peliculas']:
+				if genero in x['categoria']:
+					movies.append(x)
+		else:
+			for x in catalogue['peliculas']:
+				if x['titulo'].lower() == busqueda.lower():
+					movies.append(x)
+
+		
 	return render_template('results.html', title="Results", movies=movies)
 
 if __name__ == "__main__":

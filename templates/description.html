@@ -6,9 +6,15 @@
 
 {% block article %}
 	<div class="movie">
-		<img src="{{ m.poster }}" alt="{{ m.title }}"> 
-		<h3>{{ m.title }}</h3>
-		<p>{{ m.director }} | {{ m.categoria }} | {{ m.anno }}</p>
+		<img src={{ url_for('static', filename=m.poster) }} alt={{ m.titulo }}> 
+		<h3>{{ m.titulo }}</h3>
+		<p>Director(s){% for x in m.director[:] %}
+			{{ x }},
+		{% endfor %}
+		<p>Genre(s): {% for x in m.categoria[:] %} 
+			{{ x }},
+		{% endfor %}
+		<p>Year: {{ m.anno }}
 		<p><h4>Description:</h4> 
 		{{ m.desc }}
 		<p> 
