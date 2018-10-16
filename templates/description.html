@@ -7,7 +7,7 @@
 {% block article %}
 	<div class="movie">
 		<img src={{ url_for('static', filename=m.poster) }} alt={{ m.titulo }}> 
-		<h3>{{ m.titulo }}</h3>
+		<h2>{{ m.titulo }}</h2>
 		<p>Director(s){% for x in m.director[:] %}
 			{{ x }},
 		{% endfor %}
@@ -22,5 +22,9 @@
 		<form action="#">
 			<input type="submit" value="Add to Cart">
 		</form>
+		<p> <h4>Actor(s):</h4>
+		{% for x in m.actores %}
+			<p>{{ x.nombre }} : {{ x.personaje }}
+		{% endfor %}
 	</div>
 {% endblock %}

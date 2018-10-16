@@ -20,16 +20,24 @@
 		
 		<div class="mini-nav-bar"> 
 			<div class="search-container">
-				<form action="{{ url_for('results')}}" method="get">
+				<form action={{ url_for('results') }} method="get">
 					<select name="select">
-						<option value="action">Action</option>
-						<option value="adventure">Adventure</option>
-						<option value="comedy">Comedy</option>
-						<option value="drama">Drama</option>
-						<option value="horror">Horror</option>
-						<option value="romance">Romance</option>
-						<option value="scifi">Sci-fi</option>
-						<option value="western">Western</option>
+						<option value="Action">Action</option>
+						<option value="Adventure">Adventure</option>
+						<option value="Animation">Animation</option>
+						<option value="Comedy">Comedy</option>
+						<option value="Crime">Crime</option>
+						<option value="Drama">Drama</option>
+						<option value="Family">Family</option>
+						<option value="Fantasy">Fantasy</option>
+						<option value="Historical">Historical</option>
+						<option value="Horror">Horror</option>
+						<option value="Independent">Independent</option>
+						<option value="Political">Political</option>
+						<option value="Romance">Romance</option>
+						<option value="Sci-Fi">Sci-fi</option>
+						<option value="War">War</option>
+						<option value="Western">Western</option>
 					</select>
 					<input type="text" placeholder="Search.." name="search">
 					<input type="submit" value="Search">

@@ -6,10 +6,12 @@
 
 {% block article %}
 	{% for m in movies %}
-		<div class="movie-desc">
-			<a href="description.html">
-			<img src="{{ m.poster }}" alt="{{ m.titulo }}"> </a>
-			{{ m.titulo }}
-		</div>
+		{% if genre in m.categoria %}
+			<div class="movie-desc">		
+				<a href={{ url_for('description', title=m.titulo) }} method="get">
+				<img src={{ url_for('static', filename=m.poster) }} alt={{ m.titulo }}> </a>
+				{{ m.titulo }}
+			</div>
+		{% endif %}
 	{% endfor %}
 {% endblock %}

@@ -53,21 +53,12 @@ def register():
 
 @app.route("/results", methods=['GET']) 
 def results():
-	genero = request.form['select']
-	busqueda = request.form['search']
+	genre = request.args.get("select")
+	busqueda = request.args.get("search")
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
-		catalogue = {}
-		catalogue = json.load(data)	
-		moviebase = {}
 		movies = {}
-		for p in catalogue.peliculas:
-			for i in p.genero:
-				if genero == i:
-					moviebase[genero] = p
-		for p in moviebase:
-			if p.titulo.lower().contains(busqueda.lower()):
-				movies[p.titulo] = p
-	return render_template('results.html', title="Results", movies=movies)
+		movies = json.load(data)	
+	return render_template('results.html', title="Results", movies=movies, genre=genre, busqueda=busqueda)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5001, debug=True)
