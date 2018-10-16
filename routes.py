@@ -8,7 +8,7 @@ app = Flask(__name__)
 def index():
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
-		catalogue = json.load(data)	
+		catalogue = json.load(data)
 	return render_template('index.html', title="Index", user=False, catalogue=catalogue)
 
 @app.route("/~", methods=['POST'])
@@ -18,7 +18,7 @@ def user():
 	user = True
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
-		catalogue = json.load(data)	
+		catalogue = json.load(data)
 	return render_template('index.html', title="Index", user=user, catalogue=catalogue, username=username)
 
 @app.route("/about")
@@ -36,7 +36,8 @@ def description(title):
 		catalogue = json.load(data)
 		for x in catalogue['peliculas']:
 			if x['titulo'] == title:
-				movie = x	
+				movie = x
+
 	return render_template('description.html', title=title, m=movie)
 
 @app.route("/cart")
@@ -51,14 +52,24 @@ def history():
 def register():
 	return render_template('register.html', title="Register")
 
-@app.route("/results", methods=['GET']) 
+@app.route("/results", methods=['POST'])
 def results():
 	genre = request.args.get("select")
 	busqueda = request.args.get("search")
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
-		movies = {}
-		movies = json.load(data)	
-	return render_template('results.html', title="Results", movies=movies, genre=genre, busqueda=busqueda)
+		catalogue = {}
+		catalogue = json.load(data)
+		#moviebase = {}
+		movies = []
+		if not busqueda:
+			for x in catalogue['peliculas']:
+				if genero in x['categoria']:
+					movies.append(x)
+		else:
+			for x in catalogue['peliculas']:
+				if x['titulo'].lower() == busqueda.lower():
+					movies.append(x)
+	return render_template('results.html', title="Results", movies=movies)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5001, debug=True)

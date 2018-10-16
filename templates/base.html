@@ -6,9 +6,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body>	
+<body>
 	<header>
-		<h1>		
+		<h1>
 			<a href={{ url_for('index') }}> <img src={{ url_for('static', filename='images/logo.jpeg')}} alt="Home"></a>
 			Deluxe Video Club
 		</h1>
@@ -17,10 +17,10 @@
 			<div id="username">Welcome, {{ username }}</div>
 		{% endif %}
 	</header>
-		
-		<div class="mini-nav-bar"> 
+
+		<div class="mini-nav-bar">
 			<div class="search-container">
-				<form action={{ url_for('results') }} method="get">
+				<form action={{ url_for('results') }} method="post">
 					<select name="select">
 						<option value="Action">Action</option>
 						<option value="Adventure">Adventure</option>
@@ -39,12 +39,12 @@
 						<option value="War">War</option>
 						<option value="Western">Western</option>
 					</select>
-					<input type="text" placeholder="Search.." name="search">
-					<input type="submit" value="Search">
+					<input type="text"  placeholder="Search.." name="search" >
+					<input type="submit" value = "Search">
 				</form>
 			</div>
 		</div>
-		
+
 		<div class="section">
 			<div class="nav">
 				{% if user == False %}
@@ -56,7 +56,7 @@
 						<input type="password" name="password">
 						<p>
 						<input type="submit" value="Submit">
-					</form>	
+					</form>
 					<ul>
 						<li><a href={{ url_for('register') }}>Register</a></li>
 						<li><a href={{ url_for('index') }}>Home</a></li>
@@ -73,15 +73,15 @@
 					</ul>
 				{% endif %}
 			</div>
-			
+
 			<div class="article">
 				{% block article %}	{% endblock %}
 			</div>
 		</div>
-		
+
 		<footer>
 			Deluxe Video Club © All rights reserved.
 		</footer>
-		
-	</body>	
+
+	</body>
 </html>
