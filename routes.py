@@ -1,5 +1,6 @@
 import os
 import json
+import random
 from flask import Flask, render_template, request, url_for
 
 app = Flask(__name__)
@@ -50,22 +51,30 @@ def history():
 
 @app.route("/register")
 def register():
+	
+
 	return render_template('register.html', title="Register")
 
 @app.route("/new_user", methods=['POST'])
 def user_test():
+	name = request.form['name']
 	username = request.form['username']
 	password = request.form['password']
+	email = request.form['email']
+	creditcard = request.form['creditcard']
 	registry = False
-	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
-				catalogue = {}
-				catalogue = json.load(data)
-				movies = []
-				for i in range(0,5):
-					movies.append(catalogue.popitem())
-	if os.path.isdir(os.path.join(app.root_path,'users/<username>/')):
-		registry = True  		
-	return render_template('user_test.html', registry=registry, movies=movies)
+	#with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
+	#	catalogue = {}
+	#	catalogue = json.load(data)
+	#	movies = []
+	#	for i in range(0,5):
+	#		movies.append(catalogue.popitem())
+	if not os.path.isdir(os.path.join(app.root_path,'users/'+username+'/')):
+		os.makedirs(os.path.join(app.root_path,'users/'+username+'/'))
+		registry = True 
+		f = open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w')
+		f.write(name +' '+ password +' '+creditcard +' ' + str(random.randint(1,101)))
+	return render_template('user_test.html', registry=registry)
 
 @app.route("/results", methods=['POST'])
 def results():

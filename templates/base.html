@@ -60,19 +60,19 @@
 					</form>
 					<ul>
 						<li><a href={{ url_for('register') }}>Register</a></li>
-						<li><a href={{ url_for('index') }}>Home</a></li>
-						<li><a href={{ url_for('about') }}>About Us</a></li>
-						<li><a href={{ url_for('contact') }}>Contact Us</a></li>
+						
 					</ul>
 				{% else %}
 					<ul>
-						<li><a href={{ url_for('index') }}>Home</a></li>
 						<li><a href={{ url_for('cart') }}>Cart</a></li>
 						<li><a href={{ url_for('history') }}>Purchase History</a></li>
+					</ul>
+				{% endif %}
+					<ul>
+						<li><a href={{ url_for('index') }}>Home</a></li>
 						<li><a href={{ url_for('about') }}>About Us</a></li>
 						<li><a href={{ url_for('contact') }}>Contact Us</a></li>
 					</ul>
-				{% endif %}
 			</div>
 
 			<div class="article">
