@@ -1,6 +1,7 @@
 import os
 import json
 import random
+import hashlib
 from flask import Flask, render_template, request, url_for
 
 app = Flask(__name__)
@@ -16,10 +17,17 @@ def index():
 def user():
 	username = request.form['username']
 	password = request.form['password']
-	user = True
+	user = False
+	
+	for line in open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r'):
+		parts = line.split(' : ')
+		if hashlib.md5(parts[2]).hexdigest() == parts[3] :
+			user = True	
+	
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
-		catalogue = {}
-		catalogue = json.load(data)
+			catalogue = {}
+			catalogue = json.load(data)
+	
 	return render_template('index.html', title="Index", user=user, catalogue=catalogue, username=username)
 
 @app.route("/about")
@@ -62,19 +70,21 @@ def user_test():
 	password = request.form['password']
 	email = request.form['email']
 	creditcard = request.form['creditcard']
+	address = request.form['address']
+	dob = request.form['dob']
 	registry = False
-	#with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
-	#	catalogue = {}
-	#	catalogue = json.load(data)
-	#	movies = []
-	#	for i in range(0,5):
-	#		movies.append(catalogue.popitem())
+	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
+		catalogue = {}
+		catalogue = json.load(data)
+		movies = []
+		for i in range(0,5):
+			movies.append(random.choice(catalogue['peliculas']))
 	if not os.path.isdir(os.path.join(app.root_path,'users/'+username+'/')):
 		os.makedirs(os.path.join(app.root_path,'users/'+username+'/'))
-		registry = True 
-		f = open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w')
-		f.write(name +' '+ password +' '+creditcard +' ' + str(random.randint(1,101)))
-	return render_template('user_test.html', registry=registry)
+		registry = True
+		with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w') as f:
+			f.write(name + ' : ' + username + ' : ' + password + ' : ' + hashlib.md5(password).hexdigest() + ' : ' + dob + ' : ' + address + ' : ' + creditcard + ' : ' + str(random.randint(1,101)))
+	return render_template('user_test.html', registry=registry, movies=movies)
 
 @app.route("/results", methods=['POST'])
 def results():

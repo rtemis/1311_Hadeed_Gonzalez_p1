@@ -7,10 +7,16 @@
 {% block article %}
 	{% if registry == True %}
 		<h3>Registration Success!</h3><br>
-		How about adding something new to your cart? Here are some suggestions...
-		
+		<p>How about adding something new to your cart? Here are some suggestions...</p>
+		{% for m in movies%}
+			<div class="movie-desc">
+				<a href={{ url_for('description', title=m.titulo) }} method="get">
+				<img src={{ url_for('static', filename=m.poster) }} alt={{ m.titulo }}> </a>
+				{{ m.titulo }}
+			</div>
+		{% endfor %}
 	{% else %}
 		<h3>Registration Error. Sorry, that user already exists...</h3>
-		Did you want to login? Try loginlink	
+		Did you want to login?	
 	{% endif %}
 {% endblock %}
