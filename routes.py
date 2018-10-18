@@ -52,6 +52,21 @@ def history():
 def register():
 	return render_template('register.html', title="Register")
 
+@app.route("/new_user", methods=['POST'])
+def user_test():
+	username = request.form['username']
+	password = request.form['password']
+	registry = False
+	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
+				catalogue = {}
+				catalogue = json.load(data)
+				movies = []
+				for i in range(0,5):
+					movies.append(catalogue.popitem())
+	if os.path.isdir(os.path.join(app.root_path,'users/<username>/')):
+		registry = True  		
+	return render_template('user_test.html', registry=registry, movies=movies)
+
 @app.route("/results", methods=['POST'])
 def results():
 	genero = request.form['select']
@@ -59,7 +74,6 @@ def results():
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
 		catalogue = json.load(data)
-		#moviebase = {}
 		movies = []
 		if not busqueda:
 			for x in catalogue['peliculas']:

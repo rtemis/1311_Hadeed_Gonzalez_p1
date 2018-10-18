@@ -32,6 +32,254 @@
 	    	]
     	},
     	{
+		    "titulo": "Harry Potter and the Philosopher's Stone",
+		    "poster": "images/harry_potter.jpg",
+		    "director":[ "Chris Columbus"],
+		    "precio": 9.99,
+		    "categoria": ["Fantasy", "Adventure", "Family"],
+		    "anno": 2001,
+		    "desc": "An orphaned boy enrolls in a school of wizardry, where he learns the truth about himself, his family and the terrible evil that haunts the magical world.",
+		    "actores": [
+		        {
+		        	"nombre": "Daniel Radcliffe",
+		        	"personaje": "Harry Potter"
+		        },
+		        {
+		        	"nombre": "Rupert Grint",
+		    	   	"personaje": "Ron Weasley"
+		        },
+		        {
+		    	    "nombre": "Emma Watson",
+			        "personaje": "Hermione Granger"
+		        },
+		        {
+			        "nombre": "Alan Rickman",
+			        "personaje": "Severus Snape"
+		        },
+		        {
+			        "nombre": "Maggie Smith",
+			        "personaje": "Minerva McGonagall"
+		        }
+	    	]
+    	},
+    	{
+		    "titulo": "Harry Potter and the Prisoner of Azkaban",
+		    "poster": "images/harry_potter_3.jpg",
+		    "director":[ "Alfonso Cuaron"],
+		    "precio": 9.99,
+		    "categoria": ["Fantasy", "Adventure", "Family"],
+		    "anno": 2004,
+		    "desc": "It's Harry's third year at Hogwarts; not only does he have a new 'Defense Against the Dark Arts' teacher, but there is also trouble brewing. Convicted murderer Sirius Black has escaped the Wizards' Prison and is coming after Harry. ",
+		    "actores": [
+		        {
+		        	"nombre": "Daniel Radcliffe",
+		        	"personaje": "Harry Potter"
+		        },
+		        {
+		        	"nombre": "Rupert Grint",
+		    	   	"personaje": "Ron Weasley"
+		        },
+		        {
+		    	    "nombre": "Emma Watson",
+			        "personaje": "Hermione Granger"
+		        },
+		        {
+			        "nombre": "Alan Rickman",
+			        "personaje": "Severus Snape"
+		        },
+		        {
+			        "nombre": "Maggie Smith",
+			        "personaje": "Minerva McGonagall"
+		        }
+	    	]
+    	},
+    	{
+		    "titulo": "Harry Potter and the Goblet of Fire",
+		    "poster": "images/harry_potter_4.jpg",
+		    "director":[ "Mike Newell"],
+		    "precio": 9.99,
+		    "categoria": ["Fantasy", "Adventure", "Family"],
+		    "anno": 2005,
+		    "desc": "A young wizard finds himself competing in a hazardous tournament between rival schools of magic, but he is distracted by recurring nightmares. ",
+		    "actores": [
+		        {
+		        	"nombre": "Daniel Radcliffe",
+		        	"personaje": "Harry Potter"
+		        },
+		        {
+		        	"nombre": "Rupert Grint",
+		    	   	"personaje": "Ron Weasley"
+		        },
+		        {
+		    	    "nombre": "Emma Watson",
+			        "personaje": "Hermione Granger"
+		        },
+		        {
+			        "nombre": "Alan Rickman",
+			        "personaje": "Severus Snape"
+		        },
+		        {
+			        "nombre": "Maggie Smith",
+			        "personaje": "Minerva McGonagall"
+		        }
+	    	]
+    	},
+    	{
+		    "titulo": "Harry Potter and the Chamber of Secrets",
+		    "poster": "images/harry_potter_2.jpg",
+		    "director":[ "Chris Columbus"],
+		    "precio": 9.99,
+		    "categoria": ["Fantasy", "Adventure", "Family"],
+		    "anno": 2002,
+		    "desc": "An ancient prophecy seems to be coming true when a mysterious presence begins stalking the corridors of a school of magic and leaving its victims paralyzed.",
+		    "actores": [
+		        {
+		        	"nombre": "Daniel Radcliffe",
+		        	"personaje": "Harry Potter"
+		        },
+		        {
+		        	"nombre": "Rupert Grint",
+		    	   	"personaje": "Ron Weasley"
+		        },
+		        {
+		    	    "nombre": "Emma Watson",
+			        "personaje": "Hermione Granger"
+		        },
+		        {
+			        "nombre": "Alan Rickman",
+			        "personaje": "Severus Snape"
+		        },
+		        {
+			        "nombre": "Maggie Smith",
+			        "personaje": "Minerva McGonagall"
+		        }
+	    	]
+    	},
+    	{
+		    "titulo": "Harry Potter and the Order of the Phoenix",
+		    "poster": "images/harry_potter_5.jpg",
+		    "director":[ "David Yates"],
+		    "precio": 9.99,
+		    "categoria": ["Fantasy", "Adventure", "Family"],
+		    "anno": 2007,
+		    "desc": "With their warning about Lord Voldemort's return scoffed at, Harry and Dumbledore are targeted by the Wizard authorities as an authoritarian bureaucrat slowly seizes power at Hogwarts.",
+		    "actores": [
+		        {
+		        	"nombre": "Daniel Radcliffe",
+		        	"personaje": "Harry Potter"
+		        },
+		        {
+		        	"nombre": "Rupert Grint",
+		    	   	"personaje": "Ron Weasley"
+		        },
+		        {
+		    	    "nombre": "Emma Watson",
+			        "personaje": "Hermione Granger"
+		        },
+		        {
+			        "nombre": "Alan Rickman",
+			        "personaje": "Severus Snape"
+		        },
+		        {
+			        "nombre": "Maggie Smith",
+			        "personaje": "Minerva McGonagall"
+		        }
+	    	]
+    	},
+    	{
+		    "titulo": "Harry Potter and the Half-Blood Prince",
+		    "poster": "images/harry_potter_6.jpg",
+		    "director":[ "David Yates"],
+		    "precio": 9.99,
+		    "categoria": ["Fantasy", "Adventure", "Family"],
+		    "anno": 2009,
+		    "desc": "As Harry Potter begins his sixth year at Hogwarts, he discovers an old book marked as 'the property of the Half-Blood Prince' and begins to learn more about Lord Voldemort's dark past. ",
+		    "actores": [
+		        {
+		        	"nombre": "Daniel Radcliffe",
+		        	"personaje": "Harry Potter"
+		        },
+		        {
+		        	"nombre": "Rupert Grint",
+		    	   	"personaje": "Ron Weasley"
+		        },
+		        {
+		    	    "nombre": "Emma Watson",
+			        "personaje": "Hermione Granger"
+		        },
+		        {
+			        "nombre": "Alan Rickman",
+			        "personaje": "Severus Snape"
+		        },
+		        {
+			        "nombre": "Maggie Smith",
+			        "personaje": "Minerva McGonagall"
+		        }
+	    	]
+    	},
+    	{
+		    "titulo": "Harry Potter and the Deathly Hallows Part 1",
+		    "poster": "images/harry_potter_7.jpg",
+		    "director":[ "David Yates"],
+		    "precio": 9.99,
+		    "categoria": ["Fantasy", "Adventure", "Family"],
+		    "anno": 2010,
+		    "desc": "As Harry races against time and evil to destroy the Horcruxes, he uncovers the existence of three most powerful objects in the wizarding world: the Deathly Hallows",
+		    "actores": [
+		        {
+		        	"nombre": "Daniel Radcliffe",
+		        	"personaje": "Harry Potter"
+		        },
+		        {
+		        	"nombre": "Rupert Grint",
+		    	   	"personaje": "Ron Weasley"
+		        },
+		        {
+		    	    "nombre": "Emma Watson",
+			        "personaje": "Hermione Granger"
+		        },
+		        {
+			        "nombre": "Alan Rickman",
+			        "personaje": "Severus Snape"
+		        },
+		        {
+			        "nombre": "Maggie Smith",
+			        "personaje": "Minerva McGonagall"
+		        }
+	    	]
+    	},
+    	{
+		    "titulo": "Harry Potter and the Deathly Hallows Part 2",
+		    "poster": "images/harry_potter_8.jpg",
+		    "director":[ "David Yates"],
+		    "precio": 9.99,
+		    "categoria": ["Fantasy", "Adventure", "Family"],
+		    "anno": 2011,
+		    "desc": "Harry, Ron, and Hermione search for Voldemort's remaining Horcruxes in their effort to destroy the Dark Lord as the final battle rages on at Hogwarts.",
+		    "actores": [
+		        {
+		        	"nombre": "Daniel Radcliffe",
+		        	"personaje": "Harry Potter"
+		        },
+		        {
+		        	"nombre": "Rupert Grint",
+		    	   	"personaje": "Ron Weasley"
+		        },
+		        {
+		    	    "nombre": "Emma Watson",
+			        "personaje": "Hermione Granger"
+		        },
+		        {
+			        "nombre": "Alan Rickman",
+			        "personaje": "Severus Snape"
+		        },
+		        {
+			        "nombre": "Maggie Smith",
+			        "personaje": "Minerva McGonagall"
+		        }
+	    	]
+    	},
+    	{
 	      	"titulo": "Black Panther",
 	      	"poster": "images/black_panther.jpg",
 	      	"director":["Ryan Coogler"],
@@ -155,6 +403,41 @@
 				{ 
 					"nombre": "Bruce Willis",
 					"personaje": "Butch Coolidge"
+				}
+		    ]
+		},
+		{
+			"titulo": "The Usual Suspects",
+			"poster": "images/the_usual_suspects.jpg",
+			"director":[ "Bryan Singer"],
+			"precio": 7.99,
+			"categoria": ["Crime", "Drama", "Thriller"],
+			"anno": 1995,
+			"desc": "A sole survivor tells of the twisty events leading up to a horrific gun battle on a boat, which began when five criminals met at a seemingly random police lineup.",
+			"actores": [
+		        {
+					"nombre": "Kevin Spacey",
+					"personaje": "Verbal"
+		        },
+		        {
+					"nombre": "Gabriel Byrne",
+					"personaje": "Keaton"
+		        },
+				{ 
+					"nombre": "Stephen Baldwin",
+					"personaje": "McManus"
+				},
+				{
+					"nombre": "Benicio Del Toro",
+					"personaje": "Fenster"
+		        },
+		        {
+					"nombre": "Kevin Pollack",
+					"personaje": "Hockney"
+		        },
+				{ 
+					"nombre": "Chazz Palminteri",
+					"personaje": "Dave Kujan"
 				}
 		    ]
 		},
