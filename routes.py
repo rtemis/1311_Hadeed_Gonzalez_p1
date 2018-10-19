@@ -18,12 +18,12 @@ def user():
 	username = request.form['username']
 	password = request.form['password']
 	user = False
-	
-	for line in open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r'):
-		parts = line.split(' : ')
-		if hashlib.md5(parts[2]).hexdigest() == parts[3] :
-			user = True	
-	
+	if  os.path.isdir(os.path.join(app.root_path,'users/'+username+'/')):
+		for line in open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r'):
+			parts = line.split(' : ')
+			if hashlib.md5(password).hexdigest() == parts[3] :
+				user = True	
+
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 			catalogue = {}
 			catalogue = json.load(data)
