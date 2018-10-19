@@ -21,7 +21,7 @@ def user():
 	if  os.path.isdir(os.path.join(app.root_path,'users/'+username+'/')):
 		for line in open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r'):
 			parts = line.split(' : ')
-			if hashlib.md5(password).hexdigest() == parts[3] :
+			if hashlib.md5(password).hexdigest() == parts[2] :
 				user = True	
 
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
@@ -83,7 +83,7 @@ def user_test():
 		os.makedirs(os.path.join(app.root_path,'users/'+username+'/'))
 		registry = True
 		with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w') as f:
-			f.write(name + ' : ' + username + ' : ' + password + ' : ' + hashlib.md5(password).hexdigest() + ' : ' + dob + ' : ' + address + ' : ' + creditcard + ' : ' + str(random.randint(1,101)))
+			f.write(name + ' : ' + username +  ' : ' + hashlib.md5(password).hexdigest() + ' : ' + dob + ' : ' + address + ' : ' + creditcard + ' : ' + str(random.randint(1,101)))
 	return render_template('user_test.html', registry=registry, movies=movies)
 
 @app.route("/results", methods=['POST'])
