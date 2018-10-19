@@ -1,5 +1,5 @@
 function validate_login_usr() {
-
+	var username = document.getElementById('username');
 }
 
 function validate_login_psw() {
@@ -23,6 +23,9 @@ function validate_name() {
 }
 
 function validate_creditcard() {
-	
+
 }
 
+function mantain_search() {
+	
+}
