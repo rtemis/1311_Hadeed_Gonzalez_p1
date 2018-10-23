@@ -4,6 +4,7 @@
 	<title>{% block title %} {{ title }} {% endblock %}</title>
 	<link rel="stylesheet" href={{ url_for('static', filename='styles/stylesheet.css') }}>
 	<script src={{ url_for('static', filename='javascript/validator.js')}}> </script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -65,8 +66,8 @@
 					</ul>
 				{% else %}
 					<ul>
-						<li><a href={{ url_for('cart') }}>Cart</a></li>
-						<li><a href={{ url_for('history') }}>Purchase History</a></li>
+						<li><a href={{ url_for('cart') }}><img class="shopping" src={{ url_for('static', filename='images/cart.png') }} alt="Cart"></a></li>
+						<li><a href={{ url_for('history') }}><img class="shopping" src={{ url_for('static', filename='images/history.png') }} alt="Purchase History"></a></li>
 					</ul>
 				{% endif %}
 					<ul>

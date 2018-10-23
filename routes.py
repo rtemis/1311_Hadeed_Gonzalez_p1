@@ -50,8 +50,11 @@ def description(title):
 	return render_template('description.html', title=title, m=movie)
 
 @app.route("/cart")
-def cart():
-	return render_template('cart.html', title="Cart")
+def cart(name):
+	with open(os.path.join(app.root_path, 'users/'+name+'/cart.json'), 'r') as data:
+		movies = {}
+		mobies = json.load(data)
+	return render_template('cart.html', title="Cart", movies=movies)
 
 @app.route("/history")
 def history():
