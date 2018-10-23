@@ -1,10 +1,26 @@
 import os
+import sys
 import json
 import random
 import hashlib
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, url_for, session, redirect
 
 app = Flask(__name__)
+
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+try:
+    from flask_session import Session
+    this_dir = os.path.dirname(os.path.abspath(__file__))
+    SESSION_TYPE = 'filesystem'
+    SESSION_FILE_DIR = this_dir + '/thesessions'
+    SESSION_COOKIE_NAME = 'flasksessionid'
+    app.config.from_object(__name__)
+    #app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+    Session(app)
+    print >>sys.stderr, "Usando sesiones de Flask-Session en fichero del servidor"
+except ImportError as e:
+    print >>sys.stderr, "Flask-Session no disponible, usando sesiones de Flask en cookie"
 
 @app.route("/")
 def index():
@@ -12,6 +28,11 @@ def index():
 		catalogue = {}
 		catalogue = json.load(data)
 	return render_template('index.html', title="Index", user=False, catalogue=catalogue)
+
+@app.route("/a")
+def logout():
+	session.pop('leah', None)
+	return redirect(url_for('index'))
 
 @app.route("/~", methods=['POST', 'GET'])
 def user():
@@ -23,6 +44,7 @@ def user():
 			parts = line.split(' : ')
 			if hashlib.md5(password).hexdigest() == parts[2] :
 				user = True	
+				session['usuario'] = request.form['username']
 
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 			catalogue = {}
@@ -50,8 +72,11 @@ def description(title):
 	return render_template('description.html', title=title, m=movie)
 
 @app.route("/cart")
-def cart():
-	return render_template('cart.html', title="Cart")
+def cart(name):
+	with open(os.path.join(app.root_path, 'users/'+name+'/cart.json'), 'r') as data:
+		movies = {}
+		mobies = json.load(data)
+	return render_template('cart.html', title="Cart", movies=movies)
 
 @app.route("/history")
 def history():

@@ -17,9 +17,9 @@
 		{% for m in movies %}
 			<tr>
 				<td>{{ m.title }}</td>
+				<td>{{ m.amt }}</td>
 				<td>{{ m.precio }}</td>
-				<td>date: 00-00-0000</td>
-				<td><form action="#"><input type="radio" name="remove"></form></td>
+				<td><input type="radio" name="remove"></td>
 			</tr>
 		{% endfor %}
 		</table>
