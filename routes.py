@@ -13,7 +13,7 @@ def index():
 		catalogue = json.load(data)
 	return render_template('index.html', title="Index", user=False, catalogue=catalogue)
 
-@app.route("/~", methods=['POST'])
+@app.route("/~", methods=['POST', 'GET'])
 def user():
 	username = request.form['username']
 	password = request.form['password']
