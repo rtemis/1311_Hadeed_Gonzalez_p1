@@ -49,7 +49,14 @@
 
 		<div class="section">
 			<div class="nav">
-				{% if user == False %}
+				{% if user == True %}
+					<ul>
+						<li><a href={{ url_for('cart') }}><img class="shopping" src={{ url_for('static', filename='images/cart.png') }} alt="Cart"></a></li>
+						<li><a href={{ url_for('history') }}><img class="shopping" src={{ url_for('static', filename='images/history.png') }} alt="Purchase History"></a></li>
+						<li><a href={{ url_for('logout') }}> Log out</li>
+						
+					</ul>
+				{% else %}
 					<form action={{ url_for('user')}} method="post">
 						Username:<br>
 						<input type="text" id="username" name="username">
@@ -61,19 +68,11 @@
 					</form>
 					<ul>
 						<li><a href={{ url_for('register') }}>Register</a></li>
-						
 					</ul>
-				{% else %}
-					<ul>
-						<li><a href={{ url_for('cart') }}><img class="shopping" src={{ url_for('static', filename='images/cart.png') }} alt="Cart"></a></li>
-						<li><a href={{ url_for('history') }}><img class="shopping" src={{ url_for('static', filename='images/history.png') }} alt="Purchase History"></a></li>
-						<li><a href={{ url_for('logout') }}>Log out</a></li>
-					</ul>
+					
 				{% endif %}
 					<ul>
 						<li><a href={{ url_for('index') }}>Home</a></li>
-						<li><a href={{ url_for('about') }}>About Us</a></li>
-						<li><a href={{ url_for('contact') }}>Contact Us</a></li>
 					</ul>
 			</div>
 

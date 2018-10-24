@@ -7,58 +7,64 @@ from flask import Flask, render_template, request, url_for, session, redirect
 
 app = Flask(__name__)
 
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-
 try:
     from flask_session import Session
-    this_dir = os.path.dirname(os.path.abspath(__file__))
     SESSION_TYPE = 'filesystem'
-    SESSION_FILE_DIR = this_dir + '/thesessions'
     SESSION_COOKIE_NAME = 'flasksessionid'
     app.config.from_object(__name__)
-    #app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+    app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
     Session(app)
     print >>sys.stderr, "Usando sesiones de Flask-Session en fichero del servidor"
 except ImportError as e:
     print >>sys.stderr, "Flask-Session no disponible, usando sesiones de Flask en cookie"
+
+
+
+def set(username):
+	global user
+	user=True
+	global session
+	session['username'] = username	
+
+def get():
+	return session.get('username')
+
+def getuser():
+	return user
+
+@app.route("/*")
+def logout():
+	global user
+	user=False
+	global session
+	session.pop('username', None)
+	return redirect(url_for('index'))
 
 @app.route("/")
 def index():
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
 		catalogue = json.load(data)
-	return render_template('index.html', title="Index", user=False, catalogue=catalogue)
-
-@app.route("/a")
-def logout():
-	session.pop('leah', None)
-	return redirect(url_for('index'))
+	username = str(get())
+	return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser())
 
 @app.route("/~", methods=['POST', 'GET'])
 def user():
+	
 	username = request.form['username']
 	password = request.form['password']
-	user = False
 	if  os.path.isdir(os.path.join(app.root_path,'users/'+username+'/')):
 		for line in open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r'):
 			parts = line.split(' : ')
 			if hashlib.md5(password).hexdigest() == parts[2] :
-				user = True	
-				session['usuario'] = request.form['username']
+				set(username)
 
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 			catalogue = {}
 			catalogue = json.load(data)
-	
-	return render_template('index.html', title="Index", user=user, catalogue=catalogue, username=username)
+	username = str(get())
+	return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser())
 
-@app.route("/about")
-def about():
-	return render_template('about-us.html', title="About Us")
-
-@app.route("/contact")
-def contact():
-	return render_template('contact-us.html', title="Contact Us")
 
 @app.route("/description/<title>", methods=['GET'])
 def description(title):
@@ -68,25 +74,29 @@ def description(title):
 		for x in catalogue['peliculas']:
 			if x['titulo'] == title:
 				movie = x
-
-	return render_template('description.html', title=title, m=movie)
+	username = str(get())
+	return render_template('description.html', title=title, m=movie,username=username, user=getuser())
 
 @app.route("/cart")
-def cart(name):
-	with open(os.path.join(app.root_path, 'users/'+name+'/cart.json'), 'r') as data:
+def cart():
+	username = str(get())
+	if not os.path.isdir(os.path.join(app.root_path,'users/'+username+'/cart.json')):
+		with open(os.path.join(app.root_path, 'users/'+username+'/cart.json'), 'w')
+	with open(os.path.join(app.root_path, 'users/'+username+'/cart.json'), 'r') as data:
 		movies = {}
-		mobies = json.load(data)
-	return render_template('cart.html', title="Cart", movies=movies)
+		movies = json.load(data)
+	
+	return render_template('cart.html', title="Cart", movies=movies,username=username, user=getuser())
 
 @app.route("/history")
 def history():
-	return render_template('purchase-history.html', title="Purchase History")
+	username = str(get())
+	return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser())
 
 @app.route("/register")
 def register():
-	
-
-	return render_template('register.html', title="Register")
+	username = str(get())
+	return render_template('register.html', title="Register",username=username, user=getuser())
 
 @app.route("/new_user", methods=['POST'])
 def user_test():
@@ -109,7 +119,9 @@ def user_test():
 		registry = True
 		with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w') as f:
 			f.write(name + ' : ' + username +  ' : ' + hashlib.md5(password).hexdigest() + ' : ' + dob + ' : ' + address + ' : ' + creditcard + ' : ' + str(random.randint(1,101)))
-	return render_template('user_test.html', registry=registry, movies=movies)
+	
+	username = str(get())
+	return render_template('user_test.html', registry=registry, movies=movies,username=username, user=getuser())
 
 @app.route("/results", methods=['POST'])
 def results():
@@ -126,8 +138,9 @@ def results():
 		else:
 			for x in catalogue['peliculas']:
 				if x['titulo'].lower() == busqueda.lower():
-					movies.append(x)		
-	return render_template('results.html', title="Results", movies=movies)
+					movies.append(x)
+	username = str(get())
+	return render_template('results.html', title="Results", movies=movies,username=username, user=getuser())
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5001, debug=True)
