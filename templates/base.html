@@ -51,13 +51,13 @@
 			<div class="nav">
 				{% if user == True %}
 					<ul>
-						<li><a href={{ url_for('cart') }}><img class="shopping" src={{ url_for('static', filename='images/cart.png') }} alt="Cart"></a></li>
-						<li><a href={{ url_for('history') }}><img class="shopping" src={{ url_for('static', filename='images/history.png') }} alt="Purchase History"></a></li>
-						<li><a href={{ url_for('logout') }}> Log out</li>
-						
+						<li><a href={{ url_for('cart') }} method= "post"> Cart<img class="shopping" src={{ url_for('static', filename='images/cart.png') }} alt="Cart"></a></li>
+						<li><a href={{ url_for('history') }}>Purchase History<img class="shopping" src={{ url_for('static', filename='images/history.png') }} alt="Purchase History"></a><li><br>
+						<li><a href={{ url_for('logout') }}>Log out</a></li>
+						<li><a href={{ url_for('index') }}>Home</a></li>
 					</ul>
 				{% else %}
-					<form action={{ url_for('user')}} method="post">
+					<form action={{ url_for('user')}} method="post" >
 						Username:<br>
 						<input type="text" id="username" name="username">
 						<br>
@@ -68,12 +68,11 @@
 					</form>
 					<ul>
 						<li><a href={{ url_for('register') }}>Register</a></li>
+						<li><a href={{ url_for('index') }}>Home</a></li>
 					</ul>
 					
 				{% endif %}
-					<ul>
-						<li><a href={{ url_for('index') }}>Home</a></li>
-					</ul>
+					
 			</div>
 
 			<div class="article">

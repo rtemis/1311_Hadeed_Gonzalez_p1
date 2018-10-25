@@ -10,15 +10,13 @@
 			<table>
 				<tr>
 					<th>Movie</th>
-					<th>Quantity</th>
 					<th>Price (Ud.)</th>
 					<th>Remove from Cart</th>
 				</tr>
 				<tr>
 				{% for m in cart %}
 					<tr>
-						<td>{{ m.title }}</td>
-						<td>{{ m.amt }}</td>
+						<td>{{ m.titulo }}</td>
 						<td>{{ m.precio }}</td>
 						<td><input type="checkbox" class="checkbox" name="remove"></td>
 					</tr>

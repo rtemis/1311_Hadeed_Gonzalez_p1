@@ -103,11 +103,7 @@ function validate_register(formulario){
 }
 
 function add_to_cart(path, m){
-	$.ajax ({ url: path, method: "GET"}).success(function (response) {
-       var json = $.parseJSON (response);
-       var movie = json.parse(m);
-       json['movies'].push(movie);
-    });
+
 }
 
 function remove_from_cart(){
