@@ -4,44 +4,31 @@ function validate_usr(username) {
 		
 }
 
-function validate_psw(pass) {
+function validate_psw() {
 	var meter = document.getElementById('strengthbar');
+	var pass = document.getElementsByName('password');
 
-	pass.onfocus = function() {
-	  document.getElementById('strengthbar').style.display = "block";
+	var strength = 0;
+
+  	if(pass.value.match('[a-z]+')) {
+  		strength++; 
+    }
+	if(pass.value.match('[A-Z]+')) {
+		strength++;
 	}
-
-	pass.onblur = function() {
-	  document.getElementById('strengthbar').style.display = "none";
+	if(pass.value.match('[0-9]+')) {
+		strength++;
 	}
-
-	pass.onkeyup = function() {
-		var strength = 0;
-
-	  	if(pass.value.match('[a-z]')) {
-	  		strength++; 
-	    }
-
-		if(pass.value.match('[A-Z]')) {
-			strength++;
-		}
-
-		if(pass.value.match('[0-9]')) {
-			strength++;
-		}
-
-		if(pass.value.length >= 6) {
-			strength++;
-		}
-
-		var result = zxcvbn(pass.value);
-
-		meter.value = result.score;
+	if(pass.value.length >= 12) {
+		strength++;
 	}
+	meter.value = strength;
 	
-	if (!pass.value.match("(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}")) {
-		alert("Invalid password. Must contain at least 6 characters.");
-		return false;
+	pass.onblur = function(){
+		if (!pass.value.match("(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}")) {
+			alert("Invalid password. Must contain at least 6 characters.");
+			return false;
+		}
 	}
 }
 
@@ -112,5 +99,21 @@ function validate_register(formulario){
 	if(! retorno) alert(msj);
 	
 	return(retorno);
+
+}
+
+function add_to_cart(path, m){
+	$.ajax ({ url: path, method: "GET"}).success(function (response) {
+       var json = $.parseJSON (response);
+       var movie = json.parse(m);
+       json['movies'].push(movie);
+    });
+}
+
+function remove_from_cart(){
+
+}
+
+function buy_now(){
 
 }

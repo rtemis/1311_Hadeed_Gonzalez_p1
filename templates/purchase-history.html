@@ -5,11 +5,16 @@
 
 {% block article %}
 	<table>
+		<tr>
+			<th>Movie</th>
+			<th>Price (Ud.)</th>
+			<th>Date of Purchase</th>
+		</tr>
 		{% for m in movies %}
 			<tr>
-				<th> {{ m.title }}</th>
-				<th>{{ m.precio }}</th>
-				<th></th>
+				<td> {{ m.title }}</td>
+				<td>{{ m.precio }}</td>
+				<td>{{ date }}</td>
 			</tr>
 		{% endfor %}
 	</table>

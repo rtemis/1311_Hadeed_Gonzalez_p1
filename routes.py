@@ -3,16 +3,18 @@ import sys
 import json
 import random
 import hashlib
+import datetime
 from flask import Flask, render_template, request, url_for, session, redirect
 
 app = Flask(__name__)
+
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 try:
     from flask_session import Session
     SESSION_TYPE = 'filesystem'
     SESSION_COOKIE_NAME = 'flasksessionid'
     app.config.from_object(__name__)
-    app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
     Session(app)
     print >>sys.stderr, "Usando sesiones de Flask-Session en fichero del servidor"
 except ImportError as e:
@@ -62,7 +64,6 @@ def user():
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 			catalogue = {}
 			catalogue = json.load(data)
-	username = str(get())
 	return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser())
 
 
@@ -75,18 +76,31 @@ def description(title):
 			if x['titulo'] == title:
 				movie = x
 	username = str(get())
-	return render_template('description.html', title=title, m=movie,username=username, user=getuser())
+	path = os.path.join(app.root_path,'users/'+username+'/cart.json')
+	return render_template('description.html', title=title, m=movie,username=username, user=getuser(), path=path)
 
 @app.route("/cart")
 def cart():
 	username = str(get())
-	if not os.path.isdir(os.path.join(app.root_path,'users/'+username+'/cart.json')):
-		with open(os.path.join(app.root_path, 'users/'+username+'/cart.json'), 'w')
-	with open(os.path.join(app.root_path, 'users/'+username+'/cart.json'), 'r') as data:
-		movies = {}
-		movies = json.load(data)
-	
-	return render_template('cart.html', title="Cart", movies=movies,username=username, user=getuser())
+	with open(os.path.join(app.root_path,'users/'+username+'/cart.json'), 'r') as data:
+		cart = {}
+		cart = json.load(data)
+	return render_template('cart.html', title="Cart", username=username, user=getuser(), cart=cart)
+
+@app.route("/add_to_cart", methods=['POST','GET'])
+def add_to_cart():
+	movie = request.form['m']
+	with open(os.path.join(app.root_path,'users/'+username+'/cart.json'), 'w+') as data:
+		cart = {}
+		cart = json.load(data)
+		cart['movies'].append({
+			"title": movie.titulo,
+			"price": movie.precio,
+			"date": datetime.now
+		})
+		json.dump(cart, data)
+
+	return redirect(url_for('description'))
 
 @app.route("/history")
 def history():
@@ -119,8 +133,10 @@ def user_test():
 		registry = True
 		with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w') as f:
 			f.write(name + ' : ' + username +  ' : ' + hashlib.md5(password).hexdigest() + ' : ' + dob + ' : ' + address + ' : ' + creditcard + ' : ' + str(random.randint(1,101)))
-	
-	username = str(get())
+		with open(os.path.join(app.root_path,'users/'+username+'/cart.json'), 'w+') as f:
+			cart = {}
+			cart['movies'] = []
+			json.dump(cart, f)
 	return render_template('user_test.html', registry=registry, movies=movies,username=username, user=getuser())
 
 @app.route("/results", methods=['POST'])

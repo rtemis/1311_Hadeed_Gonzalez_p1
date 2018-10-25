@@ -5,29 +5,29 @@
 {% endblock %}
 
 {% block article %}
-	<div class="cart-table">
-		<table>
-			<tr>
-				<th>Movie</th>
-				<th>Quantity</th>
-				<th>Price (Ud.)</th>
-				<th>Remove from Cart</th>
-			</tr>
-			<tr>
-		{% for m in movies %}
-			<tr>
-				<td>{{ m.title }}</td>
-				<td>{{ m.amt }}</td>
-				<td>{{ m.precio }}</td>
-				<td><input type="radio" name="remove"></td>
-			</tr>
-		{% endfor %}
-		</table>
-	</div>
-	<div class="cart-buttons">
-		<form action="cart.html">
-			<input type="submit" value="Remove Selected">
-			<input type="submit" value="Buy Now">
-		</form>
-	</div>
+	<form action={{url_for('cart')}} method="post">
+		<div class="cart-table">
+			<table>
+				<tr>
+					<th>Movie</th>
+					<th>Quantity</th>
+					<th>Price (Ud.)</th>
+					<th>Remove from Cart</th>
+				</tr>
+				<tr>
+				{% for m in cart %}
+					<tr>
+						<td>{{ m.title }}</td>
+						<td>{{ m.amt }}</td>
+						<td>{{ m.precio }}</td>
+						<td><input type="checkbox" class="checkbox" name="remove"></td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+		<div class="cart-buttons">
+			<input type="submit" onclick="return remove_from_cart()" value="Remove Selected">
+			<input type="submit" onclick="return buy_now()" value="Buy Now">
+		</div>
+	</form>
 {% endblock %}

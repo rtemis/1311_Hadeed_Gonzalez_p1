@@ -7,13 +7,13 @@
 {% block article %}
 	<h3>Personal information</h3><br>
 	<div class = "register">
-		<form action={{ url_for('user_test') }} method="post" onsubmit="return validate_register(this)">
+		<form action={{ url_for('user_test') }} method="post" onsubmit="return validate_register()">
 			<p>Name: <input type="text" name="name"><br>
 			<p>Address: <input type="text" name="address"><br>
 			<p>Birth Date: <input type = "date" name="dob"><br>
 			<p>Username: <input type="text" name="username"><br>
 			<p>Email: <input type="text" name="email"> <br>
-			<p>Password: <input type="password" name="password"><br>
+			<p>Password: <input type="password" onkeydown="validate_psw()" name="password"><br>
 			<meter max="4" id="strengthbar"></meter>
 			<p>Credit Card: <input type="text" name="creditcard">	<br>
 			<p><input type="submit" value="Finish">

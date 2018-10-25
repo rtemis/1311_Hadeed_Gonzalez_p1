@@ -19,8 +19,8 @@
 		{{ m.desc }}
 		<p> 
 		${{ m.precio }}
-		<form action="#">
-			<input type="submit" value="Add to Cart">
+		<form action={{ url_for('description', title=m.titulo) }} method="post">
+			<input type="submit" onclick="add_to_cart(path,m)" value="Add to Cart">
 		</form>
 		<p> <h4>Actor(s):</h4>
 		{% for x in m.actores %}
