@@ -30,6 +30,7 @@ def setusername(username):
 	global session
 	session['username'] = username	
 	session['cart'] = []
+	
 
 def getusername():
 	return session.get('username')
@@ -37,7 +38,11 @@ def getusername():
 def getuser():
 	return user
 
-def setcart(movie):
+def setcart():
+	global session
+	session['cart'] = []
+
+def addcart(movie):
 	global session
 	session['cart'].append(movie)
 
@@ -50,6 +55,8 @@ def logout():
 	user=False
 	global session
 	session.pop('username', None)
+	session.pop('cart', None)
+	setcart()
 	return redirect(url_for('index'))
 
 @app.route("/")
@@ -107,7 +114,7 @@ def add_to_cart():
 		catalogue = json.load(data)
 		for x in catalogue['peliculas']:
 			if x['titulo'] == title:
-				setcart(x)
+				addcart(x)
 	return redirect(url_for('cart'))
 
 @app.route("/history")
