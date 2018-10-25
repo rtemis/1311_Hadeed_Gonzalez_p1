@@ -139,10 +139,7 @@ def user_test():
 		registry = True
 		with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w') as f:
 			f.write(name + ' : ' + username +  ' : ' + hashlib.md5(password).hexdigest() + ' : ' + dob + ' : ' + address + ' : ' + creditcard + ' : ' + str(random.randint(1,101)))
-		with open(os.path.join(app.root_path,'users/'+username+'/cart.json'), 'w+') as f:
-			cart = {}
-			cart['movies'] = []
-			json.dump(cart, f)
+	
 	return render_template('user_test.html', registry=registry, movies=movies,username=username, user=getuser())
 
 @app.route("/results", methods=['POST'])
