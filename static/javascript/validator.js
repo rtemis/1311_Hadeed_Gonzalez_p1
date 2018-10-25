@@ -61,11 +61,6 @@ function validate_psw() {
 	}
 }
 
-function mantain_search(select) {
-	document.getElementsByName(select).selected = true;
-
-}
-
 function remove_from_cart(){
 
 }

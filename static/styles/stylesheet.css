@@ -76,9 +76,14 @@ table {
 		font: 40px Helvetica;
 	}
 
-.cart-table table {
+.cart-table {
 	height: 20%;
 	overflow-y: scroll;
+}
+
+	.cart-table table tr {
+
+		color: black ;
 }
 
 .contact-form {

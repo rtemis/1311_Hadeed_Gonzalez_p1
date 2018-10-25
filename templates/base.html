@@ -54,10 +54,8 @@
 
 		<div class="section">
 			<div class="nav">
-				{% if user == True %}
-
-				{% else %}
-					<form action={{ url_for('user')}} method="post">
+				{% if user != True %}
+					<form action={{ url_for('user')}} method="post" >
 						Username:<br>
 						<input type="text" id="username" name="username">
 						<br>
@@ -68,12 +66,11 @@
 					</form>
 					<ul>
 						<li><a href={{ url_for('register') }}>Register</a></li>
+						<li><a href={{ url_for('index') }}>Home</a></li>
 					</ul>
 					
 				{% endif %}
-					<ul>
-						<li><a href={{ url_for('index') }}>Home</a></li>
-					</ul>
+					
 			</div>
 
 			<div class="article">
