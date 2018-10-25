@@ -39,7 +39,6 @@ def getuser():
 
 def setcart(movie):
 	global session
-	
 	session['cart'].append(movie)
 
 def getcart():
@@ -160,7 +159,7 @@ def results():
 					movies.append(x)
 		else:
 			for x in catalogue['peliculas']:
-				if x['titulo'].lower() == busqueda.lower():
+				if busqueda.lower() in x['titulo'].lower():
 					movies.append(x)
 	username = str(getusername())
 	return render_template('results.html', title="Results", movies=movies, username=username, user=getuser())
