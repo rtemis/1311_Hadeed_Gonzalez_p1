@@ -14,12 +14,14 @@
 			Deluxe Video Club
 		</h1>
 		The comfort of the cinema in your own home!
-		{% if user == True %}
-			<div id="username">Welcome, {{ username }}</div>
-		{% endif %}
 	</header>
 
 		<div class="mini-nav-bar">
+			{% if user == True %}
+				<div id="username">
+					Welcome, {{ username }}! 
+				</div>
+			{% endif %}
 			<div class="search-container">
 				<form action={{ url_for('results') }} method="post">
 					<select name="select">
@@ -34,7 +36,7 @@
 						<option value="Fantasy" name="Fantasy">Fantasy</option>
 						<option value="Historical" name="Historical">Historical</option>
 						<option value="Horror" name="Horror">Horror</option>
-						<option value="Independent"name="Indeoendent">Independent</option>
+						<option value="Independent"name="Independent">Independent</option>
 						<option value="Political" name="Political">Political</option>
 						<option value="Romance" name="Romance">Romance</option>
 						<option value="Sci-Fi" name="Sci-Fi">Sci-fi</option>
@@ -51,10 +53,9 @@
 			<div class="nav">
 				{% if user == True %}
 					<ul>
-						<li><a href={{ url_for('cart') }} method= "post"> Cart<img class="shopping" src={{ url_for('static', filename='images/cart.png') }} alt="Cart"></a></li>
-						<li><a href={{ url_for('history') }}>Purchase History<img class="shopping" src={{ url_for('static', filename='images/history.png') }} alt="Purchase History"></a><li><br>
-						<li><a href={{ url_for('logout') }}>Log out</a></li>
-						<li><a href={{ url_for('index') }}>Home</a></li>
+						<li><a href={{ url_for('cart') }}><img class="shopping" src={{ url_for('static', filename='images/cart.png') }} alt="Cart">  Cart</a></li>
+						<li><a href={{ url_for('history') }}><img class="shopping" src={{ url_for('static', filename='images/history.png') }} alt="Purchase History">  Purchase History</a></li>
+						<li><a href={{ url_for('logout') }}><img class="shopping" src={{ url_for('static', filename='images/logout.png') }} alt="Logout">  Logout</a></li>
 					</ul>
 				{% else %}
 					<form action={{ url_for('user')}} method="post" >

@@ -39,7 +39,6 @@ def getuser():
 
 def setcart(movie):
 	global session
-	
 	session['cart'].append(movie)
 
 def getcart():
@@ -121,13 +120,13 @@ def register():
 
 @app.route("/new_user", methods=['POST'])
 def user_test():
-	name = request.form['name']
-	username = request.form['username']
-	password = request.form['password']
-	email = request.form['email']
-	creditcard = request.form['creditcard']
-	address = request.form['address']
-	dob = request.form['dob']
+	name = request.form['nameField']
+	username = request.form['usernameField']
+	password = request.form['passwordField']
+	email = request.form['emailField']
+	creditcard = request.form['creditcardField']
+	address = request.form['addressField']
+	dob = request.form['birthdayField']
 	registry = False
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
@@ -160,7 +159,7 @@ def results():
 					movies.append(x)
 		else:
 			for x in catalogue['peliculas']:
-				if x['titulo'].lower() == busqueda.lower():
+				if busqueda.lower() in x['titulo'].lower():
 					movies.append(x)
 	username = str(getusername())
 	return render_template('results.html', title="Results", movies=movies, username=username, user=getuser())

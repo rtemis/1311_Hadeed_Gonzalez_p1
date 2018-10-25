@@ -4,16 +4,23 @@
 
 body {
     background-color: #FFFFFF;
+    background-image: radial-gradient(#FFFFFF,#8B2635);
     font-family: Arial, Helvetica, sans-serif;
 }
 
 header {
     background-color: #8B2635;
+    background-image: linear-gradient(rgb(0,10,90),#8B2635);
     padding: 10px;
     text-align: center;
     color: #FFFFFF;
 	font: 20px sans-serif;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+	header h1 {
+		color: white;
+    	text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+	}
 
 	header img {
 		width: 50px;
@@ -27,6 +34,7 @@ section {
 	
 footer {
     background-color: #8B2635;
+    background-image: linear-gradient(#8B2635,rgb(0,10,90));
     text-align: center;
     color: #FFFFFF;
 	font: 15px sans-serif;
@@ -35,6 +43,7 @@ footer {
 	bottom: 0;
 	left: 0;
 	padding: 10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 form {
@@ -54,24 +63,21 @@ table {
 	text-align: left;
 }
 
-
-#user-name {
-	text-align : right;
-}
-
 .shopping {
-	width: 50px;
-	height: 50px;
+	width:30px;
+	height: 30px;
+	filter: invert(100%);
 }
 
 .article {
-	background-color: #F2F0F0;
+	background-color: #FFFFFF;
 	padding: 10px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	float: left;
 	width: 80%;
-	height: 65vh;
+	height: 75vh;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 	.article h1 {
@@ -110,19 +116,26 @@ table {
 }
 
 .mini-nav-bar {
-	text-align: right;	
-	height: 30px;
+	height: 40px;
+	background-image: linear-gradient(#F25757);
 	background-color: #F25757;
 	width: 100%;
 	color: #FFD9CE;
 }
+	.mini-nav-bar #username {
+		display: inline-block;
+		text-align: left;
+		font: 20px Helvetica;
+		padding: 5px 20px 20px 5px;
+	}
 
 	.mini-nav-bar .search-container {
+		display: inline-block;
 		float: right;
 	}
 	
 	.mini-nav-bar input[type=text] {
-		padding: 2px;
+		padding: 5px;
 		font: 15px Helvetica;
 		border: none;
 	}
@@ -172,7 +185,7 @@ table {
 	background: #4F000B;
 	float: left;
 	width: 20%;
-	height: 65vh;
+	height: 75vh;
     padding: 10px;
 	overflow: hidden;
 }
