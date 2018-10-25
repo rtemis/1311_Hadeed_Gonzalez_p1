@@ -22,7 +22,7 @@ try:
 except ImportError as e:
     print >>sys.stderr, "Flask-Session no disponible, usando sesiones de Flask en cookie"
 
-
+vacio = False
 
 def setusername(username):
 	global user
@@ -39,6 +39,8 @@ def getuser():
 	return user
 
 def setcart():
+	global vacio
+	vacio = True
 	global session
 	session['cart'] = []
 
@@ -100,7 +102,7 @@ def description(title):
 def cart():
 	username = str(getusername())
 	cart=getcart()
-	return render_template('cart.html', title="Cart", username=username, user=getuser(), cart=cart)
+	return render_template('cart.html', title="Cart", username=username, user=getuser(), cart=cart, vacio=vacio)
 
 
 
@@ -114,6 +116,8 @@ def add_to_cart():
 		catalogue = json.load(data)
 		for x in catalogue['peliculas']:
 			if x['titulo'] == title:
+				if vacio == False:
+					setcart()
 				addcart(x)
 	return redirect(url_for('cart'))
 

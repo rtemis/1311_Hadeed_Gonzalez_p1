@@ -14,6 +14,7 @@
 					<th>Remove from Cart</th>
 				</tr>
 				<tr>
+				{% if vacio == True %}
 				{% for m in cart %}
 					<tr>
 						<td>{{ m.titulo }}</td>
@@ -21,6 +22,7 @@
 						<td><input type="checkbox" class="checkbox" name="remove"></td>
 					</tr>
 				{% endfor %}
+				{% endif %}
 			</table>
 		</div>
 		<div class="cart-buttons">
