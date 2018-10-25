@@ -4,11 +4,13 @@
 
 body {
     background-color: #FFFFFF;
+    background-image: radial-gradient(#FFFFFF,#8B2635);
     font-family: Arial, Helvetica, sans-serif;
 }
 
 header {
     background-color: #8B2635;
+    background-image: linear-gradient(rgb(0,10,90),#8B2635);
     padding: 10px;
     text-align: center;
     color: #FFFFFF;
@@ -54,14 +56,10 @@ table {
 	text-align: left;
 }
 
-
-#user-name {
-	text-align : right;
-}
-
 .shopping {
-	width: 50px;
-	height: 50px;
+	width:30px;
+	height: 30px;
+	filter: invert(100%);
 }
 
 .article {
@@ -105,19 +103,25 @@ table {
 }
 
 .mini-nav-bar {
-	text-align: right;	
-	height: 30px;
+	height: 50px;
 	background-color: #F25757;
 	width: 100%;
 	color: #FFD9CE;
 }
+	.mini-nav-bar #username {
+		display: inline-block;
+		text-align: left;
+		font: 20px Helvetica;
+		padding: 5px;
+	}
 
 	.mini-nav-bar .search-container {
+		display: inline-block;
 		float: right;
 	}
 	
 	.mini-nav-bar input[type=text] {
-		padding: 2px;
+		padding: 5px;
 		font: 15px Helvetica;
 		border: none;
 	}

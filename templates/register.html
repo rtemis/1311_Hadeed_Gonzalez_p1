@@ -7,15 +7,15 @@
 {% block article %}
 	<h3>Personal information</h3><br>
 	<div class = "register">
-		<form action={{ url_for('user_test') }} method="post" onsubmit="return validate_register()">
-			<p>Name: <input type="text" name="name"><br>
-			<p>Address: <input type="text" name="address"><br>
-			<p>Birth Date: <input type = "date" name="dob"><br>
-			<p>Username: <input type="text" name="username"><br>
-			<p>Email: <input type="text" name="email"> <br>
-			<p>Password: <input type="password" onkeydown="validate_psw()" name="password"><br>
-			<meter max="4" id="strengthbar"></meter>
-			<p>Credit Card: <input type="text" name="creditcard">	<br>
+		<form action={{ url_for('user_test') }} method="post" onsubmit="return validate_registration()" name="registration">
+			<p>Name: <input type="text" name="nameField" id="nameField" required><br>
+			<p>Address: <input type="text" name="addressField" id="addressField" required><br>
+			<p>Birth Date: <input type="date" name="birthdayField" id="birthdayField" required><br>
+			<p>Username: <input type="text" name="usernameField" id="usernameField" required><br>
+			<p>Email: <input type="text" name="emailField" id="emailField" required><br>
+			<p>Password: <input type="password" onkeydown="return validate_psw()" id="passwordField" name="passwordField" required><br>
+			<meter value="0" min="0" max="4" id="strengthbar"></meter>
+			<p>Credit Card: <input type="text" name="creditcardField" id="creditcardField" required><br>
 			<p><input type="submit" value="Finish">
 		</form>
 	</div>
