@@ -95,6 +95,8 @@ def cart():
 	cart=getcart()
 	return render_template('cart.html', title="Cart", username=username, user=getuser(), cart=cart)
 
+
+
 @app.route("/add_to_cart", methods=['POST','GET'])
 def add_to_cart():
 	username = str(getusername())

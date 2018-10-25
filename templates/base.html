@@ -53,9 +53,10 @@
 			<div class="nav">
 				{% if user == True %}
 					<ul>
-						<li><a href={{ url_for('cart') }}><img class="shopping" src={{ url_for('static', filename='images/cart.png') }} alt="Cart">  Cart</a></li>
-						<li><a href={{ url_for('history') }}><img class="shopping" src={{ url_for('static', filename='images/history.png') }} alt="Purchase History">  Purchase History</a></li>
-						<li><a href={{ url_for('logout') }}><img class="shopping" src={{ url_for('static', filename='images/logout.png') }} alt="Logout">  Logout</a></li>
+						<li><a href={{ url_for('cart') }}><img class="shopping" src={{ url_for('static', filename='images/cart.png') }}>  Cart</a></li>
+						<li><a href={{ url_for('history') }}><img class="shopping" src={{ url_for('static', filename='images/history.png') }}>  Purchase History</a></li>
+						<li><a href={{ url_for('logout') }}><img class="shopping" src={{ url_for('static', filename='images/logout.png') }}>  Logout</a></li>
+						<li><a href={{ url_for('index') }}><img class="shopping" src={{ url_for('static', filename='images/home.png') }}> Home</a></li>
 					</ul>
 				{% else %}
 					<form action={{ url_for('user')}} method="post" >
@@ -68,8 +69,8 @@
 						<input type="submit" value="Submit">
 					</form>
 					<ul>
-						<li><a href={{ url_for('register') }}>Register</a></li>
-						<li><a href={{ url_for('index') }}>Home</a></li>
+						<li><a href={{ url_for('register') }}><img class="shopping" src={{ url_for('static', filename='images/register.png') }} >Register</a></li>
+						<li><a href={{ url_for('index') }}><img class="shopping" src={{ url_for('static', filename='images/home.png') }}> Home</a></li>
 					</ul>
 					
 				{% endif %}
