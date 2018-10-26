@@ -61,6 +61,7 @@ function validate_psw() {
 	}
 }
 
+
 /*function validate_login(){
 	var user = document.forms["login"]["username"].value;
 	var password = document.forms["login"]["password"].value;
@@ -79,16 +80,18 @@ function validate_psw() {
 
 	var arr = [];
 	var lines = txt.split('\n');
+	client.send(null);
+}
+*/
+
+function remove_from_cart(){
 
 	for(j=0; j < lines.length; j++) {
 	  	arr[j] = lines[j].split(" : ");
 	  	
 	  	if (password == arr[2])
 	}
-
-})
-client.send(null);
-}*/
+}
 
 function hit_count() {
 	setInterval(function() { 
