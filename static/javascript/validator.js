@@ -61,10 +61,50 @@ function validate_psw() {
 	}
 }
 
+/*function validate_login(){
+	var user = document.forms["login"]["username"].value;
+	var password = document.forms["login"]["password"].value;
+	var path_string = document.forms["login"]["path"].value;
+
+	if (fs.lstatSync(path_string+'/'+username).isDirectory()) {
+		alert("User not found.");
+		return false;
+	}
+
+	var client = new XMLHttpRequest();
+	client.open('GET', path_string+'/'+username+'/'+'datos.dat');
+	client.onload = (function(){
+
+	var txt = client.responseText;
+
+	var arr = [];
+	var lines = txt.split('\n');
+
+	for(j=0; j < lines.length; j++) {
+	  	arr[j] = lines[j].split(" : ");
+	  	
+	  	if (password == arr[2])
+	}
+
+})
+client.send(null);
+}*/
+
+function hit_count() {
+	setInterval(function() { 
+	    $.ajax({
+	      type:"post",
+	      url:"myurl.html",
+	      datatype:"html",
+	      success:function(data)
+	      {
+	          //do something with response data
+	      }
+	    });
+	}, 10000);
+}
+
 function remove_from_cart(){
 
 }
 
-function buy_now(){
-
-}

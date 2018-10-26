@@ -6,6 +6,7 @@ import hashlib
 import datetime
 from flask import Flask, render_template, request, url_for, session, redirect
 import unicodedata
+from flask_session import Session
 
 
 app = Flask(__name__)
@@ -13,7 +14,6 @@ app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 try:
-    from flask_session import Session
     SESSION_TYPE = 'filesystem'
     SESSION_COOKIE_NAME = 'flasksessionid'
     app.config.from_object(__name__)
@@ -141,7 +141,9 @@ def user_test():
 		registry = True
 		with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w') as f:
 			f.write(name + ' : ' + username +  ' : ' + hashlib.md5(password).hexdigest() + ' : ' + dob + ' : ' + address + ' : ' + creditcard + ' : ' + str(random.randint(1,101)))
-	
+		with open(os.path.join(app.root_path,'users/'+username+'/historial.json'), 'w') as f:
+			history = {}
+			json.dump(history,f)
 	return render_template('user_test.html', registry=registry, movies=movies,username=username, user=getuser())
 
 @app.route("/results", methods=['POST'])

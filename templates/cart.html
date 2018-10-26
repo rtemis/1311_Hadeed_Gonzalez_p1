@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block article %}
-	<form action={{url_for('cart')}} method="post">
+	<form action={{url_for('cart')}} name="cart" method="post">
 		<div class="cart-table">
 			<table>
 				<tr>
@@ -13,7 +13,6 @@
 					<th>Price (Ud.)</th>
 					<th>Remove from Cart</th>
 				</tr>
-				<tr>
 				{% for m in cart %}
 					<tr>
 						<td>{{ m.titulo }}</td>
@@ -24,8 +23,8 @@
 			</table>
 		</div>
 		<div class="cart-buttons">
-			<input type="submit"  value="Remove Selected">
-			<input type="submit" onclick="return buy_now()" value="Buy Now">
+			<input type="submit" value="Remove Selected">
+			<input type="submit" value="Buy Now">
 		</div>
 	</form>
 {% endblock %}
