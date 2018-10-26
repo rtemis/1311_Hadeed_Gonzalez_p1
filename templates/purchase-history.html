@@ -4,19 +4,27 @@
 {% endblock %}
 
 {% block article %}
-	<table>
-		<tr>
-			<th>Movie</th>
-			<th>Price (Ud.)</th>
-			<th>Date of Purchase</th>
-		</tr>
-		{% for m in movies %}
+	{% if existe == True%}
+	<div class="cart-table">
+		<table>
 			<tr>
-				<td> {{ m.title }}</td>
-				<td>{{ m.precio }}</td>
-				<td>{{ date }}</td>
+				<th>Movie</th>
+				<th>Price (Ud.)</th>
+				<th>Quantity</th>
+				<th>Date of Purchase</th>
 			</tr>
-		{% endfor %}
-	</table>
+			{% for m in movies %}
+				<tr>
+					<td> {{ m.titulo }}</td>
+					<td>{{ m.precio }}</td>
+					<td>{{ m.cantidad }}</td>
+					<td>{{ m.date }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+	{%else%}
+	<h2>It seems that you haven't done any buy yet... May yo should try!</h2>
+	{%endif%}
 		
 {% endblock %}
