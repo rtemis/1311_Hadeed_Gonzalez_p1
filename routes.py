@@ -192,9 +192,23 @@ def buy_now():
 			
 					historial['peliculas'].append(pelicula)
 							
+	if 	os.path.isfile(os.path.join(app.root_path,'users/'+username+'/history.json')) == True:
+		with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'r') as data:
+				catalogue = {}
+				catalogue = json.load(data)
+				for x in catalogue['peliculas']:
+					pelicula['titulo']=x['titulo']
+					pelicula['cantidad']=x['cantidad']
+					historial['peliculas'].append(pelicula)
+
+	
+	
+	with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'w') as j:
 		
-	with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'a') as j:
 		json.dump(historial, j)
+
+	
+	
 	
 	cleancart()
 
@@ -233,7 +247,7 @@ def user_test():
 		registry = True
 		with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w') as f:
 			f.write(name + ' : ' + username +  ' : ' + hashlib.md5(password).hexdigest() + ' : ' + dob + ' : ' + address + ' : ' + creditcard + ' : ' + str(random.randint(1,101)))
-		open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'w')
+
 	
 	return render_template('user_test.html', registry=registry, movies=movies,username=username, user=getuser())
 
