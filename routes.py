@@ -60,6 +60,13 @@ def delcart(movie):
 	else:
 		session['contador'][movie['titulo']] -=1
 
+def cleancart():
+	global session
+	session.pop('cart')
+	session.pop('contador')
+	global vacio
+	vacio = False
+
 def getcart():
 	return session.get('cart')
 
@@ -162,30 +169,38 @@ def remove_selected():
 
 @app.route("/buy", methods=['POST', 'GET'])	
 def buy_now():
+	username=getusername()
 	cart=getcart()
-	contador = 0
+	contador = getcontador()
+	dinero = 0
 	historial= {}
 	historial['peliculas']= []
+	pelicula={}
 
 	for x in cart:
-		contador += float(x['precio'])	
+		dinero += float(x['precio'])	
 
-	print >>sys.stderr, contador
 
-	with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'w') as f:
+	with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r') as f:
 		for line in f:
 			parts = line.split(' : ')
 				
-			if  contador <= parts[6]:
+			if  dinero <= parts[6]:
 				for x in cart:
-					hisotrial['peliculas'].append(x)
-				
-				json.dump(historial, f)				
+					pelicula['titulo']=x['titulo']
+					pelicula['cantidad']=contador[x['titulo']]
+			
+					historial['peliculas'].append(pelicula)
+							
+		
+	with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'a') as j:
+		json.dump(historial, j)
+	
+	cleancart()
 
+	return redirect(url_for('index'))
 
-	redirect(url_for('index'))
-
-				
+			
 
 @app.route("/history")
 def history():

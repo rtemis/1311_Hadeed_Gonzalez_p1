@@ -31,12 +31,14 @@
 		</div>
 </form>
 	{% endfor %}
+	{%if user == True%}
 		<p><br>
-	<form>
+	<form action={{url_for('buy_now')}} method=post>
 		<div class="cart-buttons"> 
 			<input type="submit" value="Buy Now">
 		</div>
-	</form>
+	</form >
+	{% endif %}
 	{% else %}
 		<h2>You don't have any movie on your cart yet...Why you don't take a look?</h2>
 		{% for m in movies%}
