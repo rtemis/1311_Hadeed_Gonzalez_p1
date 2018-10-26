@@ -61,6 +61,7 @@ function validate_psw() {
 	}
 }
 
+
 function remove_from_cart(){
 
 }

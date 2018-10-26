@@ -5,29 +5,45 @@
 {% endblock %}
 
 {% block article %}
-	<form action={{url_for('cart')}} method="post">
+	{% if leng > 0 %}
+	{% for m in cart %}
+	<form action={{url_for('remove_selected', peli=m.titulo)}} method=post>
 		<div class="cart-table">
+			
 			<table>
 				<tr>
 					<th>Movie</th>
 					<th>Price (Ud.)</th>
+					<th>Quantity</th>
 					<th>Remove from Cart</th>
 				</tr>
+	
+								
 				<tr>
-				{% if vacio == True %}
-				{% for m in cart %}
-					<tr>
-						<td>{{ m.titulo }}</td>
-						<td>{{ m.precio }}</td>
-						<td><input type="checkbox" class="checkbox" name="remove"></td>
-					</tr>
-				{% endfor %}
-				{% endif %}
+					<td>{{ m.titulo }}</td>
+					<td>{{ m.precio }}</td>
+					<td>{{contador[m.titulo]}}
+					<td><input type="submit" name="checkbox" value="Remove One" onclick=></td>
+				</tr>
+				
 			</table>
+	</form>
+	{% endfor %}
 		</div>
-		<div class="cart-buttons">
-			<input type="submit"  value="Remove Selected">
-			<input type="submit" onclick="return buy_now()" value="Buy Now">
+		<p><br>
+	<form>
+		<div class="cart-buttons"> 
+			<input type="submit" value="Buy Now">
 		</div>
 	</form>
+	{% else %}
+		<h2>You don't have any movie on your cart yet...Why you don't take a look?</h2>
+		{% for m in movies%}
+			<div class="movie-desc">
+				<a href={{ url_for('description', title=m.titulo) }} method="get">
+				<img src={{ url_for('static', filename=m.poster) }} alt={{ m.titulo }}> </a>
+				{{ m.titulo }}
+			</div>
+		{% endfor %}
+	{% endif %}
 {% endblock %}
