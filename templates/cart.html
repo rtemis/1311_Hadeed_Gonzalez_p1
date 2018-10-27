@@ -6,36 +6,35 @@
 
 {% block article %}
 	{% if leng > 0 %}
-	{% for m in cart %}
-	<form action={{url_for('remove_selected', peli=m.titulo)}} method=post>
-		<div class="cart-table">
+		{% for m in cart %}
+			<form action={{url_for('remove_selected', peli=m.titulo)}} method=post>
+				<div class="cart-table">
+					<table>
+						<tr>
+							<th>Movie</th>
+							<th>Price (Ud.)</th>
+							<th>Quantity</th>
+							<th>Remove from Cart</th>
+						</tr>						
+						<tr>
+							<td>{{ m.titulo }}</td>
+							<td>{{ m.precio }}</td>
+							<td>{{contador[m.titulo]}}
+							<td><input type="submit" name="checkbox" value="Remove One" onclick=></td>
+						</tr>
+					</table>
 			
-			<table>
-				<tr>
-					<th>Movie</th>
-					<th>Price (Ud.)</th>
-					<th>Quantity</th>
-					<th>Remove from Cart</th>
-				</tr>						
-				<tr>
-					<td>{{ m.titulo }}</td>
-					<td>{{ m.precio }}</td>
-					<td>{{contador[m.titulo]}}
-					<td><input type="submit" name="checkbox" value="Remove One" onclick=></td>
-				</tr>
-			</table>
-	
-		</div>
-	</form>
-	{% endfor %}
-	{%if user == True%}
-	<p><br>
-	<form action={{url_for('buy_now')}} method=post>
-		<div class="cart-buttons"> 
-			<input type="submit" value="Buy Now">
-		</div>
-	</form >
-	{% endif %}
+				</div>
+			</form>
+		{% endfor %}
+		{%if user == True%}
+			<p><br>
+			<form action={{url_for('buy_now')}} method=post>
+				<div class="cart-buttons"> 
+					<input type="submit" value="Buy Now">
+				</div>
+			</form >
+		{% endif %}
 	{% else %}
 		<h2>You don't have any movies in your cart yet... Why don't you take a look?</h2>
 		{% for m in movies%}

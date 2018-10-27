@@ -53,7 +53,7 @@ function validate_psw() {
 		if(pass.value.match("[0-9]")) {
 			strength++;
 		}
-		if(pass.value.match("[!@#$%&*]")){
+		if(pass.value.match("[!@#$%&*]")) {
 			strength++;
 		}
 
@@ -83,29 +83,23 @@ function validate_psw() {
 	client.send(null);
 }
 */
-
+/*
 function remove_from_cart(){
 
 	for(j=0; j < lines.length; j++) {
 	  	arr[j] = lines[j].split(" : ");
 	  	
-	  	if (password == arr[2])
+	  	if (password == arr[2]) {}
 	}
 }
+*/
 
-function hit_count() {
-	setInterval(function() { 
-	    $.ajax({
-	      type:"post",
-	      url:"myurl.html",
-	      datatype:"html",
-	      success:function(data)
-	      {
-	          //do something with response data
-	      }
-	    });
-	}, 10000);
-}
+$(document).ready(function () {
+  	setInterval (function() {
+	  	var text = Math.floor((Math.random() * 1000) + 1);
+       	$('#hits').html(text);  	
+  	}, 3000);
+});
 
 function remove_from_cart(){
 

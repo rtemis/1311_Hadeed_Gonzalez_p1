@@ -14,6 +14,9 @@ app = Flask(__name__)
 
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
+####################
+# Setup de Session #
+####################
 try:
     SESSION_TYPE = 'filesystem'
     SESSION_COOKIE_NAME = 'flasksessionid'
@@ -25,12 +28,14 @@ except ImportError as e:
 
 vacio = False
 
+###############################
+# Funciones de session - user #
+###############################
 def setusername(username):
 	global user
 	user=True
 	global session
 	session['username'] = username	
-	
 
 def getusername():
 	return session.get('username')
@@ -38,6 +43,9 @@ def getusername():
 def getuser():
 	return user
 
+###############################
+# Funciones de session - cart #
+###############################
 def setcart():
 	global vacio
 	vacio = True
@@ -74,16 +82,9 @@ def getcart():
 def getcontador():
 	return  session['contador']
 
-@app.route("/*")
-def logout():
-	global user
-	user=False
-	global session
-	session.clear()
-	setcart()
-	vacio = False
-	return redirect(url_for('index'))
-
+#########
+# Index #
+#########
 @app.route("/")
 def index():
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
@@ -92,9 +93,11 @@ def index():
 	username = str(getusername())
 	return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser())
 
+######################
+# Paginas de Session #
+######################
 @app.route("/~", methods=['POST', 'GET'])
 def user():
-	
 	username = request.form['username']
 	password = request.form['password']
 	if  os.path.isdir(os.path.join(app.root_path,'users/'+username+'/')):
@@ -108,7 +111,19 @@ def user():
 			catalogue = json.load(data)
 	return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser())
 
+@app.route("/*")
+def logout():
+	global user
+	user=False
+	global session
+	session.clear()
+	setcart()
+	vacio = False
+	return redirect(url_for('index'))
 
+###############
+# Descripcion #
+###############
 @app.route("/description/<title>", methods=['GET'])
 def description(title):
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
@@ -121,6 +136,9 @@ def description(title):
 	username = str(getusername())
 	return render_template('description.html', title=title, m=movie,username=username, user=getuser())
 
+#####################
+# Paginas de Compra #
+#####################
 @app.route("/cart", methods=['POST', 'GET'])
 def cart():
 	username = str(getusername())
@@ -137,8 +155,6 @@ def cart():
 		for i in range(0,5):
 			movies.append(random.choice(catalogue['peliculas']))
 	return render_template('cart.html', title="Cart", username=username, user=getuser(), cart=cart, leng=leng, movies=movies, contador=contador)
-
-
 
 @app.route("/add_to_cart", methods=['POST','GET'])
 def add_to_cart():
@@ -163,10 +179,7 @@ def remove_selected():
 		for x in catalogue['peliculas']:
 			if x['titulo'] == peli:
 				delcart(x)
-	
-
 	return redirect(url_for('cart'))
-
 
 @app.route("/buy", methods=['POST', 'GET'])	
 def buy_now():
@@ -180,7 +193,6 @@ def buy_now():
 
 	for x in cart:
 		dinero += float(x['precio'])	
-
 
 	with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r') as f:
 		for line in f:
@@ -204,32 +216,32 @@ def buy_now():
 					pelicula['precio']=x['precio']
 					pelicula['date']=x['date']
 					historial['peliculas'].append(pelicula)
-
 	
-	
-	with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'w') as j:
-		
+	with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'w') as j:		
 		json.dump(historial, j)
 	
 	cleancart()
-
 	return redirect(url_for('index'))
 
-			
-
+########################
+# Paginas de Historial #
+########################
 @app.route("/history")
 def history():
 	username = str(getusername())
 	movies={}
 	existe=False
+
 	if 	os.path.isfile(os.path.join(app.root_path,'users/'+username+'/history.json')) == True:
 		existe=True
 		with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'r') as data:
-			
 			movies = json.load(data)
 	
 	return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser(), movies=movies['peliculas'], existe=existe)
 
+#######################
+# Crear Nuevo Usuario #
+#######################
 @app.route("/register")
 def register():
 	username = str(getusername())
@@ -245,21 +257,25 @@ def user_test():
 	address = request.form['addressField']
 	dob = request.form['birthdayField']
 	registry = False
+
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
 		catalogue = json.load(data)
 		movies = []
 		for i in range(0,5):
 			movies.append(random.choice(catalogue['peliculas']))
+
 	if not os.path.isdir(os.path.join(app.root_path,'users/'+username+'/')):
 		os.makedirs(os.path.join(app.root_path,'users/'+username+'/'))
 		registry = True
 		with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w') as f:
 			f.write(name + ' : ' + username +  ' : ' + hashlib.md5(password).hexdigest() + ' : ' + dob + ' : ' + address + ' : ' + creditcard + ' : ' + str(random.randint(1,101)))
 
-	
 	return render_template('user_test.html', registry=registry, movies=movies,username=username, user=getuser())
 
+#########################
+# Busqueda de Peliculas #
+#########################
 @app.route("/results", methods=['POST'])
 def results():
 	genero = request.form['select']
@@ -279,5 +295,8 @@ def results():
 	username = str(getusername())
 	return render_template('results.html', title="Results", movies=movies, username=username, user=getuser())
 
+########
+# Main #
+########
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5001, debug=True)
