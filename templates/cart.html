@@ -6,17 +6,21 @@
 
 {% block article %}
 	{% if leng > 0 %}
-	{% for m in cart %}
-	<form action={{url_for('remove_selected', peli=m.titulo)}} method=post>
-		<div class="cart-table">
-			
-			<table>
+	<div class="cart-table">
+	<table>
 				<tr>
 					<th>Movie</th>
 					<th>Price (Ud.)</th>
 					<th>Quantity</th>
 					<th>Remove from Cart</th>
 				</tr>
+	</table>
+	</div>
+	{% for m in cart %}
+	<form action={{url_for('remove_selected', peli=m.titulo)}} method=post>
+		<div class="cart-table">
+			
+			<table>
 	
 								
 				<tr>
