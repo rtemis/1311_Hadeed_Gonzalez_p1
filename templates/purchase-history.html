@@ -13,18 +13,26 @@
 					<th>Quantity</th>
 					<th>Date of Purchase</th>
 				</tr>
-				{% for m in movies %}
-					<tr>
-						<td> {{ m.titulo }}</td>
-						<td>{{ m.precio }}</td>
-						<td>{{ m.cantidad }}</td>
-						<td>{{ m.date }}</td>
-					</tr>
+				{% for m in history.peliculas %}
+					{% for m in movies %}
+						<tr>
+							<td> {{ m.titulo }}</td>
+							<td>{{ m.precio }}</td>
+							<td>{{ m.cantidad }}</td>
+							<td>{{ m.date }}</td>
+						</tr>
+					{% endfor %}
 				{% endfor %}
 			</table>
 		</div>
 	{%else%}
 		<h2>It seems that you haven't bought anything yet!</h2>
-	{%endif%}
-		
+		{% for m in movies%}
+			<div class="movie-desc">
+				<a href={{ url_for('description', title=m.titulo) }} method="get">
+				<img src={{ url_for('static', filename=m.poster) }} alt={{ m.titulo }}> </a>
+				{{ m.titulo }}
+			</div>
+		{% endfor %}
+	{% endif %}
 {% endblock %}

@@ -90,12 +90,18 @@ table {
 
 .cart-table {
 	height: 20%;
+	width: 100%;
 	overflow-y: scroll;
 }
 
 	.cart-table table tr {
 
 		color: black ;
+	
+}
+	
+	.cart-table th, td{
+	width: 24%;
 }
 
 .contact-form {

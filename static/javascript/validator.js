@@ -61,39 +61,6 @@ function validate_psw() {
 	}
 }
 
-
-/*function validate_login(){
-	var user = document.forms["login"]["username"].value;
-	var password = document.forms["login"]["password"].value;
-	var path_string = document.forms["login"]["path"].value;
-
-	if (fs.lstatSync(path_string+'/'+username).isDirectory()) {
-		alert("User not found.");
-		return false;
-	}
-
-	var client = new XMLHttpRequest();
-	client.open('GET', path_string+'/'+username+'/'+'datos.dat');
-	client.onload = (function(){
-
-	var txt = client.responseText;
-
-	var arr = [];
-	var lines = txt.split('\n');
-	client.send(null);
-}
-*/
-/*
-function remove_from_cart(){
-
-	for(j=0; j < lines.length; j++) {
-	  	arr[j] = lines[j].split(" : ");
-	  	
-	  	if (password == arr[2]) {}
-	}
-}
-*/
-
 $(document).ready(function () {
   	setInterval (function() {
 	  	var text = Math.floor((Math.random() * 1000) + 1);

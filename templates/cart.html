@@ -6,22 +6,30 @@
 
 {% block article %}
 	{% if leng > 0 %}
+		<div class="cart-table">
+			<table>
+					<tr>
+						<th>Movie</th>
+						<th>Price (Ud.)</th>
+						<th>Quantity</th>
+						<th>Remove from Cart</th>
+					</tr>
+			</table>
+		</div>
 		{% for m in cart %}
 			<form action={{url_for('remove_selected', peli=m.titulo)}} method=post>
 				<div class="cart-table">
+					
 					<table>
-						<tr>
-							<th>Movie</th>
-							<th>Price (Ud.)</th>
-							<th>Quantity</th>
-							<th>Remove from Cart</th>
-						</tr>						
+			
+										
 						<tr>
 							<td>{{ m.titulo }}</td>
 							<td>{{ m.precio }}</td>
 							<td>{{contador[m.titulo]}}
 							<td><input type="submit" name="checkbox" value="Remove One" onclick=></td>
 						</tr>
+						
 					</table>
 			
 				</div>

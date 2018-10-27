@@ -73,8 +73,7 @@ def cleancart():
 	global session
 	session.pop('cart')
 	session.pop('contador')
-	global vacio
-	vacio = False
+	setcart()
 
 def getcart():
 	return session.get('cart')
@@ -192,35 +191,39 @@ def buy_now():
 	pelicula={}
 
 	for x in cart:
-		dinero += float(x['precio'])	
+		dinero += float(x['precio']*contador[x['titulo']])
+	print dinero	
 
 	with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r') as f:
 		for line in f:
 			parts = line.split(' : ')
 				
-			if  dinero <= parts[6]:
-				for x in cart:
-					pelicula['titulo']=x['titulo']
-					pelicula['cantidad']=contador[x['titulo']]
-					pelicula['precio']=x['precio']
-					pelicula['date']= time.strftime("%x")
-					historial['peliculas'].append(pelicula)
-							
-	if 	os.path.isfile(os.path.join(app.root_path,'users/'+username+'/history.json')) == True:
-		with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'r') as data:
-				catalogue = {}
-				catalogue = json.load(data)
-				for x in catalogue['peliculas']:
-					pelicula['titulo']=x['titulo']
-					pelicula['cantidad']=x['cantidad']
-					pelicula['precio']=x['precio']
-					pelicula['date']=x['date']
-					historial['peliculas'].append(pelicula)
-	
-	with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'w') as j:		
-		json.dump(historial, j)
-	
-	cleancart()
+		if  dinero <= parts[6]:
+			for x in cart:
+				print x
+				pelicula['titulo']=x['titulo']
+				pelicula['cantidad']=contador[x['titulo']]
+				pelicula['precio']=x['precio']
+				pelicula['date']= time.strftime("%x")
+				historial['peliculas'].append(pelicula)
+				pelicula={}
+									
+			if 	os.path.isfile(os.path.join(app.root_path,'users/'+username+'/history.json')) == True:
+				with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'r') as data:
+						catalogue = {}
+						catalogue = json.load(data)
+						for x in catalogue['peliculas']:
+							pelicula['titulo']=x['titulo']
+							pelicula['cantidad']=x['cantidad']
+							pelicula['precio']=x['precio']
+							pelicula['date']=x['date']
+							historial['peliculas'].append(pelicula)
+							pelicula= {}
+
+			with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'w') as j:
+				json.dump(historial, j)
+			
+			cleancart()
 	return redirect(url_for('index'))
 
 ########################
@@ -229,15 +232,22 @@ def buy_now():
 @app.route("/history")
 def history():
 	username = str(getusername())
-	movies={}
+	history={}
 	existe=False
 
 	if 	os.path.isfile(os.path.join(app.root_path,'users/'+username+'/history.json')) == True:
 		existe=True
 		with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'r') as data:
-			movies = json.load(data)
+			history = json.load(data)
+
+	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
+		catalogue = {}
+		catalogue = json.load(data)
+		movies = []
+		for i in range(0,5):
+			movies.append(random.choice(catalogue['peliculas']))
 	
-	return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser(), movies=movies['peliculas'], existe=existe)
+	return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser(), history=history, existe=existe, movies=movies)
 
 #######################
 # Crear Nuevo Usuario #
