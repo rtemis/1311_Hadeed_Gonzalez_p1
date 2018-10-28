@@ -5,34 +5,33 @@
 
 {% block article %}
 	{% if existe == True%}
-		<div class="cart-table">
-			<table>
+	<div class="cart-table">
+		<table>
+			<tr>
+				<th>Movie</th>
+				<th>Price (Ud.)</th>
+				<th>Quantity</th>
+				<th>Date of Purchase</th>
+			</tr>
+			{% for m in history.peliculas %}
 				<tr>
-					<th>Movie</th>
-					<th>Price (Ud.)</th>
-					<th>Quantity</th>
-					<th>Date of Purchase</th>
+					<td> {{ m.titulo }}</td>
+					<td>{{ m.precio }}</td>
+					<td>{{ m.cantidad }}</td>
+					<td>{{ m.date }}</td>
 				</tr>
-				{% for m in history.peliculas %}
-					{% for m in movies %}
-						<tr>
-							<td> {{ m.titulo }}</td>
-							<td>{{ m.precio }}</td>
-							<td>{{ m.cantidad }}</td>
-							<td>{{ m.date }}</td>
-						</tr>
-					{% endfor %}
-				{% endfor %}
-			</table>
-		</div>
+			{% endfor %}
+		</table>
+	</div>
 	{%else%}
-		<h2>It seems that you haven't bought anything yet!</h2>
-		{% for m in movies%}
+	<h2>It seems that you haven't done any buy yet... May yo should try!</h2><br>
+	{% for m in movies%}
 			<div class="movie-desc">
 				<a href={{ url_for('description', title=m.titulo) }} method="get">
 				<img src={{ url_for('static', filename=m.poster) }} alt={{ m.titulo }}> </a>
 				{{ m.titulo }}
 			</div>
-		{% endfor %}
+	{% endfor %}
 	{% endif %}
+		
 {% endblock %}

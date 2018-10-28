@@ -194,6 +194,7 @@ def buy_now():
 		dinero += float(x['precio']*contador[x['titulo']])
 	print dinero	
 
+
 	with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r') as f:
 		for line in f:
 			parts = line.split(' : ')
@@ -220,24 +221,29 @@ def buy_now():
 							historial['peliculas'].append(pelicula)
 							pelicula= {}
 
+				
+				
 			with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'w') as j:
+				
 				json.dump(historial, j)
 			
 			cleancart()
+
 	return redirect(url_for('index'))
 
 ########################
 # Paginas de Historial #
 ########################
+
 @app.route("/history")
 def history():
 	username = str(getusername())
 	history={}
 	existe=False
-
 	if 	os.path.isfile(os.path.join(app.root_path,'users/'+username+'/history.json')) == True:
 		existe=True
 		with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'r') as data:
+			
 			history = json.load(data)
 
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
