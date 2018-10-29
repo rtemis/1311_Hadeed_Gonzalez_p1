@@ -53,6 +53,8 @@
 
 		<div class="section">
 			<div class="nav">
+				
+					
 				{% if user == True %}
 					<ul>
 						<li><a href={{ url_for('cart') }}><img class="shopping" src={{ url_for('static', filename='images/cart.png') }}>  Cart</a></li>
@@ -63,10 +65,10 @@
 				{% else %}
 					<form action={{ url_for('user')}} name="login" method="post" >
 						Username:<br>
-						<input type="text" id="username" name="username">
+						<input type="text" id="username" name="username" required>
 						<br>
 						Password:<br>
-						<input type="password" id="password" name="password">
+						<input type="password" id="password" name="password" required>
 						<p>
 						<input type="hidden" value={{ url_for('user') }}>
 						<input type="submit" onclick="return validate_login()" value="Submit">
@@ -89,6 +91,17 @@
 		<footer>
 			Deluxe Video Club © All rights reserved.
 		</footer>
+				{% if loginsuccess == False%}
+					<script>error_login()</script>
+				{% endif%}
+	
+			
+				{% if message == 1%}
+					<script>ok_buy()</script>
+			
+				{% elif message == 2 %}
+					<script>error_buy()</script>
+				{% endif%}
 
 	</body>
 </html>

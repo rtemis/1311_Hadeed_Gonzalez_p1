@@ -6,13 +6,12 @@
 
 {% block article %}
 	{% if leng > 0 %}
-		<div class="cart-table">
+		<div class="titles_table">
 			<table>
 					<tr>
 						<th>Movie</th>
 						<th>Price (Ud.)</th>
 						<th>Quantity</th>
-						<th>Remove from Cart</th>
 					</tr>
 			</table>
 		</div>
@@ -42,6 +41,9 @@
 					<input type="submit" value="Buy Now">
 				</div>
 			</form >
+		{%else%}
+		<br>
+		<h4>If you want to buy, please log in</h4>
 		{% endif %}
 	{% else %}
 		<h2>You don't have any movies in your cart yet... Why don't you take a look?</h2>

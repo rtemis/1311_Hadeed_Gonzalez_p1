@@ -1,7 +1,7 @@
 function validate_registration() {
 	var name = document.forms["registration"]["nameField"].value;
 	if (!name.match("^[a-zA-z ]{2,}$")){
-		alert("Name cannot start or end with spaces.");
+		alert("Name cannot start or end with spaces, at least two letters.");
 		return false;
 	}
 
@@ -13,7 +13,7 @@ function validate_registration() {
 
 	var username = document.forms["registration"]["usernameField"].value;
 	if (!username.match("^[a-zA-Z0-9_]{3,20}$")){
-		alert("Username must be at least 3 characters long with no special characters.");
+		alert("Username must be at least 3 characters long with no special characters(except _ ).");
 		return false;
 	};
 
@@ -68,7 +68,18 @@ $(document).ready(function () {
   	}, 3000);
 });
 
-function remove_from_cart(){
+function error_login(){
 
+	alert("Username or password incorrect, try again.\n\tMay are you not registered?");
+}
+
+function error_buy(){
+
+	alert("Sorry, you can't buy all this movies because you don't have enough money.");
+}
+
+function ok_buy(){
+
+	alert("Your buy is done, check your purchase history.");
 }
 

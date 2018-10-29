@@ -89,7 +89,7 @@ table {
 	}
 
 .cart-table {
-	height: 20%;
+	height: 80%;
 	width: 100%;
 	overflow-y: scroll;
 }
@@ -100,9 +100,14 @@ table {
 	
 }
 	
-	.cart-table th, td{
+	.cart-table td{
 	width: 24%;
 }
+
+.titles_table{
+	width: 75%;
+}
+
 
 .contact-form {
 	background-color: #F2F0F0;
