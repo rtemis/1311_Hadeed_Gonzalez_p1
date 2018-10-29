@@ -215,8 +215,8 @@ def buy_now():
 	with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r') as f:
 		for line in f:
 			parts = line.split(' : ')
-				
-		if  dinero <= float(parts[6]):
+		saldo = float(parts[6])
+		if  dinero <= saldo:
 			for x in cart:
 				print x
 				pelicula['titulo']=x['titulo']
@@ -247,6 +247,14 @@ def buy_now():
 			cleancart()
 			
 			buysuccess = 1
+	
+			with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r') as f:
+				parts = line.split(' : ')
+				parts[6] = str(saldo-dinero)
+
+			with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w') as f:
+				f.write(parts[0] + ' : ' + parts[1] +  ' : ' + parts[2] + ' : ' + parts[3] + ' : ' +parts[4] + ' : ' + parts[5] + ' : ' + parts[6])
+
 		else:
 			buysuccess = 2
 
@@ -323,15 +331,32 @@ def results():
 		catalogue = {}
 		catalogue = json.load(data)
 		movies = []
+		aux=[]
 		if not busqueda:
-			for x in catalogue['peliculas']:
-				if genero in x['categoria']:
-					movies.append(x)
+			if genero != "#":
+				for x in catalogue['peliculas']:
+					if genero in x['categoria']:
+						movies.append(x)
+			else:
+				movies=catalogue['peliculas']
 		else:
-			for x in catalogue['peliculas']:
-				if busqueda.lower() in x['titulo'].lower():
-					movies.append(x)
+			if genero != "#":
+				for x in catalogue['peliculas']:
+					if genero in x['categoria']:
+						aux.append(x)
+
+			
+				for x in aux:
+					if busqueda.lower() in x['titulo'].lower():
+						movies.append(x)
+			else:
+				for x in catalogue['peliculas']:
+					if busqueda.lower() in x['titulo'].lower():
+						movies.append(x)
+			
 	username = str(getusername())
+
+
 	return render_template('results.html', title="Results", movies=movies, username=username, user=getuser(), loginsuccess = True, message=0)
 
 ########
