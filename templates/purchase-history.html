@@ -23,6 +23,9 @@
 			{% endfor %}
 		</table>
 	</div>
+	
+	</form >
+
 	{%else%}
 	<h2>It seems that you haven't done any buy yet... May yo should try!</h2><br>
 	{% for m in movies%}
@@ -33,5 +36,9 @@
 			</div>
 	{% endfor %}
 	{% endif %}
+	<br><p>Your (saldo en ingles) is {{saldo}}. Would you like to increase it?
+	<form action={{ url_for('increase') }} method="post">
+		<input type="text" name="money" placeholder="Quantity..." required>
+		<input type="submit" value = "Increase">
 		
 {% endblock %}

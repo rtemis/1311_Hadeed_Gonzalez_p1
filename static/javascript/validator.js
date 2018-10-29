@@ -24,8 +24,8 @@ function validate_registration() {
 	}
 
 	var password = document.forms["registration"]["passwordField"].value;
-	if (!password.match("[a-zA-Z0-9@!#$%&*]{6,}")){
-		alert("Password must be at least 6 characters.");
+	if (!password.match("[a-zA-Z0-9@!#$%&*]{8,}")){
+		alert("Password must be at least 8 characters.");
 		return false;
 	}
 
@@ -75,7 +75,7 @@ function error_login(){
 
 function error_buy(){
 
-	alert("Sorry, you can't buy all this movies because you don't have enough money.");
+	alert("Sorry, you can't buy all this movies because you don't have enough money.\n\tTo change your money, go to Purchase History page");
 }
 
 function ok_buy(){

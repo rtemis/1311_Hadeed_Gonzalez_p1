@@ -283,8 +283,32 @@ def history():
 		movies = []
 		for i in range(0,5):
 			movies.append(random.choice(catalogue['peliculas']))
+
+	with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r') as f:
+		for line in f:
+			parts = line.split(' : ')
+			saldo=parts[6]
 	
-	return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser(), history=history, existe=existe, movies=movies, loginsuccess = True, message=0)
+	return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser(), history=history, existe=existe, movies=movies, loginsuccess = True, message=0, saldo = saldo)
+
+#######################
+# Incrementar Saldo #
+#######################
+@app.route("/history/i", methods=['POST','GET'])
+def increase():
+	username = str(getusername())
+	money = request.form['money']
+	
+	with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r') as f:
+		for line in f:
+			parts = line.split(' : ')
+		saldo= float(parts[6])+float(money)
+	
+	with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w') as f:
+				f.write(parts[0] + ' : ' + parts[1] +  ' : ' + parts[2] + ' : ' + parts[3] + ' : ' +parts[4] + ' : ' + parts[5] + ' : ' + str(saldo))
+
+	return redirect(url_for('history'))
+
 
 #######################
 # Crear Nuevo Usuario #
