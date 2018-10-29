@@ -92,6 +92,7 @@ table {
 	height: 80%;
 	width: 100%;
 	overflow-y: scroll;
+	text-align: center;
 }
 
 	.cart-table table tr {

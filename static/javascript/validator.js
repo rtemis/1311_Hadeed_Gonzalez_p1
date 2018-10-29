@@ -68,6 +68,14 @@ $(document).ready(function () {
   	}, 3000);
 });
 
+$(document).ready(function(){
+	$('.title').on('click', function() {
+		$('.details').toggle();
+	});
+});
+
+
+
 function error_login(){
 
 	alert("Username or password incorrect, try again.\n\tMay are you not registered?");

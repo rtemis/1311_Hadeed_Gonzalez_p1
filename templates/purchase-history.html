@@ -15,10 +15,10 @@
 			</tr>
 			{% for m in history.peliculas %}
 				<tr>
-					<td> {{ m.titulo }}</td>
-					<td>{{ m.precio }}</td>
-					<td>{{ m.cantidad }}</td>
-					<td>{{ m.date }}</td>
+					<td class="title"> {{ m.titulo }}</td>
+					<td class="details">{{ m.precio }}</td>
+					<td class="details">{{ m.cantidad }}</td>
+					<td class="details">{{ m.date }}</td>
 				</tr>
 			{% endfor %}
 		</table>
@@ -27,7 +27,7 @@
 	</form >
 
 	{%else%}
-	<h2>It seems that you haven't done any buy yet... May yo should try!</h2><br>
+		<h2>It seems that you haven't bought anything yet... Why not start with some of these?</h2><br>
 	{% for m in movies%}
 			<div class="movie-desc">
 				<a href={{ url_for('description', title=m.titulo) }} method="get">
@@ -36,7 +36,7 @@
 			</div>
 	{% endfor %}
 	{% endif %}
-	<br><p>Your (saldo en ingles) is {{saldo}}. Would you like to increase it?
+	<br><p>Your balance is {{saldo}}. Would you like to increase it?
 	<form action={{ url_for('increase') }} method="post">
 		<input type="text" name="money" placeholder="Quantity..." required>
 		<input type="submit" value = "Increase">
