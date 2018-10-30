@@ -5,10 +5,8 @@ import json
 import random
 import hashlib
 import datetime
-from flask import Flask, render_template, request, url_for, session, redirect
+from flask import Flask, render_template, request, url_for, redirect, session
 import unicodedata
-from flask_session import Session
-
 
 app = Flask(__name__)
 
@@ -18,6 +16,9 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 # Setup de Session #
 ####################
 try:
+    from flask_session import Session
+    this_dir = os.path.dirname(os.path.abspath(__file__))
+    SESSION_FILE_DIR = this_dir + '/flask_session'
     SESSION_TYPE = 'filesystem'
     SESSION_COOKIE_NAME = 'flasksessionid'
     app.config.from_object(__name__)
@@ -37,7 +38,7 @@ def setusername(username):
 	global user
 	user=True
 	global session
-	session['username'] = username	
+	session['username'] = username
 
 def getusername():
 	return session.get('username')
@@ -99,9 +100,9 @@ def index():
 		message = 1
 	elif buysuccess == 2:
 		message = 2
-		
-		
-	buysuccess = 0	
+
+
+	buysuccess = 0
 	return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = True, message=message)
 
 ######################
@@ -118,8 +119,8 @@ def user():
 			if hashlib.md5(password).hexdigest() == parts[2] :
 				setusername(username)
 				loginsuccess = True
-		
-		
+
+
 
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 			catalogue = {}
@@ -196,7 +197,7 @@ def remove_selected():
 				delcart(x)
 	return redirect(url_for('cart'))
 
-@app.route("/buy", methods=['POST', 'GET'])	
+@app.route("/buy", methods=['POST', 'GET'])
 def buy_now():
 	username=getusername()
 	cart=getcart()
@@ -209,7 +210,7 @@ def buy_now():
 
 	for x in cart:
 		dinero += float(x['precio']*contador[x['titulo']])
-	
+
 
 
 	with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r') as f:
@@ -225,7 +226,7 @@ def buy_now():
 				pelicula['date']= time.strftime("%x")
 				historial['peliculas'].append(pelicula)
 				pelicula={}
-									
+
 			if 	os.path.isfile(os.path.join(app.root_path,'users/'+username+'/history.json')) == True:
 				with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'r') as data:
 						catalogue = {}
@@ -238,16 +239,16 @@ def buy_now():
 							historial['peliculas'].append(pelicula)
 							pelicula= {}
 
-				
-				
+
+
 			with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'w') as j:
-				
+
 				json.dump(historial, j)
-			
+
 			cleancart()
-			
+
 			buysuccess = 1
-	
+
 			with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r') as f:
 				parts = line.split(' : ')
 				parts[6] = str(saldo-dinero)
@@ -274,7 +275,7 @@ def history():
 	if 	os.path.isfile(os.path.join(app.root_path,'users/'+username+'/history.json')) == True:
 		existe=True
 		with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'r') as data:
-			
+
 			history = json.load(data)
 
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
@@ -288,7 +289,7 @@ def history():
 		for line in f:
 			parts = line.split(' : ')
 			saldo=parts[6]
-	
+
 	return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser(), history=history, existe=existe, movies=movies, loginsuccess = True, message=0, saldo = saldo)
 
 #######################
@@ -298,12 +299,12 @@ def history():
 def increase():
 	username = str(getusername())
 	money = request.form['money']
-	
+
 	with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r') as f:
 		for line in f:
 			parts = line.split(' : ')
 		saldo= float(parts[6])+float(money)
-	
+
 	with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w') as f:
 				f.write(parts[0] + ' : ' + parts[1] +  ' : ' + parts[2] + ' : ' + parts[3] + ' : ' +parts[4] + ' : ' + parts[5] + ' : ' + str(saldo))
 
@@ -369,7 +370,7 @@ def results():
 					if genero in x['categoria']:
 						aux.append(x)
 
-			
+
 				for x in aux:
 					if busqueda.lower() in x['titulo'].lower():
 						movies.append(x)
@@ -377,7 +378,7 @@ def results():
 				for x in catalogue['peliculas']:
 					if busqueda.lower() in x['titulo'].lower():
 						movies.append(x)
-			
+
 	username = str(getusername())
 
 

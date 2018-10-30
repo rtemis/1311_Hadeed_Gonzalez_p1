@@ -82,7 +82,7 @@ function write_cookie(){
 
 function error_login(){
 
-	alert("Username or password incorrect, try again.\n\tMay are you not registered?");
+	alert("Username or password incorrect, try again.\n\tMaybe are you not registered?");
 }
 
 function error_buy(){
