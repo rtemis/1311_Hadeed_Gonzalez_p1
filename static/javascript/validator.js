@@ -43,9 +43,9 @@ function validate_psw() {
 
 	pass.onkeydown = function (){
 		var strength = 0;
-	  	
+
 	  	if(pass.value.match("[a-z]")) {
-	  		strength++; 
+	  		strength++;
 	    }
 		if(pass.value.match("[A-Z]")) {
 			strength++;
@@ -64,7 +64,7 @@ function validate_psw() {
 $(document).ready(function () {
   	setInterval (function() {
 	  	var text = Math.floor((Math.random() * 1000) + 1);
-       	$('#hits').html(text);  	
+       	$('#hits').html(text);
   	}, 3000);
 });
 
@@ -74,7 +74,11 @@ $(document).ready(function(){
 	});
 });
 
-
+function write_cookie(){
+	var name = document.forms["login"]["username"].value
+	document.cookie="name=" + cookievalue;
+  document.write ("Setting Cookies : " + "name=" + cookievalue );
+}
 
 function error_login(){
 
@@ -91,3 +95,6 @@ function ok_buy(){
 	alert("Your buy is done, check your purchase history.");
 }
 
+function must_login(){
+	alert("You must be logged in to buy movies.");
+}

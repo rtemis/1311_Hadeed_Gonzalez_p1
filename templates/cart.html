@@ -18,32 +18,36 @@
 		{% for m in cart %}
 			<form action={{url_for('remove_selected', peli=m.titulo)}} method=post>
 				<div class="cart-table">
-					
+
 					<table>
-			
-										
+
+
 						<tr>
 							<td>{{ m.titulo }}</td>
 							<td>{{ m.precio }}</td>
 							<td>{{contador[m.titulo]}}
 							<td><input type="submit" name="checkbox" value="Remove One" onclick=></td>
 						</tr>
-						
+
 					</table>
-			
+
 				</div>
 			</form>
 		{% endfor %}
 		{%if user == True%}
 			<p><br>
 			<form action={{url_for('buy_now')}} method=post>
-				<div class="cart-buttons"> 
+				<div class="cart-buttons">
 					<input type="submit" value="Buy Now">
 				</div>
 			</form >
 		{%else%}
-		<br>
-		<h4>If you want to buy, please log in</h4>
+		<p><br>
+		<form onsubmit="must_login()">
+			<div class="cart-buttons">
+				<input type="submit" value="Buy Now">
+			</div>
+		</form >
 		{% endif %}
 	{% else %}
 		<h2>You don't have any movies in your cart yet... Why don't you take a look?</h2>
