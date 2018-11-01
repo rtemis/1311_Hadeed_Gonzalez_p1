@@ -7,6 +7,7 @@ import hashlib
 import datetime
 from flask import Flask, render_template, request, url_for, redirect, session
 import unicodedata
+import Cookie
 
 app = Flask(__name__)
 
@@ -29,6 +30,7 @@ except ImportError as e:
 
 vacio = False
 buysuccess = 0
+cookiexists = False
 
 
 ###############################
@@ -39,6 +41,19 @@ def setusername(username):
 	user=True
 	global session
 	session['username'] = username
+	global cookie
+	cookie = Cookie.SimpleCookie()
+	cookie['user'] = username
+	global cookiexists
+	cookiexists = True
+
+def getcookie():
+	if cookiexists == True:
+		return str(cookie['user'].value)
+	else:
+		a = ""
+		return a
+	
 
 def getusername():
 	return session.get('username')
@@ -91,6 +106,7 @@ def getcontador():
 def index():
 	global buysuccess
 	message = 0
+	c = ""
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
 		catalogue = json.load(data)
@@ -101,15 +117,18 @@ def index():
 	elif buysuccess == 2:
 		message = 2
 
+	c = getcookie()
+
 
 	buysuccess = 0
-	return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = True, message=message)
+	return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = True, message=message, cookie = c)
 
 ######################
 # Paginas de Session #
 ######################
 @app.route("/~", methods=['POST', 'GET'])
 def user():
+	c = getcookie()
 	loginsuccess = False
 	username = request.form['username']
 	password = request.form['password']
@@ -125,7 +144,7 @@ def user():
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 			catalogue = {}
 			catalogue = json.load(data)
-	return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = loginsuccess,  message=0)
+	return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = loginsuccess,  message=0, cookie=c)
 
 @app.route("/*")
 def logout():
@@ -142,6 +161,7 @@ def logout():
 ###############
 @app.route("/description/<title>", methods=['GET'])
 def description(title):
+	c = getcookie()
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
 		catalogue = json.load(data)
@@ -150,13 +170,14 @@ def description(title):
 				movie = x
 
 	username = str(getusername())
-	return render_template('description.html', title=title, m=movie,username=username, user=getuser(), loginsuccess = True, message=0)
+	return render_template('description.html', title=title, m=movie,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
 
 #####################
 # Paginas de Compra #
 #####################
 @app.route("/cart", methods=['POST', 'GET'])
 def cart():
+	c = getcookie()
 	username = str(getusername())
 	if vacio == False:
 		setcart()
@@ -170,7 +191,7 @@ def cart():
 		movies = []
 		for i in range(0,5):
 			movies.append(random.choice(catalogue['peliculas']))
-	return render_template('cart.html', title="Cart", username=username, user=getuser(), cart=cart, leng=leng, movies=movies, contador=contador, loginsuccess = True, message=0)
+	return render_template('cart.html', title="Cart", username=username, user=getuser(), cart=cart, leng=leng, movies=movies, contador=contador, loginsuccess = True, message=0, cookie=c)
 
 @app.route("/add_to_cart", methods=['POST','GET'])
 def add_to_cart():
@@ -273,6 +294,7 @@ def buy_now():
 
 @app.route("/history")
 def history():
+	c = getcookie()
 	username = str(getusername())
 	history={}
 	existe=False
@@ -294,7 +316,7 @@ def history():
 			parts = line.split(' : ')
 			saldo=parts[6]
 
-	return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser(), history=history, existe=existe, movies=movies, loginsuccess = True, message=0, saldo = saldo)
+	return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser(), history=history, existe=existe, movies=movies, loginsuccess = True, message=0, saldo = saldo, cookie=c)
 
 #######################
 # Incrementar Saldo #
@@ -320,11 +342,13 @@ def increase():
 #######################
 @app.route("/register")
 def register():
+	c = getcookie()
 	username = str(getusername())
-	return render_template('register.html', title="Register",username=username, user=getuser(), loginsuccess = True, message=0)
+	return render_template('register.html', title="Register",username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
 
 @app.route("/new_user", methods=['POST'])
 def user_test():
+	c = getcookie()
 	name = request.form['nameField']
 	username = request.form['usernameField']
 	password = request.form['passwordField']
@@ -347,13 +371,14 @@ def user_test():
 		with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w') as f:
 			f.write(name + ' : ' + username +  ' : ' + hashlib.md5(password).hexdigest() + ' : ' + dob + ' : ' + address + ' : ' + creditcard + ' : ' + str(random.randint(1,101)))
 
-	return render_template('user_test.html', registry=registry, movies=movies,username=username, user=getuser(), loginsuccess = True, message=0)
+	return render_template('user_test.html', registry=registry, movies=movies,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
 
 #########################
 # Busqueda de Peliculas #
 #########################
 @app.route("/results", methods=['POST'])
 def results():
+	c = getcookie()
 	genero = request.form['select']
 	busqueda = request.form['search']
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
@@ -386,7 +411,7 @@ def results():
 	username = str(getusername())
 
 
-	return render_template('results.html', title="Results", movies=movies, username=username, user=getuser(), loginsuccess = True, message=0)
+	return render_template('results.html', title="Results", movies=movies, username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
 
 @app.route("/hits", methods=['POST'])
 def hits():

@@ -1,1 +1,1 @@
-{"compras": [{"date": "11/01/18", "peliculas": [{"titulo": "The Hunger Games: Mocking Jay Part I", "precio": 12.99, "cantidad": 1}, {"titulo": "Aladdin", "precio": 15.5, "cantidad": 1}], "precio": 28.490000000000002}]}
+{"compras": [{"date": "11/01/18", "peliculas": [{"titulo": "Aladdin", "precio": 15.5, "cantidad": 1}], "precio": 15.5}, {"date": "11/01/18", "peliculas": [{"titulo": "The Hunger Games: Mocking Jay Part I", "precio": 12.99, "cantidad": 1}, {"titulo": "Aladdin", "precio": 15.5, "cantidad": 1}], "precio": 28.490000000000002}]}
