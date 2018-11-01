@@ -62,10 +62,13 @@ function validate_psw() {
 }
 
 $(document).ready(function () {
+	path = window.location.href;
+	base = path.split("wsgi");
+	path = base[0] + 'wsgi/hits'
   	setInterval (function() {
   		$.ajax({
 		  	type: "POST",
-		  	url: window.location.href + '/hits'
+		  	url: path
 		}).done(function( text ) {
        		$('#hits').html(text);
 		});
