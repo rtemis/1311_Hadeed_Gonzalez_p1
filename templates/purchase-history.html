@@ -8,18 +8,35 @@
 	<div class="cart-table">
 		<table>
 			<tr>
-				<th>Movie</th>
-				<th>Price (Ud.)</th>
-				<th>Quantity</th>
+				<th>Buys</th>
 				<th>Date of Purchase</th>
+				<th>Total Price</th>
+				
 			</tr>
-			{% for m in history.peliculas %}
+			{% for m in history.compras %}
 				<tr>
-					<td class="title"> {{ m.titulo }}</td>
-					<td class="details">{{ m.precio }}</td>
-					<td class="details">{{ m.cantidad }}</td>
-					<td class="details">{{ m.date }}</td>
+					<td id=namebuy class="principal"> <script>namebuy()</script></td>
+					<td class="principal">{{ m.date }}</td>
+					<td class="principal">{{ m.precio }}</td>
 				</tr>
+
+				<tr>
+					<th></th>
+					<th class="details">Movies</th>
+					<th class="details">Price (Ud.)</th>
+					<th class="details">Quantity</th>
+				
+				</tr>
+				{% for peli in m.peliculas %}
+					<tr>
+						<td ></td>
+						<td class="details"> {{ peli.titulo }}</td>
+						<td class="details">{{ peli.precio }}</td>
+						<td class="details">{{ peli.cantidad }}</td>
+
+
+					</tr>
+				{% endfor %}
 			{% endfor %}
 		</table>
 	</div>

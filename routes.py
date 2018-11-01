@@ -203,8 +203,8 @@ def buy_now():
 	cart=getcart()
 	contador = getcontador()
 	dinero = 0
-	historial= {}
-	historial['peliculas']= []
+	datos = {}
+	datos['compras']=[]
 	pelicula={}
 	global buysuccess
 
@@ -218,32 +218,36 @@ def buy_now():
 			parts = line.split(' : ')
 		saldo = float(parts[6])
 		if  dinero <= saldo:
+			precio = 0
+			variable = {}
+			variable['date']= time.strftime("%x")
+			variable['peliculas'] = []
 			for x in cart:
-				print x
+				
 				pelicula['titulo']=x['titulo']
 				pelicula['cantidad']=contador[x['titulo']]
 				pelicula['precio']=x['precio']
-				pelicula['date']= time.strftime("%x")
-				historial['peliculas'].append(pelicula)
+				precio += (x['precio']*contador[x['titulo']])
+				
+				variable['peliculas'].append(pelicula)
 				pelicula={}
+			
+			variable['precio'] = precio
+			datos['compras'].append(variable)
 
 			if 	os.path.isfile(os.path.join(app.root_path,'users/'+username+'/history.json')) == True:
 				with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'r') as data:
 						catalogue = {}
 						catalogue = json.load(data)
-						for x in catalogue['peliculas']:
-							pelicula['titulo']=x['titulo']
-							pelicula['cantidad']=x['cantidad']
-							pelicula['precio']=x['precio']
-							pelicula['date']=x['date']
-							historial['peliculas'].append(pelicula)
-							pelicula= {}
-
+						
+						for x in catalogue['compras']:
+							
+							datos['compras'].append(x)
 
 
 			with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'w') as j:
 
-				json.dump(historial, j)
+				json.dump(datos, j)
 
 			cleancart()
 

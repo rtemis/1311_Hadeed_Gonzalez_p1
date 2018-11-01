@@ -63,7 +63,7 @@
 						<li><a href={{ url_for('index') }}><img class="shopping" src={{ url_for('static', filename='images/home.png') }}> Home</a></li>
 					</ul>
 				{% else %}
-					<form action={{ url_for('user')}} name="login" method="post" onsubmit="return write_cookie()" name="login">
+					<form action={{ url_for('user')}} name="login" method="post" name="login">
 						Username:<br>
 						<input type="text" id="username" name="username" required>
 						<br>

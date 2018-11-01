@@ -69,16 +69,18 @@ $(document).ready(function () {
 });
 
 $(document).ready(function(){
-	$('.title').on('click', function() {
+	$('.principal').on('click', function() {
 		$('.details').toggle();
 	});
 });
 
-function write_cookie(){
-	var name = document.forms["login"]["username"].value
-	document.cookie="name=" + cookievalue;
-  document.write ("Setting Cookies : " + "name=" + cookievalue );
+var seq=0;
+function namebuy(){
+	
+	seq=seq+1;
+    document.write("Buy " + seq);
 }
+
 
 function error_login(){
 
