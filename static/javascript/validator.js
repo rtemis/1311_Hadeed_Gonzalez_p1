@@ -65,7 +65,7 @@ $(document).ready(function () {
   	setInterval (function() {
   		$.ajax({
 		  	type: "POST",
-		  	url: "/hits"
+		  	url: window.location.href + '/hits'
 		}).done(function( text ) {
        		$('#hits').html(text);
 		});
