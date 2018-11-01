@@ -390,7 +390,7 @@ def results():
 
 @app.route("/hits", methods=['POST'])
 def hits():
-	request['hits'] = random.choice(range(1,1000))
+	return str(random.choice(range(1,1000)))
 
 ########
 # Main #
