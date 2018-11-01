@@ -342,7 +342,7 @@ def user_test():
 			movies.append(random.choice(catalogue['peliculas']))
 
 	if not os.path.isdir(os.path.join(app.root_path,'users/'+username+'/')):
-		os.makedirs(os.path.join(app.root_path,'users/'+username+'/'))
+		os.makedirs(os.path.join(app.root_path,'users/'+username+'/'), 0777)
 		registry = True
 		with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w') as f:
 			f.write(name + ' : ' + username +  ' : ' + hashlib.md5(password).hexdigest() + ' : ' + dob + ' : ' + address + ' : ' + creditcard + ' : ' + str(random.randint(1,101)))
@@ -387,6 +387,10 @@ def results():
 
 
 	return render_template('results.html', title="Results", movies=movies, username=username, user=getuser(), loginsuccess = True, message=0)
+
+@app.route("/hits", methods=['POST'])
+def hits():
+	request['hits'] = random.choice(range(1,1000))
 
 ########
 # Main #

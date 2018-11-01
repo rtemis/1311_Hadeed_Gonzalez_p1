@@ -63,8 +63,13 @@ function validate_psw() {
 
 $(document).ready(function () {
   	setInterval (function() {
-	  	var text = Math.floor((Math.random() * 1000) + 1);
-       	$('#hits').html(text);
+  		$.ajax({
+		  	type: "POST",
+		  	url: "/hits",
+		  	data: { param: text}
+		}).done(function( text ) {
+       		$('#hits').html(text);
+		});
   	}, 3000);
 });
 
