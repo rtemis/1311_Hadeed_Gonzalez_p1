@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+	{{ title }}
+{% endblock %}
+
+{% block article %}
+	{% for m in catalogue.peliculas %}
+		<div class="movie-desc">
+			<a href={{ url_for('description', title=m.titulo) }} method="get">
+			<img src={{ url_for('static', filename=m.poster) }} alt={{ m.titulo }}> </a>
+			{{ m.titulo }}
+		</div>
+	{% endfor %}
+{% endblock %}
