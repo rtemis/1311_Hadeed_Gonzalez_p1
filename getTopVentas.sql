@@ -12,9 +12,10 @@ create or replace function getTopVentas(integer) returns table(
 		loop
 		exit when selyear > date_part('year', current_date);
 
-			for temp1 in (select max(sales), movietitle, prod_id, yr 
+			for temp1 in (
+				select max(sales), movietitle, prod_id, yr 
 				from ( 
-					select count(quantity) as sales, prod_id, yr
+					select sum(quantity) as sales, prod_id, yr
 					from (
 						select prod_id, orderid, quantity, date_part('year', orderdate) as yr 
 						from orders natural join orderdetail

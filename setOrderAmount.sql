@@ -1,6 +1,6 @@
-﻿drop view totals;
-drop view netamt;
-drop function setOrderAmount();
+﻿--drop view totals;
+--drop view netamt;
+--drop function setOrderAmount();
 
 create or replace function setOrderAmount() returns void as $$
 	begin
