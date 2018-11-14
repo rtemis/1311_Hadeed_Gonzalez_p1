@@ -1,45 +1,48 @@
-﻿drop function getTopVentas() cascade;
+﻿--drop function getTopVentas(integer) cascade;
 
-drop view sales cascade ;
-drop view movies cascade ;
-drop view orderyears cascade ;
-drop view results cascade ;
-create or replace function getTopVentas(integer anno) returns setof record as $$
+create or replace function getTopVentas(integer) returns table(
+	anno integer,
+	pelicula varchar,
+	ventas bigint
+) as $$
 	declare 
-		maximum bigint := 0;
+		selyear alias for $1;
 		temp1 record;
-		temp2 record;
 	begin 
-		create view sales as 
-			select prod_id, count(quantity) as ventas
-			from orderdetail
-			group by prod_id;
-			
-		create view movies as
-			select prod_id, movietitle
-			from products natural join imdb_movies
-			where products.movieid=imdb_movies.movieid;
+		loop
+		exit when selyear > date_part('year', current_date);
 
-		create view moviesales as 
-			select * 
-			from movies natural join sales;
-
-		create view orderyears as 
-			select prod_id, date_part('year',orderdate) as yr
-			from orders natural join orderdetail
-			order by yr desc;
-
-		create view results as 
-			select yr, movietitle, max(ventas)
-			from moviesales natural join orderyears
-			group by yr, movietitle, ventas
-			order by yr desc;
-
-		select * from results;
-		
-		
-		
+			for temp1 in (select max(sales), movietitle, prod_id, yr 
+				from ( 
+					select count(quantity) as sales, prod_id, yr
+					from (
+						select prod_id, orderid, quantity, date_part('year', orderdate) as yr 
+						from orders natural join orderdetail
+						where date_part('year',orderdate) = selyear
+						group by prod_id, orderid, quantity
+					) as x 
+					group by prod_id, yr
+					order by prod_id, yr
+				) as y natural join (products natural join imdb_movies)
+				group by sales, prod_id, movietitle, yr
+				order by sales desc
+				limit 1
+			) loop
+				anno := temp1.yr;
+				pelicula := temp1.movietitle;
+				ventas := temp1.max;
+				return next;
+			end loop;
+			selyear := selyear + 1;
+		end loop;
 	end;
 $$ language 'plpgsql';
 
-select getTopVentas(1970);
+select * from getTopVentas(2012);
+
+
+
+
+
+
+
