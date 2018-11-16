@@ -10,12 +10,9 @@ create or replace function setOrderAmount() returns void as $$
 			GROUP BY orderid;
 			
 		UPDATE orders
-		SET netamount = t2.total
-		FROM (
-			SELECT orderid, round(avg(total)::NUMERIC,2) as total
-			FROM netamt
-			GROUP BY netamt.orderid
-		) AS t2 WHERE orders.orderid = t2.orderid;
+		SET netamount = ROUND(netamt.total::NUMERIC,2)
+		FROM netamt
+		WHERE orders.orderid = netamt.orderid;
 
 		CREATE VIEW totals AS 
 			select orderid, sum(netamount + (netamount * (tax/100.0))) as newtotal
@@ -23,12 +20,9 @@ create or replace function setOrderAmount() returns void as $$
 			group by orderid;
 
 		UPDATE orders
-		SET totalamount = t2.newtotal 
-		FROM (
-			SELECT orderid, round(avg(newtotal)::NUMERIC,2) as newtotal
-			FROM totals
-			GROUP BY totals.orderid
-		) AS t2 WHERE orders.orderid = t2.orderid;
+		SET totalamount = ROUND(totals.newtotal::NUMERIC,2) 
+		FROM totals
+		WHERE orders.orderid = totals.orderid;
 	end;
 $$ language 'plpgsql';
 

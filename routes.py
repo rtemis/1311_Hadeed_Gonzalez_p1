@@ -5,6 +5,7 @@ import json
 import random
 import hashlib
 import datetime
+import psycopg2
 from flask import Flask, render_template, request, url_for, redirect, session
 import unicodedata
 import Cookie
@@ -27,6 +28,8 @@ try:
     print >>sys.stderr, "Usando sesiones de Flask-Session en fichero del servidor"
 except ImportError as e:
     print >>sys.stderr, "Flask-Session no disponible, usando sesiones de Flask en cookie"
+
+conn = psycopg2("host='localhost' dbname='si1' user='alumnodb' password='alumnodb'")
 
 vacio = False
 buysuccess = 0
