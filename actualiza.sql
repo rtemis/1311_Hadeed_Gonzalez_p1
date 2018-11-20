@@ -136,7 +136,7 @@ INSERT INTO auxiliar
 	FROM orderdetail 
 	GROUP BY orderid, prod_id, price;
 
-DROP TABLE orderdetail;
+DROP TABLE orderdetail cascade;
 
 ALTER TABLE auxiliar RENAME TO orderdetail;
 

@@ -14,6 +14,8 @@ create or replace function setOrderAmount() returns void as $$
 		FROM netamt
 		WHERE orders.orderid = netamt.orderid;
 
+		DROP VIEW netamt;
+		
 		CREATE VIEW totals AS 
 			select orderid, sum(netamount + (netamount * (tax/100.0))) as newtotal
 			from orders 
@@ -23,8 +25,9 @@ create or replace function setOrderAmount() returns void as $$
 		SET totalamount = ROUND(totals.newtotal::NUMERIC,2) 
 		FROM totals
 		WHERE orders.orderid = totals.orderid;
+
+		DROP VIEW totals;
 	end;
 $$ language 'plpgsql';
 
 select setOrderAmount();
-
