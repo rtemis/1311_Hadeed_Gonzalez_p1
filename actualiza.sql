@@ -1,4 +1,4 @@
---
+﻿--
 -- Name: imdb_languages; Type: TABLE; Schema: public; Owner: alumnodb; Tablespace:
 --
 
@@ -113,3 +113,33 @@ SELECT movieid, genreid FROM imdb_moviegenres, imdb_genres WHERE(imdb_genres.gen
 DROP TABLE imdb_moviegenres;
 
 ALTER TABLE auxiliar RENAME TO imdb_moviegenres;
+
+
+-- Altering tables for calculations
+
+ALTER TABLE orders ALTER tax SET DEFAULT 15;
+ALTER TABLE orders ALTER netamount SET DEFAULT 0;
+ALTER TABLE orders ALTER totalamount SET DEFAULT 0;
+
+
+-- Altering table orderdetail
+
+CREATE TABLE auxiliar (
+	orderid integer,
+	prod_id integer,
+	price numeric,
+	quantity integer
+);
+
+INSERT INTO auxiliar 
+	SELECT orderid, prod_id, price, sum(quantity) 
+	FROM orderdetail 
+	GROUP BY orderid, prod_id, price;
+
+DROP TABLE orderdetail;
+
+ALTER TABLE auxiliar RENAME TO orderdetail;
+
+ALTER TABLE orderdetail ADD PRIMARY KEY (prod_id, orderid);
+ALTER TABLE orderdetail ADD FOREIGN KEY (orderid) REFERENCES orders(orderid);
+ALTER TABLE orderdetail ADD FOREIGN KEY (prod_id) REFERENCES products(prod_id);

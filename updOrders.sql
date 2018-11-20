@@ -1,23 +1,34 @@
-﻿CREATE OR REPLACE FUNCTION updOrders(integer) RETURNS TRIGGER AS $$ 
-	DECLARE 
-		customer ALIAS FOR $1;
-		tmp record;
+﻿CREATE OR REPLACE FUNCTION f_updOrders() RETURNS TRIGGER AS $$ 
 	BEGIN
-		IF TG_OP = INSERT THEN 
-			NEW.orderdate := CURRENT_DATE;
-			NEW.customerid := customer;
-			NEW.status := "Pending";
-			NEW.tax := 15;
-			RETURN NEW;
-			SELECT setOrderAmount();
-		ELSIF TG_OP = DELETE THEN
-			OLD.
-			RETURN 
+	-- If the trigger was caused by insert
+		IF (TG_OP = 'INSERT') THEN
+		-- Updating net amount
+			UPDATE orders
+			SET netamount = ROUND((netamount + (NEW.price * NEW.quantity))::NUMERIC,2)
+			WHERE NEW.orderid = orders.orderid;
+		-- Updating total amount
+			UPDATE orders
+			SET totalamount = ROUND((netamount * (1 + tax/100.0))::NUMERIC,2)
+			WHERE NEW.orderid = orders.orderid;
+			
+	-- If the trigger was caused by delete
+		ELSIF (TG_OP = 'DELETE') THEN
+		-- Updating net amount
+			UPDATE orders
+			SET netamount = ROUND((netamount - (NEW.price * NEW.quantity))::NUMERIC,2)
+			WHERE NEW.orderid = orders.orderid;
+		-- Updating total amount
+			UPDATE orders
+			SET totalamount = ROUND((netamount * (1 + tax/100.0))::NUMERIC,2)
+			WHERE NEW.orderid = orders.orderid;
+
+		END IF; 
 			
 	END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE TRIGGER t_updOrders(integer) BEFORE INSERT, DELETE on orders
-	FOR EACH ROW EXECUTE PROCEDURE updOrders(integer);
+CREATE TRIGGER updOrders() BEFORE INSERT, DELETE on orderdetail
+	FOR EACH ROW EXECUTE PROCEDURE updOrders();
 
-INSERT into orders VALUES (693); 
+insert into orderdetail VALUES (1)
+
