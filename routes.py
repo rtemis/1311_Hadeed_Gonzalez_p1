@@ -10,6 +10,8 @@ from flask import Flask, render_template, request, url_for, redirect, session
 import unicodedata
 import Cookie
 
+import database
+
 app = Flask(__name__)
 
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -29,7 +31,7 @@ try:
 except ImportError as e:
     print >>sys.stderr, "Flask-Session no disponible, usando sesiones de Flask en cookie"
 
-conn = psycopg2("host='localhost' dbname='si1' user='alumnodb' password='alumnodb'")
+conn = psycopg2.connect("host='localhost' dbname='si1' user='alumnodb' password='alumnodb'")
 
 vacio = False
 buysuccess = 0
@@ -56,7 +58,7 @@ def getcookie():
 	else:
 		a = ""
 		return a
-	
+
 
 def getusername():
 	return session.get('username')
@@ -247,15 +249,15 @@ def buy_now():
 			variable['date']= time.strftime("%x")
 			variable['peliculas'] = []
 			for x in cart:
-				
+
 				pelicula['titulo']=x['titulo']
 				pelicula['cantidad']=contador[x['titulo']]
 				pelicula['precio']=x['precio']
 				precio += (x['precio']*contador[x['titulo']])
-				
+
 				variable['peliculas'].append(pelicula)
 				pelicula={}
-			
+
 			variable['precio'] = precio
 			datos['compras'].append(variable)
 
@@ -263,9 +265,9 @@ def buy_now():
 				with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'r') as data:
 						catalogue = {}
 						catalogue = json.load(data)
-						
+
 						for x in catalogue['compras']:
-							
+
 							datos['compras'].append(x)
 
 
@@ -361,6 +363,7 @@ def user_test():
 	dob = request.form['birthdayField']
 	registry = False
 
+
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
 		catalogue = json.load(data)
@@ -373,6 +376,7 @@ def user_test():
 		registry = True
 		with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w') as f:
 			f.write(name + ' : ' + username +  ' : ' + hashlib.md5(password).hexdigest() + ' : ' + dob + ' : ' + address + ' : ' + creditcard + ' : ' + str(random.randint(1,101)))
+
 
 	return render_template('user_test.html', registry=registry, movies=movies,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
 
