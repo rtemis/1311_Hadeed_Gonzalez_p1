@@ -1,27 +1,56 @@
 function validate_registration() {
 	var Fname = document.forms["registration"]["FnameField"].value;
-	if (!Fname.match("^[a-zA-z ]{2,}$")){
+	if (!Fname.match("^[a-zA-z ]{2,50}$")){
 		alert("Name cannot start or end with spaces, at least two letters.");
 		return false;
 	}
 
 	var Lname = document.forms["registration"]["LnameField"].value;
-	if (!Lname.match("^[a-zA-z ]{2,}$")){
+	if (!Lname.match("^[a-zA-z ]{2,50}$")){
 		alert("Last name cannot start or end with spaces, at least two letters.");
 		return false;
 	}
 
 	var address1 = document.forms["registration"]["address1Field"].value;
-	if (!address1.match("^[a-zA-Z0-9 ]{2,}$")){
+	if (!address1.match("^[a-zA-Z0-9 ]{2,50}$")){
 		alert("Address (1) cannot contain special characters.");
 		return false;
 	};
 
 	var address2 = document.forms["registration"]["address2Field"].value;
-	if (!address2.match("^[a-zA-Z0-9 ]{2,}$")){
+	if (!address2.match("^[a-zA-Z0-9 ]{0,50}$")){
 		alert("Address (2) cannot contain special characters.");
 		return false;
 	};
+
+	var city = document.forms["registration"]["cityField"].value;
+	if (!city.match("^[a-zA-z ]{2,50}$")){
+		alert("City cannot start or end with spaces, at least two letters.");
+		return false;
+	}
+	var state = document.forms["registration"]["stateField"].value;
+	if (!state.match("^[a-zA-z ]{0,50}$")){
+		alert("State cannot start or end with spaces.");
+		return false;
+	}
+
+	var country = document.forms["registration"]["countryField"].value;
+	if (!country.match("^[a-zA-z ]{2,50}$")){
+		alert("Country cannot start or end with spaces, at least two letters.");
+		return false;
+	}
+
+	var region = document.forms["registration"]["cregionField"].value;
+	if (!region.match("^[a-zA-z ]{0,50}$")){
+		alert("Region cannot start or end with spaces, at least two letters, maximum six.");
+		return false;
+	}
+
+	var zip = document.forms["registration"]["zipField"].value;
+	if (!zip.match("[0-9]{5,9}$")){
+		alert("Zip are only numbers, at least five, maximum nine.");
+		return false;
+	}
 
 	var username = document.forms["registration"]["usernameField"].value;
 	if (!username.match("^[a-zA-Z0-9_]{3,20}$")){
@@ -44,6 +73,27 @@ function validate_registration() {
 	var card = document.forms["registration"]["creditcardField"].value;
 	if (!card.match("[0-9]{16}")){
 		alert("Credit Card must contain 16 digits.");
+		return false;
+	}
+	var cardtype = document.forms["registration"]["creditcardtypeField"].value;
+	if (!cardtype.match("^[a-zA-z ]{2,6}$")){
+		alert("Card type cannot start or end with spaces, at least two letters.");
+		return false;
+	}
+	var exMonth=document.getElementById("exMonth");
+	var exYear=document.getElementById("exYear");
+	var today = new Date();
+	var someday = new Date();
+	someday.setFullYear(exYear, exMonth, 1);
+	if (someday < today) {
+   alert("The expiry date is before today's date. Please select a valid expiry date");
+   return false;
+	}
+
+
+	var phone = document.forms["registration"]["phoneField"].value;
+	if (!phone.match("[0-9]{9,12}")){
+		alert("Number is only digits, at leats nine, maximun twelve.");
 		return false;
 	}
 
