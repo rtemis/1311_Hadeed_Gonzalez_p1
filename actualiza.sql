@@ -143,3 +143,11 @@ ALTER TABLE auxiliar RENAME TO orderdetail;
 ALTER TABLE orderdetail ADD PRIMARY KEY (prod_id, orderid);
 ALTER TABLE orderdetail ADD FOREIGN KEY (orderid) REFERENCES orders(orderid);
 ALTER TABLE orderdetail ADD FOREIGN KEY (prod_id) REFERENCES products(prod_id);
+
+-- Creating alert table for inventory
+
+CREATE TABLE alerts (
+	alertid SERIAL PRIMARY KEY,
+	prod_id INTEGER,
+	stock INTEGER
+);
