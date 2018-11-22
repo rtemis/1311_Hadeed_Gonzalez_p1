@@ -31,12 +31,10 @@ try:
 except ImportError as e:
     print >>sys.stderr, "Flask-Session no disponible, usando sesiones de Flask en cookie"
 
-conn = psycopg2.connect("host='localhost' dbname='si1' user='alumnodb' password='alumnodb'")
 
 vacio = False
 buysuccess = 0
 cookiexists = False
-
 
 ###############################
 # Funciones de session - user #
@@ -109,47 +107,46 @@ def getcontador():
 #########
 @app.route("/")
 def index():
-	global buysuccess
-	message = 0
-	c = ""
-	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
-		catalogue = {}
-		catalogue = json.load(data)
-	username = str(getusername())
+    global buysuccess
+    message = 0
+    c = ""
+    anno = 2015
+    global topVentas
+    topVentas  = database.db_getTopVentas(anno)
+    with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
+        catalogue = {}
+        catalogue = json.load(data)
+        username = str(getusername())
 
-	if buysuccess == 1:
-		message = 1
-	elif buysuccess == 2:
-		message = 2
+    if buysuccess == 1:
+        message = 1
+    elif buysuccess == 2:
+        message = 2
 
-	c = getcookie()
+    c = getcookie()
 
 
-	buysuccess = 0
-	return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = True, message=message, cookie = c)
+    buysuccess = 0
+    return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = True, message=message, cookie = c, topVentas=topVentas)
 
 ######################
 # Paginas de Session #
 ######################
 @app.route("/~", methods=['POST', 'GET'])
 def user():
-	c = getcookie()
-	loginsuccess = False
-	username = request.form['username']
-	password = request.form['password']
-	if  os.path.isdir(os.path.join(app.root_path,'users/'+username+'/')):
-		for line in open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r'):
-			parts = line.split(' : ')
-			if hashlib.md5(password).hexdigest() == parts[2] :
-				setusername(username)
-				loginsuccess = True
+    c = getcookie()
+    loginsuccess = False
+    username = request.form['username']
+    password = request.form['password']
 
+    if database.db_login(username, password) == True:
+        setusername(username)
+        loginsuccess = True
 
-
-	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
-			catalogue = {}
-			catalogue = json.load(data)
-	return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = loginsuccess,  message=0, cookie=c)
+    with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
+        catalogue = {}
+        catalogue = json.load(data)
+    return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = loginsuccess,  message=0, cookie=c, topVentas=topVentas)
 
 @app.route("/*")
 def logout():
@@ -175,7 +172,7 @@ def description(title):
 				movie = x
 
 	username = str(getusername())
-	return render_template('description.html', title=title, m=movie,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
+	return render_template('description.html', title=title, m=movie,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c, topVentas=topVentas)
 
 #####################
 # Paginas de Compra #
@@ -196,7 +193,7 @@ def cart():
 		movies = []
 		for i in range(0,5):
 			movies.append(random.choice(catalogue['peliculas']))
-	return render_template('cart.html', title="Cart", username=username, user=getuser(), cart=cart, leng=leng, movies=movies, contador=contador, loginsuccess = True, message=0, cookie=c)
+	return render_template('cart.html', title="Cart", username=username, user=getuser(), cart=cart, leng=leng, movies=movies, contador=contador, loginsuccess = True, message=0, cookie=c, topVentas=topVentas)
 
 @app.route("/add_to_cart", methods=['POST','GET'])
 def add_to_cart():
@@ -321,7 +318,7 @@ def history():
 			parts = line.split(' : ')
 			saldo=parts[6]
 
-	return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser(), history=history, existe=existe, movies=movies, loginsuccess = True, message=0, saldo = saldo, cookie=c)
+	return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser(), history=history, existe=existe, movies=movies, loginsuccess = True, message=0, saldo = saldo, cookie=c, topVentas=topVentas)
 
 #######################
 # Incrementar Saldo #
@@ -353,32 +350,41 @@ def register():
 
 @app.route("/new_user", methods=['POST'])
 def user_test():
-	c = getcookie()
-	name = request.form['nameField']
-	username = request.form['usernameField']
-	password = request.form['passwordField']
-	email = request.form['emailField']
-	creditcard = request.form['creditcardField']
-	address = request.form['addressField']
-	dob = request.form['birthdayField']
-	registry = False
+    c = getcookie()
+    Fname = request.form['FnameField']
+    Lname = request.form['LnameField']
+    address1 = request.form['address1Field']
+    address2 = request.form['address2Field']
+    city = request.form['cityField']
+    state = request.form['stateField']
+    country = request.form['countryField']
+    region = request.form['regionField']
+    zip = request.form['zipField']
+    username = request.form['usernameField']
+    password = request.form['passwordField']
+    email = request.form['emailField']
+    phone = request.form['phoneField']
+    creditcard = request.form['creditcardField']
+    creditcardtype = request.form['creditcardtypeField']
+    creditcardexp = request.form['creditcardexpField']
+    dob = request.form['birthdayField']
 
-
+    registry = False
+    password = hashlib.md5(password).hexdigest()
+    if database.db_register(Fname, Lname, address1,address2, city, state, country, region, zip, email, phone, creditcard, creditcardtype, creditcardexp, username, password) == True:
+        registry = True
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
 		catalogue = json.load(data)
 		movies = []
 		for i in range(0,5):
 			movies.append(random.choice(catalogue['peliculas']))
-
+    #De momento dejamos esta linea para que el hisotrial no explote
 	if not os.path.isdir(os.path.join(app.root_path,'users/'+username+'/')):
 		os.makedirs(os.path.join(app.root_path,'users/'+username+'/'), 0777)
-		registry = True
-		with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w') as f:
-			f.write(name + ' : ' + username +  ' : ' + hashlib.md5(password).hexdigest() + ' : ' + dob + ' : ' + address + ' : ' + creditcard + ' : ' + str(random.randint(1,101)))
 
 
-	return render_template('user_test.html', registry=registry, movies=movies,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
+	return render_template('user_test.html', registry=registry, movies=movies,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c, topVentas=topVentas)
 
 #########################
 # Busqueda de Peliculas #

@@ -1,13 +1,25 @@
 function validate_registration() {
-	var name = document.forms["registration"]["nameField"].value;
-	if (!name.match("^[a-zA-z ]{2,}$")){
+	var Fname = document.forms["registration"]["FnameField"].value;
+	if (!Fname.match("^[a-zA-z ]{2,}$")){
 		alert("Name cannot start or end with spaces, at least two letters.");
 		return false;
 	}
 
-	var address = document.forms["registration"]["addressField"].value;
-	if (!address.match("^[a-zA-Z0-9 ]{2,}$")){
-		alert("Address cannot contain special characters.");
+	var Lname = document.forms["registration"]["LnameField"].value;
+	if (!Lname.match("^[a-zA-z ]{2,}$")){
+		alert("Last name cannot start or end with spaces, at least two letters.");
+		return false;
+	}
+
+	var address1 = document.forms["registration"]["address1Field"].value;
+	if (!address1.match("^[a-zA-Z0-9 ]{2,}$")){
+		alert("Address (1) cannot contain special characters.");
+		return false;
+	};
+
+	var address2 = document.forms["registration"]["address2Field"].value;
+	if (!address2.match("^[a-zA-Z0-9 ]{2,}$")){
+		alert("Address (2) cannot contain special characters.");
 		return false;
 	};
 
@@ -83,7 +95,7 @@ $(document).ready(function(){
 
 var seq=0;
 function namebuy(){
-	
+
 	seq=seq+1;
     document.write("Buy " + seq);
 }

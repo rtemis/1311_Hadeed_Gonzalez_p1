@@ -8,14 +8,25 @@
 	<h3>Personal information</h3><br>
 	<div class = "register">
 		<form action={{ url_for('user_test') }} method="post" onsubmit="return validate_registration()" name="registration">
-			<p>Name: <input type="text" name="nameField" id="nameField" required><br>
-			<p>Address: <input type="text" name="addressField" id="addressField" required><br>
-			<p>Birth Date: <input type="date" name="birthdayField" id="birthdayField" required><br>
+			<p>First Name: <input type="text" name="FnameField" id="FnameField" required>
+			Last Name: <input type="text" name="LnameField" id="LnameField" required><br>
+			<p>Address1: <input type="text" name="address1Field" id="address1Field" required>
+			Address2: <input type="text" name="address2Field" id="address2Field"><br>
+			<p>City: <input type="text" name="cityField" id="cityField" required>
+			State: <input type="text" name="stateField" id="stateField" ><br>
+			<p>Country: <input type="text" name="countryField" id="countryField" required>
+			Region: <input type="text" name="regionField" id="regionField" required><br>
+			<p>Zip: <input type="text" name="zipField" id="zipField" >
+			Birth Date: <input type="date" name="birthdayField" id="birthdayField" required><br>
+			<p>Email: <input type="text" name="emailField" id="emailField" required>
+			Phone: <input type="text" name="phoneField" id="phoneField" ><br>
+			<p>Credit Card Type: <input type="text" name="creditcardtypeField" id="creditcardtypeField" required>
+			Credit Card: <input type="text" name="creditcardField" id="creditcardField" required><br>
+			<p>Credit Card Expiration: <input type="text" name="creditcardexpField" id="creditcardexpField" required><br>
 			<p>Username: <input type="text" name="usernameField" id="usernameField" required><br>
-			<p>Email: <input type="text" name="emailField" id="emailField" required><br>
 			<p>Password: <input type="password" onkeydown="return validate_psw()" id="passwordField" name="passwordField" required><br>
 			<meter value="0" min="0" max="4" id="strengthbar"></meter>
-			<p>Credit Card: <input type="text" name="creditcardField" id="creditcardField" required><br>
+
 			<p><input type="submit" value="Finish">
 		</form>
 	</div>
