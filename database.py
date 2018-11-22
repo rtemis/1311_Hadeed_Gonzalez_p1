@@ -31,7 +31,7 @@ def db_register(Fname, Lname, address1,address2, city, state, country, region, z
             cur.execute("select max(customerid) from customers")
             id += cur.fetchone()[0]
 
-            cur.execute("INSERT INTO customers(customerid, firstname, lastname,address1, city, state, country, region, email, creditcard,creditcardtype, creditcardexpiration, username, password )VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (id, Fname, Lname, address1, city, state, country, region, email, creditcard, creditcardtype, creditcardexp, username, password,))
+            cur.execute("INSERT INTO customers(customerid, firstname, lastname,address1, address2,city, state, country, region, zip, email, phone, creditcard,creditcardtype, creditcardexpiration, username, password )VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (id, Fname, Lname, address1, address2, city, state, country, region, zip, email, phone,creditcard, creditcardtype, creditcardexp, username, password,))
             conn.commit()
             print '***********Query register success***********'
             return True

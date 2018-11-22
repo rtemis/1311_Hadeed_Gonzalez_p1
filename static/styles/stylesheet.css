@@ -24,14 +24,14 @@ header {
 
 	header img {
 		width: 50px;
-		height: 50px;	
+		height: 50px;
 		border-radius: 15px;
 	}
 
 section {
 	position: static;
 }
-	
+
 footer {
     background-color: #8B2635;
     background-image: linear-gradient(#8B2635,rgb(0,10,90));
@@ -88,6 +88,18 @@ table {
 		font: 40px Helvetica;
 	}
 
+  .article .topventas{
+    padding: : 25px;
+    margin-bottom: 10px;
+  }
+
+
+  .article .topventas:after {
+      content: "";
+      display: table;
+      clear: both;
+  }
+
 .cart-table {
 	height: 80%;
 	width: 100%;
@@ -98,9 +110,9 @@ table {
 	.cart-table table tr {
 
 		color: black ;
-	
+
 }
-	
+
 	.cart-table td{
 	width: 24%;
 }
@@ -124,7 +136,7 @@ table {
 	.contact-form textarea {
 		resize: none;
 		width: 80%;
-		height: 200px;	
+		height: 200px;
 	}
 
 .info img {
@@ -151,7 +163,7 @@ table {
 		display: inline-block;
 		float: right;
 	}
-	
+
 	.mini-nav-bar input[type=text] {
 		padding: 5px;
 		font: 15px Helvetica;
@@ -167,7 +179,7 @@ table {
 		margin: 30px;
 		float: left;
 		width: 30%;
-	}	
+	}
 
 .movie-desc {
 	float: left;
@@ -186,19 +198,19 @@ table {
 		height: 150px;
 		border-radius: 15px;
 	}
-	
+
 	.movie-desc:hover {
 		width: 130px;
 		height: 210px;
 		color: #F2F0F0;
-		
+
 	}
 
 	.movie-desc:hover img{
 		width: 140px;
 		height: 230px;
-	}		
-	
+	}
+
 .nav {
 	background: #4F000B;
 	float: left;
@@ -225,7 +237,7 @@ table {
 	.nav ul a:hover{
 		color: #A40E4C;
 	}
-	
+
 .register form {
 	color: #4F000B;
 }
@@ -234,6 +246,8 @@ table {
     content: "";
     display: table;
     clear: both;
+}
+
 }
 
 meter {
@@ -271,4 +285,3 @@ meter[value="4"]::-moz-meter-bar { background: green; }
   .article{
 	width:calc(100% - 200px);
   }
-}

@@ -1,10 +1,29 @@
 {% extends 'base.html' %}
 
-{% block title %} 
+{% block title %}
 	{{ title }}
 {% endblock %}
 
 {% block article %}
+<h3>TOP SALES FROM {{anno}}</h3>
+<div class=topventas>
+	<table>
+		<tr>
+			<th>Year</th>
+			<th>Movie</th>
+			<th>Sales</th>
+		</tr>
+	{% for ventas in topVentas %}
+	<tr>
+		<td>{{ventas[0]}}</td>
+		<td>{{ ventas[1] }}</td>
+		<td>{{ventas[2]}}</td>
+	</tr>
+	{% endfor %}
+</table>
+</div>
+<h3>BILLBOARD</h3>
+<div class=movies>
 	{% for m in catalogue.peliculas %}
 		<div class="movie-desc">
 			<a href={{ url_for('description', title=m.titulo) }} method="get">
@@ -12,4 +31,5 @@
 			{{ m.titulo }}
 		</div>
 	{% endfor %}
+</div>
 {% endblock %}

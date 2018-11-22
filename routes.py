@@ -110,7 +110,8 @@ def index():
     global buysuccess
     message = 0
     c = ""
-    anno = 2015
+    global anno
+    anno = datetime.date.today().year-3
     global topVentas
     topVentas  = database.db_getTopVentas(anno)
     with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
@@ -127,7 +128,7 @@ def index():
 
 
     buysuccess = 0
-    return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = True, message=message, cookie = c, topVentas=topVentas)
+    return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = True, message=message, cookie = c, topVentas=topVentas, anno=anno)
 
 ######################
 # Paginas de Session #
@@ -146,7 +147,7 @@ def user():
     with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
         catalogue = {}
         catalogue = json.load(data)
-    return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = loginsuccess,  message=0, cookie=c, topVentas=topVentas)
+    return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = loginsuccess,  message=0, cookie=c, topVentas=topVentas, anno=anno)
 
 @app.route("/*")
 def logout():
@@ -172,7 +173,7 @@ def description(title):
 				movie = x
 
 	username = str(getusername())
-	return render_template('description.html', title=title, m=movie,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c, topVentas=topVentas)
+	return render_template('description.html', title=title, m=movie,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
 
 #####################
 # Paginas de Compra #
@@ -193,7 +194,7 @@ def cart():
 		movies = []
 		for i in range(0,5):
 			movies.append(random.choice(catalogue['peliculas']))
-	return render_template('cart.html', title="Cart", username=username, user=getuser(), cart=cart, leng=leng, movies=movies, contador=contador, loginsuccess = True, message=0, cookie=c, topVentas=topVentas)
+	return render_template('cart.html', title="Cart", username=username, user=getuser(), cart=cart, leng=leng, movies=movies, contador=contador, loginsuccess = True, message=0, cookie=c)
 
 @app.route("/add_to_cart", methods=['POST','GET'])
 def add_to_cart():
@@ -318,7 +319,7 @@ def history():
 			parts = line.split(' : ')
 			saldo=parts[6]
 
-	return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser(), history=history, existe=existe, movies=movies, loginsuccess = True, message=0, saldo = saldo, cookie=c, topVentas=topVentas)
+	return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser(), history=history, existe=existe, movies=movies, loginsuccess = True, message=0, saldo = saldo, cookie=c)
 
 #######################
 # Incrementar Saldo #
@@ -366,8 +367,8 @@ def user_test():
     phone = request.form['phoneField']
     creditcard = request.form['creditcardField']
     creditcardtype = request.form['creditcardtypeField']
-    creditcardexp = request.form['creditcardexpField']
-    dob = request.form['birthdayField']
+    #creditcardexp = request.form['creditcardexpField']
+    creditcardexp = "2/20"
 
     registry = False
     password = hashlib.md5(password).hexdigest()
@@ -383,8 +384,7 @@ def user_test():
 	if not os.path.isdir(os.path.join(app.root_path,'users/'+username+'/')):
 		os.makedirs(os.path.join(app.root_path,'users/'+username+'/'), 0777)
 
-
-	return render_template('user_test.html', registry=registry, movies=movies,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c, topVentas=topVentas)
+	return render_template('user_test.html', registry=registry, movies=movies,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
 
 #########################
 # Busqueda de Peliculas #
