@@ -10,6 +10,11 @@ function validate_registration() {
 		alert("Last name cannot start or end with spaces, at least two letters.");
 		return false;
 	}
+	var age = document.forms["registration"]["ageField"].value;
+	if (!age.match("[0-9]{0,2}")){
+		alert("Age are only numbers.");
+		return false;
+	}
 
 	var address1 = document.forms["registration"]["address1Field"].value;
 	if (!address1.match("^[a-zA-Z0-9 ]{2,50}$")){
@@ -40,17 +45,18 @@ function validate_registration() {
 		return false;
 	}
 
-	var region = document.forms["registration"]["cregionField"].value;
+	var region = document.forms["registration"]["regionField"].value;
 	if (!region.match("^[a-zA-z ]{0,50}$")){
 		alert("Region cannot start or end with spaces, at least two letters, maximum six.");
 		return false;
 	}
 
 	var zip = document.forms["registration"]["zipField"].value;
-	if (!zip.match("[0-9]{5,9}$")){
+	if (!zip.match("[0-9]{5,9}")){
 		alert("Zip are only numbers, at least five, maximum nine.");
 		return false;
 	}
+
 
 	var username = document.forms["registration"]["usernameField"].value;
 	if (!username.match("^[a-zA-Z0-9_]{3,20}$")){

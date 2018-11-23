@@ -19,7 +19,7 @@
 			Region: <input type="text" name="regionField" id="regionField" required><br>
 			<p>Zip: <input type="text" name="zipField" id="zipField" ><br>
 			<p>Gender:&emsp;
-				<input type="radio" name="gender" value="male"> Male
+				<input type="radio" name="gender" value="male" checked> Male
  				<input type="radio" name="gender" value="female"> Female
  				<input type="radio" name="gender" value="other"> Other
 
@@ -29,7 +29,7 @@
 			Credit Card: <input type="text" name="creditcardField" id="creditcardField" required><br>
 			<p>Credit Card Expiration:
 				<select id="exMonth" name="exMonth" title="Month" required>
-			    <option value="01">January</option>
+			    <option value="01" selected>January</option>
 			    <option value="02">February</option>
 			    <option value="03">March</option>
 			    <option value="04">April</option>
@@ -43,8 +43,8 @@
 			    <option value="12">December</option>
 			</select>
 
-			<select id="exYear" nsame="exYear" title="Year" required>
-			    <option value="2018">2018</option>
+			<select id="exYear" name='exYear' title="Year" required>
+			    <option value="2018selected">2018</option >
 			    <option value="2019">2019</option>
 			    <option value="2020">2020</option>
 			    <option value="2021">2021</option>
@@ -58,7 +58,8 @@
 			    <option value="2029">2029</option>
 			    <option value="2030">2030</option>
 			    <option value="2031">2031</option>
-			</select><br>
+			</select>
+			<br>
 
 			<p>Username: <input type="text" name="usernameField" id="usernameField" required><br>
 			<p>Password: <input type="password" onkeydown="return validate_psw()" id="passwordField" name="passwordField" required><br>

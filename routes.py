@@ -35,6 +35,7 @@ except ImportError as e:
 vacio = False
 buysuccess = 0
 cookiexists = False
+anno = 0
 
 ###############################
 # Funciones de session - user #
@@ -111,7 +112,7 @@ def index():
     message = 0
     c = ""
     global anno
-    anno = datetime.date.today().year-3
+    anno = datetime.date.today().year-2
     global topVentas
     topVentas  = database.db_getTopVentas(anno)
     with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
@@ -139,10 +140,16 @@ def user():
     loginsuccess = False
     username = request.form['username']
     password = request.form['password']
+    global anno
+    global topVentas
+    topVentas  = database.db_getTopVentas(anno)
 
     if database.db_login(username, password) == True:
         setusername(username)
         loginsuccess = True
+    else:
+        loginsuccess = False
+
 
     with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
         catalogue = {}
@@ -354,6 +361,7 @@ def user_test():
     c = getcookie()
     Fname = request.form['FnameField']
     Lname = request.form['LnameField']
+    age = request.form['ageField']
     address1 = request.form['address1Field']
     address2 = request.form['address2Field']
     city = request.form['cityField']
@@ -361,19 +369,29 @@ def user_test():
     country = request.form['countryField']
     region = request.form['regionField']
     zip = request.form['zipField']
+    gender = request.form['gender']
+    if gender == 'male':
+        gender = 'M'
+    elif gender == 'female':
+        gender = 'F'
+    else:
+        gender = 'O'
     username = request.form['usernameField']
     password = request.form['passwordField']
     email = request.form['emailField']
     phone = request.form['phoneField']
     creditcard = request.form['creditcardField']
     creditcardtype = request.form['creditcardtypeField']
-    #creditcardexp = request.form['creditcardexpField']
-    creditcardexp = "2/20"
+    exMonth = request.form['exMonth']
+    exYear = request.form['exYear']
+    creditcardexp = str(exMonth)+'/'+str(exYear)
 
     registry = False
     password = hashlib.md5(password).hexdigest()
-    if database.db_register(Fname, Lname, address1,address2, city, state, country, region, zip, email, phone, creditcard, creditcardtype, creditcardexp, username, password) == True:
+    if database.db_register(Fname, Lname, age, address1,address2, city, state, country, region, zip, gender, email, phone, creditcard, creditcardtype, creditcardexp, username, password) == True:
         registry = True
+    else:
+        registry = False
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
 		catalogue = json.load(data)

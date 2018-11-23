@@ -2,6 +2,7 @@
 import psycopg2
 import os
 import hashlib
+import random
 
 try:
     conn = psycopg2.connect("dbname='si1' user='alumnodb' host='localhost' password='alumnodb'")
@@ -19,27 +20,34 @@ def db_getTopVentas(anno):
     return resul
 
 
-def db_register(Fname, Lname, address1,address2, city, state, country, region, zip, email, phone, creditcard, creditcardtype, creditcardexp, username, password):
-    #NO ESTAN TODOS LOS CAMPOS PERO INSERTA
+def db_register(Fname, Lname, age, address1,address2, city, state, country, region, zip, gender, email, phone, creditcard, creditcardtype, creditcardexp, username, password):
 
     cur = conn.cursor()
     try:
         cur.execute("select * from customers where username=%s", (username,))
         row = cur.fetchone()
         if row == None:
+            if age == '':
+                age=0
+            #elif age not Integer:
+            #    age = 0
+            else:
+                int(age)
             id=1
             cur.execute("select max(customerid) from customers")
             id += cur.fetchone()[0]
-
-            cur.execute("INSERT INTO customers(customerid, firstname, lastname,address1, address2,city, state, country, region, zip, email, phone, creditcard,creditcardtype, creditcardexpiration, username, password )VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (id, Fname, Lname, address1, address2, city, state, country, region, zip, email, phone,creditcard, creditcardtype, creditcardexp, username, password,))
+            income = random.randint(0,100)
+            cur.execute("INSERT INTO customers(customerid, firstname, lastname, age, address1, address2,city, state, country, region, zip, gender, email, phone, creditcard,creditcardtype, creditcardexpiration, username, password, income)VALUES(%s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (id, Fname, Lname, age,address1, address2, city, state, country, region, zip, gender, email, phone,creditcard, creditcardtype, creditcardexp, username, password,income,))
             conn.commit()
             print '***********Query register success***********'
             return True
         else:
+            print '***********Query register failed, username already exists***********'
             return False
     except(Exception, psycopg2.DatabaseError)as error:
         print '************Something is broken on register*****************'
         print(error)
+        return False
 
 
 def db_login(username, password):
@@ -63,3 +71,4 @@ def db_login(username, password):
     except(Exception, psycopg2.DatabaseError)as error:
         print '************Something is broken on login*****************'
         print(error)
+        return False
