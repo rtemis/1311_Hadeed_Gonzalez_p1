@@ -1,4 +1,12 @@
-﻿--
+﻿-- Creating foreign keys
+--
+
+ALTER TABLE imdb_actormovies ADD FOREIGN KEY (actorid) REFERENCES imdb_actors(actorid);
+ALTER TABLE imdb_actormovies ADD FOREIGN KEY (movieid) REFERENCES imdb_movies(movieid);
+ALTER TABLE imdb_directormovies ADD FOREIGN KEY (directorid) REFERENCES imdb_directors(directorid);
+ALTER TABLE imdb_directormovies ADD FOREIGN KEY (movieid) REFERENCES imdb_movies(movieid);
+
+--
 -- Name: imdb_languages; Type: TABLE; Schema: public; Owner: alumnodb; Tablespace:
 --
 
@@ -61,8 +69,8 @@ ORDER BY
 --Cambiando imdb_moviecountries
 
 	CREATE TABLE auxiliar (
-		countryid integer,
-		movieid integer
+		countryid INTEGER REFERENCES imdb_countries(countryid),
+		movieid INTEGER REFERENCES imdb_movies(movieid)
 	);
 
 
@@ -77,8 +85,8 @@ ORDER BY
 --Cambiando imdb_movielanguages
 
 	CREATE TABLE auxiliar (
-		languageid integer,
-		movieid integer,
+		languageid INTEGER REFERENCES imdb_languages(languageid),
+		movieid INTEGER REFERENCES imdb_movies(movieid),
 		extrainformation char varying(128)
 	);
 
@@ -100,8 +108,8 @@ ALTER TABLE auxiliar RENAME TO imdb_movielanguages;
 --Cambiando imdb_moviegenres
 
 CREATE TABLE auxiliar (
-	genreid integer,
-	movieid integer
+	genreid INTEGER REFERENCES imdb_genres(genreid),
+	movieid INTEGER REFERENCES imdb_movies(movieid)
 );
 
 
@@ -148,6 +156,10 @@ ALTER TABLE orderdetail ADD FOREIGN KEY (prod_id) REFERENCES products(prod_id);
 
 CREATE TABLE alerts (
 	alertid SERIAL PRIMARY KEY,
-	prod_id INTEGER,
-	stock INTEGER
+	prod_id INTEGER REFERENCES inventory(prod_id),
+	alert_date DATE DEFAULT CURRENT_DATE,
+	resolved BOOLEAN DEFAULT 'NO'
 );
+
+SELECT setval('customers_customerid_seq', 1+(SELECT MAX(customerid) FROM customers), true);
+SELECT setval('orders_orderid_seq', 1+(SELECT MAX(orderid) FROM orders), true);

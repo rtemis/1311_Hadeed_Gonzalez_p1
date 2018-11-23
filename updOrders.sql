@@ -3,7 +3,7 @@
 		subtotal NUMERIC(7,2);
 
 	BEGIN
-		
+
 	-- If the trigger was caused by insert
 		IF (TG_OP = 'INSERT') THEN
 			
@@ -63,20 +63,5 @@
 	END;
 $$ LANGUAGE 'plpgsql';
 
---DROP TRIGGER updOrders on orderdetail
 CREATE TRIGGER updOrders BEFORE INSERT OR DELETE OR UPDATE on orderdetail
 	FOR EACH ROW EXECUTE PROCEDURE f_updOrders();
-
---insert into orders (orderid, orderdate, customerid, status) values (181791, current_date, 30, NULL);
---insert into orderdetail (orderid, prod_id, quantity) values (181791,7,9);
---select * from orderdetail natural join orders where orderid = 181791;
-
---insert into orderdetail (orderid, prod_id, quantity) values (181791,6,9);
---select * from orderdetail natural join orders where orderid = 181791;
-
---update orderdetail set quantity=quantity-8 where prod_id=6 and orderid=181791;
---select * from orderdetail natural join orders where orderid = 181791;
-
---delete from orderdetail where orderid=181791;
---select * from orderdetail natural join orders where orderid = 181791;
---delete from orders where orderid=181791;

@@ -16,11 +16,7 @@
 			) AS T1
 			WHERE inventory.prod_id = T1.prod_id;
 
-		--	FOR temp1 IN (SELECT * FROM inventory) LOOP
-			--	IF (temp1.stock < 1) THEN
-				--	INSERT INTO alerts (prod_id, stock) VALUES (temp1.prod_id, temp1.stock);
-		--		END IF;
-			--END LOOP;
+			INSERT INTO alerts (prod_id) VALUES ((select prod_id from inventory where stock < 1));
 		END IF;
 
 		RETURN OLD;
@@ -31,21 +27,22 @@ CREATE TRIGGER updInventory AFTER UPDATE ON orders
 	FOR EACH ROW EXECUTE PROCEDURE f_updInventory();
 
 
---insert into orders (orderid, orderdate, customerid) values (181791, current_date, 30);
---insert into orderdetail (orderid, prod_id, quantity) values (181791,7,9);
---select * from orderdetail natural join orders where orderid = 181791;
+insert into orders (orderdate, customerid, status) values (current_date, 30, NULL);
+insert into orderdetail (orderid, prod_id, quantity) values (181791,7,9);
+select * from orderdetail natural join orders where customerid = 30;
 
---select * from alerts
+select max(orderid) from orders
+select * from alerts
 
 --insert into orderdetail (orderid, prod_id, quantity) values (181791,6,9);
---select * from orderdetail natural join orders where orderid = 181791;
+select * from orderdetail natural join orders where orderid = 181791;
 
 --update orderdetail set quantity=quantity-8 where prod_id=6 and orderid=181791;
 --select * from orderdetail natural join orders where orderid = 181791;
 
---delete from orderdetail where orderid=181791;
---select * from orderdetail natural join orders where orderid = 181791;
---delete from orders where orderid=181791;
+delete from orderdetail where orderid=181791;
+select * from orderdetail natural join orders where orderid = 181791;
+delete from orders where orderid=181791;
 
 
---update orders set status = 'Paid' where orderid = 181791;
+update orders set status = 'Paid' where orderid = 181791;
