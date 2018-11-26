@@ -115,10 +115,10 @@ def index():
     anno = datetime.date.today().year-2
     global topVentas
     topVentas  = database.db_getTopVentas(anno)
+
     with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
         catalogue = {}
         catalogue = json.load(data)
-        username = str(getusername())
 
     if buysuccess == 1:
         message = 1
@@ -126,7 +126,8 @@ def index():
         message = 2
 
     c = getcookie()
-
+    username = str(getusername())
+    #catalogue = database.db_catalogue()
 
     buysuccess = 0
     return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = True, message=message, cookie = c, topVentas=topVentas, anno=anno)
@@ -137,18 +138,16 @@ def index():
 @app.route("/~", methods=['POST', 'GET'])
 def user():
     c = getcookie()
-    loginsuccess = False
     username = request.form['username']
     password = request.form['password']
     global anno
     global topVentas
     topVentas  = database.db_getTopVentas(anno)
 
-    if database.db_login(username, password) == True:
+    loginsuccess = database.db_login(username, password)
+
+    if loginsuccess == True:
         setusername(username)
-        loginsuccess = True
-    else:
-        loginsuccess = False
 
 
     with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
@@ -284,12 +283,6 @@ def buy_now():
 
 			buysuccess = 1
 
-			with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r') as f:
-				parts = line.split(' : ')
-				parts[6] = str(saldo-dinero)
-
-			with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w') as f:
-				f.write(parts[0] + ' : ' + parts[1] +  ' : ' + parts[2] + ' : ' + parts[3] + ' : ' +parts[4] + ' : ' + parts[5] + ' : ' + parts[6])
 
 		else:
 			buysuccess = 2
@@ -321,10 +314,7 @@ def history():
 		for i in range(0,5):
 			movies.append(random.choice(catalogue['peliculas']))
 
-	with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r') as f:
-		for line in f:
-			parts = line.split(' : ')
-			saldo=parts[6]
+		saldo=20
 
 	return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser(), history=history, existe=existe, movies=movies, loginsuccess = True, message=0, saldo = saldo, cookie=c)
 
@@ -388,21 +378,19 @@ def user_test():
 
     registry = False
     password = hashlib.md5(password).hexdigest()
-    if database.db_register(Fname, Lname, age, address1,address2, city, state, country, region, zip, gender, email, phone, creditcard, creditcardtype, creditcardexp, username, password) == True:
-        registry = True
-    else:
-        registry = False
-	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
-		catalogue = {}
-		catalogue = json.load(data)
-		movies = []
-		for i in range(0,5):
-			movies.append(random.choice(catalogue['peliculas']))
-    #De momento dejamos esta linea para que el hisotrial no explote
-	if not os.path.isdir(os.path.join(app.root_path,'users/'+username+'/')):
-		os.makedirs(os.path.join(app.root_path,'users/'+username+'/'), 0777)
+    registry = database.db_register(Fname, Lname, age, address1,address2, city, state, country, region, zip, gender, email, phone, creditcard, creditcardtype, creditcardexp, username, password)
 
-	return render_template('user_test.html', registry=registry, movies=movies,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
+    with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
+        catalogue = {}
+        catalogue = json.load(data)
+        movies = []
+    for i in range(0,5):
+        movies.append(random.choice(catalogue['peliculas']))
+    #De momento dejamos esta linea para que el hisotrial no explote
+    if not os.path.isdir(os.path.join(app.root_path,'users/'+username+'/')):
+        os.makedirs(os.path.join(app.root_path,'users/'+username+'/'), 0777)
+
+    return render_template('user_test.html', registry=registry, movies=movies,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
 
 #########################
 # Busqueda de Peliculas #
