@@ -6,7 +6,7 @@
 
 	-- If the trigger was caused by insert
 		IF (TG_OP = 'INSERT') THEN
-			
+		
 		-- Setting price for inserted item
 			NEW.price = (SELECT ROUND(price::NUMERIC,2)
 			FROM products WHERE NEW.prod_id=prod_id);

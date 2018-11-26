@@ -161,5 +161,5 @@ CREATE TABLE alerts (
 	resolved BOOLEAN DEFAULT 'NO'
 );
 
-SELECT setval('customers_customerid_seq', 1+(SELECT MAX(customerid) FROM customers), true);
-SELECT setval('orders_orderid_seq', 1+(SELECT MAX(orderid) FROM orders), true);
+SELECT setval('customers_customerid_seq', (SELECT MAX(customerid) FROM customers), true);
+SELECT setval('orders_orderid_seq', (SELECT MAX(orderid) FROM orders), true);
