@@ -52,7 +52,7 @@ function validate_registration() {
 	}
 
 	var zip = document.forms["registration"]["zipField"].value;
-	if (!zip.match("[0-9]{5,9}")){
+	if (!zip.match("[0-9]+{5,9}")){
 		alert("Zip are only numbers, at least five, maximum nine.");
 		return false;
 	}
@@ -98,7 +98,7 @@ function validate_registration() {
 
 
 	var phone = document.forms["registration"]["phoneField"].value;
-	if (!phone.match("[0-9]{9,12}")){
+	if (!phone.match("[0-9]{0,12}")){
 		alert("Number is only digits, at leats nine, maximun twelve.");
 		return false;
 	}
