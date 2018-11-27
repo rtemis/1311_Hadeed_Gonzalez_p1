@@ -74,6 +74,7 @@ def db_login(username, password):
         row = resul.fetchone()[0]
         if row != None:
             if row == hashlib.md5(password).hexdigest():
+
                 print '***********Query login success***********'
                 db_conn.close()
                 return True
@@ -102,6 +103,7 @@ def db_catalogue():
 
         resul = db_conn.execute("select movieid, movietitle from imdb_movies  LIMIT 50")
         resul = resul.fetchall()
+        print '***********Query catalogue success***********'
         db_conn.close()
 
         return list(resul)
@@ -112,6 +114,8 @@ def db_catalogue():
         print '************Something is broken on catalogue*****************'
         print (error)
         return None
+
+
 """
 def db_search(title, genre):
     try:
@@ -159,6 +163,7 @@ def db_description(movieid):
 
         resul = db_conn.execute("select movieid, movietitle, directorname, country, actorname, price, description from (((((((imdb_movies natural join imdb_directormovies) natural join imdb_directors) natural join imdb_moviecountries)natural join imdb_countries) natural join imdb_actormovies) natural join imdb_actors) natural join products) where movieid=%s", (movieid,))
         resul = resul.fetchone()
+        print '***********Query description success***********'
         db_conn.close()
         return resul
 
@@ -177,6 +182,7 @@ def db_genres():
 
         resul = db_conn.execute("select * from imdb_genres")
         resul = resul.fetchall()
+        print '***********Query genres success***********'
         db_conn.close()
         return list(resul)
 
@@ -187,11 +193,48 @@ def db_genres():
         print (error)
         return None
 
-""""def db_addToCart(customerid):
-        try:
-            db_conn = None
-            db_conn = db_engine.connect()
+def db_addToCart(customerid, prodid):
+    try:
+        db_conn = None
+        db_conn = db_engine.connect()
 
+        result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s AND status=NULL", (customerid,))
+        row = result.fetchone()
+
+        if row == None:
+            db_conn.execute("INSERT INTO orders (orderdate, customerid, status) values(current_date, %s, NULL)", (customerid,))
             result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s AND status=NULL", (customerid,))
-            row = result.fetchone()[0]
-"""
+            row = result.fetchone()
+
+        print
+        db_conn.execute("INSERT INTO orderdetail (orderid, prod_id, quantity) values(%s, %s, 1)", (row, prodid,))
+        print '***********Query addToCart success***********'
+        db_conn.close()
+
+        return
+
+    except exc.SQLAlchemyError as error:
+        if db_conn is not None:
+            db_conn.close()
+        print '************Something is broken on addToCart*****************'
+        print (error)
+        return
+
+def db_getProductId(movieid):
+    try:
+        db_conn = None
+        db_conn = db_engine.connect()
+
+        result = db_conn.execute("SELECT prod_id FROM products WHERE movieid=%s", (movieid,))
+        row = result.fetchone()
+        print '***********Query db_getProductId success***********'
+        db_conn.close()
+        return row
+
+
+    except exc.SQLAlchemyError as error:
+        if db_conn is not None:
+            db_conn.close()
+        print '************Something is broken on db_getProductId*****************'
+        print (error)
+        return None

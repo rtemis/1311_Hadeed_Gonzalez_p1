@@ -37,19 +37,20 @@ buysuccess = 0
 cookiexists = False
 anno = 0
 
-###############################
+###############################s
 # Funciones de session - user #
 ###############################
-def setusername(username):
-	global user
-	user=True
-	global session
-	session['username'] = username
-	global cookie
-	cookie = Cookie.SimpleCookie()
-	cookie['user'] = username
-	global cookiexists
-	cookiexists = True
+def setusername(username, customerid):
+    global user
+    user=Trues
+    global session
+    session['username'] = username
+    session['customerid'] = customerid
+    global cookie
+    cookie = Cookie.SimpleCookie()
+    cookie['user'] = username
+    global cookiexists
+    cookiexists = True
 
 def getcookie():
 	if cookiexists == True:
@@ -144,7 +145,9 @@ def user():
     loginsuccess = database.db_login(username, password)
 
     if loginsuccess == True:
-        setusername(username)
+        customerid = database.db_getCustomerid(username)
+        print customerid
+        setusername(username, customerid)
 
 
     catalogue = database.db_catalogue()
