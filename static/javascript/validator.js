@@ -10,9 +10,10 @@ function validate_registration() {
 		alert("Last name cannot start or end with spaces, at least two letters.");
 		return false;
 	}
+
 	var age = document.forms["registration"]["ageField"].value;
 	if (!age.match("[0-9]{0,2}")){
-		alert("Age are only numbers.");
+		alert("Age is a numbers.");
 		return false;
 	}
 
@@ -20,19 +21,20 @@ function validate_registration() {
 	if (!address1.match("^[a-zA-Z0-9 ]{2,50}$")){
 		alert("Address (1) cannot contain special characters.");
 		return false;
-	};
+	}
 
 	var address2 = document.forms["registration"]["address2Field"].value;
 	if (!address2.match("^[a-zA-Z0-9 ]{0,50}$")){
 		alert("Address (2) cannot contain special characters.");
 		return false;
-	};
+	}
 
 	var city = document.forms["registration"]["cityField"].value;
 	if (!city.match("^[a-zA-z ]{2,50}$")){
 		alert("City cannot start or end with spaces, at least two letters.");
 		return false;
 	}
+
 	var state = document.forms["registration"]["stateField"].value;
 	if (!state.match("^[a-zA-z ]{0,50}$")){
 		alert("State cannot start or end with spaces.");
@@ -52,7 +54,7 @@ function validate_registration() {
 	}
 
 	var zip = document.forms["registration"]["zipField"].value;
-	if (!zip.match("[0-9]+{5,9}")){
+	if (!zip.match("[0-9]{5,9}")){
 		alert("Zip are only numbers, at least five, maximum nine.");
 		return false;
 	}
@@ -62,7 +64,7 @@ function validate_registration() {
 	if (!username.match("^[a-zA-Z0-9_]{3,20}$")){
 		alert("Username must be at least 3 characters long with no special characters(except _ ).");
 		return false;
-	};
+	}
 
 	var email = document.forms["registration"]["emailField"].value;
 	if (!email.match("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")){
@@ -81,11 +83,13 @@ function validate_registration() {
 		alert("Credit Card must contain 16 digits.");
 		return false;
 	}
+
 	var cardtype = document.forms["registration"]["creditcardtypeField"].value;
 	if (!cardtype.match("^[a-zA-z ]{2,6}$")){
 		alert("Card type cannot start or end with spaces, at least two letters.");
 		return false;
 	}
+
 	var exMonth=document.getElementById("exMonth");
 	var exYear=document.getElementById("exYear");
 	var today = new Date();
@@ -95,7 +99,6 @@ function validate_registration() {
    alert("The expiry date is before today's date. Please select a valid expiry date");
    return false;
 	}
-
 
 	var phone = document.forms["registration"]["phoneField"].value;
 	if (!phone.match("[0-9]{0,12}")){
@@ -131,16 +134,30 @@ function validate_psw() {
 
 $(document).ready(function () {
 	path = window.location.href;
-	base = path.split("wsgi");
-	path = base[0] + 'wsgi/hits'
-  	setInterval (function() {
-  		$.ajax({
-		  	type: "POST",
-		  	url: path
-		}).done(function( text ) {
-       		$('#hits').html(text);
-		});
-  	}, 3000);
+	if (path.includes("wsgi")) {
+		base = path.split("wsgi");
+		path = base[0] + 'wsgi/hits'
+	  	setInterval (function() {
+	  		$.ajax({
+			  	type: "POST",
+			  	url: path
+			}).done(function( text ) {
+	       		$('#hits').html(text);
+			});
+		}, 3000);
+	}
+	else {
+		base = path.split(":5001");
+		path = base[0] + ':5001/hits'
+			setInterval (function() {
+				$.ajax({
+					type: "POST",
+					url: path
+			}).done(function( text ) {
+						$('#hits').html(text);
+			});
+		}, 3000);
+	}
 });
 
 $(document).ready(function(){
@@ -159,17 +176,17 @@ function namebuy(){
 
 function error_login(){
 
-	alert("Username or password incorrect, try again.\n\tMaybe are you not registered?");
+	alert("Username or password incorrect, try again.\n\tMaybe you are not registered?");
 }
 
 function error_buy(){
 
-	alert("Sorry, you can't buy all this movies because you don't have enough money.\n\tTo change your money, go to Purchase History page");
+	alert("Sorry, you don't have enough money to make this purchase.\n\tTo add funds, please visit your Purchase History.");
 }
 
 function ok_buy(){
 
-	alert("Your buy is done, check your purchase history.");
+	alert("Your purchase is complete! Please check your purchase history.");
 }
 
 function must_login(){
