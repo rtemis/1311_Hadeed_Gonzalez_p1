@@ -93,6 +93,43 @@ def db_login(username, password):
         return False
 
 
+def db_getDetails(movieid):
+    try:
+
+        moviedict = {}
+
+        db_conn = None
+        db_conn = db_engine.connect()
+
+        resul = db_conn.execute("select price, description from imdb_movies natural join products where movieid=%s", (movieid,))
+        movies = resul.fetchall()
+        
+        resul = db_conn.execute("select actorname, movieid from (imdb_movies natural join imdb_actormovies) natural join imdb_actors where movieid=%s", (movieid,))
+        actors = resul.fetchall()
+
+        resul = db_conn.execute("select directorname, movieid from (imdb_movies natural join imdb_directormovies) natural join imdb_directors where movieid=%s", (movieid,))
+        directors = resul.fetchall()
+
+        resul = db_conn.execute("select genre, movieid from (imdb_movies natural join imdb_moviegenres) natural join imdb_genres where movieid=%s", (movieid,))
+        genres = resul.fetchall()
+
+        resul = db_conn.execute("select lang, movieid from (imdb_movies natural join imdb_movielanguages) natural join imdb_languages where movieid=%s", (movieid,))
+        languages = resul.fetchall()
+
+        db_conn.close()
+
+        moviedict = {'movies': list(movies), 'actors': list(actors), 'directors': list(directors), 'genres': list(genres), 'languages': list(languages)}
+
+        return moviedict
+
+    except exc.SQLAlchemyError as error:
+        if db_conn is not None:
+            db_conn.close()
+        print '************Something is broken on catalogue*****************'
+        print (error)
+        return None
+
+
 def db_catalogue():
     try:
 

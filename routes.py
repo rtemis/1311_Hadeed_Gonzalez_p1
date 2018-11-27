@@ -171,10 +171,24 @@ def description(title):
     for x in catalogue:
         if x[1] == title:
             movie = x
-    movie = database.db_description(movie[0])
+    mdetails = database.db_getDetails(movie[0])
+
+    price = None
+    actors = None
+    directors = None
+    genres = None
+    languages = None
+
+    if mdetails != None:
+        price = mdetails['movies']
+        print price
+        actors = mdetails['actors']
+        directors = mdetails['directors']
+        genres = mdetails['genres']
+        languages = mdetails['languages']
+
     username = str(getusername())
-    genres = database.db_genres()
-    return render_template('description.html', title=title, m=movie,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c, genres=genres)
+    return render_template('description.html', title=title, username=username, user=getuser(), loginsuccess = True, message=0, cookie=c, price=price, actors=actors, directors=directors, genres=genres, languages=languages)
 
 #####################
 # Paginas de Compra #

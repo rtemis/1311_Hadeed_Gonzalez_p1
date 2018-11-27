@@ -6,17 +6,44 @@
 
 {% block article %}
 	<div class="movie">
-		<img src={{ url_for('static', filename='images/pelis.jpg') }} alt={{ m.titulo }}>
-		<h2>{{ m[1] }}</h2>
-		<p><h4>Country: </h4>{{ m[3] }}
-		<p><h4>Director: </h4>{{ m[2] }}
-		<p><h4>Description :</h4>{{ m[6] }}
-		<p><h4>Price: </h4>${{ m[5] }}
-		<p><h4>Actor: </h4>{{ m[4] }}
-		<form action={{ url_for('add_to_cart', pelicula=m[1]) }} method="post">
+		<img src={{ url_for('static', filename='images/pelis.jpg') }} alt={{ title }}>
+		<h2>{{ title }}</h2>
+		<p><h4>Genres: </h4>
+			{% if genres != None %}
+				{%for x in genres %}
+					{{ x }},
+				{% endfor %}
+			{% endif %}
+		<p><h4>Languages: </h4>
+			{% if languages != None %}
+				{%for x in languages %}
+					{{ x }},
+				{% endfor %}
+			{% endif %}
+		<p><h4>Director: </h4>
+		{% if directors != None %}
+			{%for x in directors %}
+				{{ x }},
+			{% endfor %}
+		{% endif %}
+		<p><h4>Actors: </h4>
+			{% if actors != None %}
+				{%for x in actors %}
+					<p>{{ x }}
+				{% endfor %}
+			{% endif %}
+			{{price[1]}}
+			{{price[0]}}
+		<form action={{ url_for('add_to_cart', pelicula=title) }} method="post">
+			{% if price != None %}
+				{%for x in price %}
+					<p>Version: {{ x[1] }}
+					<p><input type="radio" name="price" value={{x[0]}}>
+				{% endfor %}
+			{% endif %}
+			<br>
 			<input type="submit"  value="Add to Cart">
 		</form>
-
 
 	</div>
 {% endblock %}
