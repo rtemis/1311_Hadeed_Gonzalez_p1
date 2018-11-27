@@ -8,17 +8,16 @@
 		IF (TG_OP = 'INSERT') THEN
 		
 		-- Setting price for inserted item
-			NEW.price = (SELECT ROUND(price::NUMERIC,2)
-			FROM products WHERE NEW.prod_id=prod_id);
+			NEW.price = (SELECT price FROM products WHERE NEW.prod_id=prod_id);
 			
 		-- Updating net amount
 			UPDATE orders
-			SET netamount = ROUND((netamount + (NEW.price * NEW.quantity))::NUMERIC,2), orderdate = CURRENT_DATE
+			SET netamount = (netamount + (NEW.price * NEW.quantity)), orderdate = CURRENT_DATE
 			WHERE NEW.orderid = orders.orderid;
 			
 		-- Updating total amount
 			UPDATE orders
-			SET totalamount = ROUND((netamount * (1 + tax/100.0))::NUMERIC,2)
+			SET totalamount = (netamount * (1 + tax/100.0))
 			WHERE NEW.orderid = orders.orderid;
 			
 			RETURN NEW;
@@ -28,12 +27,12 @@
 		
 		-- Updating net amount
 			UPDATE orders
-			SET netamount = ROUND((netamount - (OLD.price * OLD.quantity))::NUMERIC,2), orderdate = CURRENT_DATE
+			SET netamount = (netamount - (OLD.price * OLD.quantity)), orderdate = CURRENT_DATE
 			WHERE OLD.orderid = orders.orderid;
 			
 		-- Updating total amount
 			UPDATE orders
-			SET totalamount = ROUND((netamount * (1 + tax/100.0))::NUMERIC,2)
+			SET totalamount = (netamount * (1 + tax/100.0))
 			WHERE OLD.orderid = orders.orderid;	
 			
 			RETURN OLD;
@@ -42,7 +41,7 @@
 		ELSIF (TG_OP = 'UPDATE') THEN
 
 		-- Creating a subtotal to manage the new price of the product order  
-			subtotal =  ROUND((OLD.price * (NEW.quantity - OLD.quantity))::NUMERIC,2); 
+			subtotal =  (OLD.price * (NEW.quantity - OLD.quantity)); 
 			
 		-- Updating net amount
 			UPDATE orders
@@ -51,7 +50,7 @@
 			
 		-- Updating total amount
 			UPDATE orders
-			SET totalamount = ROUND((netamount * (1 + tax/100.0))::NUMERIC,2)
+			SET totalamount = (netamount * (1 + tax/100.0))
 			WHERE OLD.orderid = orders.orderid;	
 			
 		-- Setting the new quantity

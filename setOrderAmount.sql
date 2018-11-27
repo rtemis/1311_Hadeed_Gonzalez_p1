@@ -1,8 +1,4 @@
-﻿--drop view totals;
---drop view netamt;
---drop function setOrderAmount();
-
-create or replace function setOrderAmount() returns void as $$
+﻿create or replace function setOrderAmount() returns void as $$
 	begin
 		CREATE VIEW netamt AS
 			SELECT orderid, SUM(price * quantity) AS total
@@ -10,7 +6,7 @@ create or replace function setOrderAmount() returns void as $$
 			GROUP BY orderid;
 			
 		UPDATE orders
-		SET netamount = ROUND(netamt.total::NUMERIC,2)
+		SET netamount = netamt.total
 		FROM netamt
 		WHERE orders.orderid = netamt.orderid;
 
@@ -22,7 +18,7 @@ create or replace function setOrderAmount() returns void as $$
 			group by orderid;
 
 		UPDATE orders
-		SET totalamount = ROUND(totals.newtotal::NUMERIC,2) 
+		SET totalamount = totals.newtotal
 		FROM totals
 		WHERE orders.orderid = totals.orderid;
 

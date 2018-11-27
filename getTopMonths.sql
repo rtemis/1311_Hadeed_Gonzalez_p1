@@ -1,6 +1,4 @@
-﻿-- drop function getTopMonths(integer,integer);
-
-create or replace function getTopMonths(integer, integer) returns table(
+﻿create or replace function getTopMonths(integer, integer) returns table(
 	anno integer,
 	mes integer,
 	importe float,

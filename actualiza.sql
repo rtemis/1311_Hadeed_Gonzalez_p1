@@ -1,4 +1,5 @@
-﻿-- Creating foreign keys
+﻿--
+-- Creating foreign keys
 --
 
 ALTER TABLE imdb_actormovies ADD FOREIGN KEY (actorid) REFERENCES imdb_actors(actorid);
@@ -161,5 +162,15 @@ CREATE TABLE alerts (
 	resolved BOOLEAN DEFAULT 'NO'
 );
 
+-- Setting new starting value for customer id sequence and order id sequence
+
 SELECT setval('customers_customerid_seq', (SELECT MAX(customerid) FROM customers), true);
 SELECT setval('orders_orderid_seq', (SELECT MAX(orderid) FROM orders), true);
+
+-- Changing all price fields to two decimal places
+
+ALTER TABLE customers ALTER income TYPE NUMERIC(7,2);
+ALTER TABLE orderdetail ALTER price TYPE NUMERIC(7,2);
+ALTER TABLE orders ALTER netamount TYPE NUMERIC(7,2);
+ALTER TABLE orders ALTER totalamount TYPE NUMERIC(7,2);
+ALTER TABLE products ALTER price TYPE NUMERIC(7,2);

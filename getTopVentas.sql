@@ -1,6 +1,4 @@
-﻿--drop function getTopVentas(integer) cascade;
-
-create or replace function getTopVentas(integer) returns table(
+﻿create or replace function getTopVentas(integer) returns table(
 	anno integer,
 	pelicula varchar,
 	ventas bigint
@@ -40,10 +38,3 @@ create or replace function getTopVentas(integer) returns table(
 $$ language 'plpgsql';
 
 select * from getTopVentas(2012);
-
-
-
-
-
-
-

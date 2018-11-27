@@ -48,7 +48,13 @@ def db_register(Fname, Lname, age, address1,address2, city, state, country, regi
             resul = db_conn.execute("select max(customerid) from customers")
             id += resul.fetchone()[0]
             income = random.randint(0,100)
-            db_conn.execute("INSERT INTO customers(customerid, firstname, lastname, age, address1, address2,city, state, country, region, zip, gender, email, phone, creditcard,creditcardtype, creditcardexpiration, username, password, income)VALUES(%s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (id, Fname, Lname, age,address1, address2, city, state, country, region, zip, gender, email, phone,creditcard, creditcardtype, creditcardexp, username, password,income,))
+
+            # inicializar el usuario
+            db_conn.execute("INSERT INTO customers(firstname, lastname, age, address1, address2,city, state, country, region, zip, gender, email, phone, creditcard,creditcardtype, creditcardexpiration, username, password, income)VALUES(%s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (Fname, Lname, age,address1, address2, city, state, country, region, zip, gender, email, phone,creditcard, creditcardtype, creditcardexp, username, password,income,))
+
+            # inicializar el carrito
+            db_conn.execute("INSERT INTO orders(orderdate, customerid, status)VALUES(CURRENT_DATE, %s, NULL)",(id,))
+
             print '***********Query register success***********'
             db_conn.close()
             return True
@@ -108,3 +114,13 @@ def db_catalogue():
         print '************Something is broken on catalogue*****************'
         print(error)
         return None
+
+def db_addToCart(customerid):
+        try:
+            db_conn = None
+            db_conn = db_engine.connect()
+
+            result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s AND status=NULL", (customerid,))
+            row = result.fetchone()[0]
+            if order == None:
+                

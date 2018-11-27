@@ -21,10 +21,7 @@
 			FOR temp1 IN (select prod_id from inventory where stock < 1) LOOP 
 				INSERT INTO alerts (prod_id) VALUES (temp1.prod_id);
 			END LOOP;
-	--	ELSIF (TG_OP = 'UPDATE' AND NEW.status = 'Processed') THEN
 
-	--	ELSIF (TG_OP = 'UPDATE' AND NEW.status = 'Shipped') THEN
-		
 		END IF;
 		
 		RETURN OLD;
