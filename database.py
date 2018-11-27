@@ -115,12 +115,11 @@ def db_catalogue():
         print(error)
         return None
 
-def db_addToCart(customerid):
-        try:
-            db_conn = None
-            db_conn = db_engine.connect()
-
-            result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s AND status=NULL", (customerid,))
-            row = result.fetchone()[0]
-            if order == None:
-                
+#def db_addToCart(customerid):
+#        try:
+#            db_conn = None
+#            db_conn = db_engine.connect()
+#
+#            result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s AND status=NULL", (customerid,))
+#            row = result.fetchone()[0]
+#            if order == None:
