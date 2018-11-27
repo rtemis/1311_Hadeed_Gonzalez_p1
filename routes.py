@@ -78,18 +78,18 @@ def setcart():
 def addcart(movie):
 	global session
 	if movie in session['cart']:
-		session['contador'][movie['titulo']] +=1
+		session['contador'][movie[0]] +=1
 	else:
 		session['cart'].append(movie)
-		session['contador'][movie['titulo']]=1
+		session['contador'][movie[0]]=1
 
 def delcart(movie):
 	global session
-	if session['contador'][movie['titulo']] == 1:
+	if session['contador'][movie[0]] == 1:
 		session['cart'].remove(movie)
-		session['contador'].pop(movie['titulo'])
+		session['contador'].pop(movie[0])
 	else:
-		session['contador'][movie['titulo']] -=1
+		session['contador'][movie[0]] -=1
 
 def cleancart():
 	global session
@@ -126,7 +126,8 @@ def index():
     catalogue = database.db_catalogue()
 
     buysuccess = 0
-    return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = True, message=message, cookie = c, topVentas=topVentas, anno=anno)
+    genres = database.db_genres()
+    return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = True, message=message, cookie = c, topVentas=topVentas, anno=anno, genres=genres)
 
 ######################
 # Paginas de Session #
@@ -147,7 +148,8 @@ def user():
 
 
     catalogue = database.db_catalogue()
-    return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = loginsuccess,  message=0, cookie=c, topVentas=topVentas, anno=anno)
+    genres = database.db_genres()
+    return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = loginsuccess,  message=0, cookie=c, topVentas=topVentas, anno=anno, genres=genres)
 
 @app.route("/*")
 def logout():
@@ -171,42 +173,40 @@ def description(title):
             movie = x
     movie = database.db_description(movie[0])
     username = str(getusername())
-    return render_template('description.html', title=title, m=movie,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
+    genres = database.db_genres()
+    return render_template('description.html', title=title, m=movie,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c, genres=genres)
 
 #####################
 # Paginas de Compra #
 #####################
 @app.route("/cart", methods=['POST', 'GET'])
 def cart():
-	c = getcookie()
-	username = str(getusername())
-	if vacio == False:
-		setcart()
-	cart=getcart()
-	leng = len(cart)
-	contador=getcontador()
+    c = getcookie()
+    username = str(getusername())
+    if vacio == False:
+        setcart()
+    cart=getcart()
+    leng = len(cart)
+    contador=getcontador()
 
-	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
-		catalogue = {}
-		catalogue = json.load(data)
-		movies = []
-		for i in range(0,5):
-			movies.append(random.choice(catalogue['peliculas']))
-	return render_template('cart.html', title="Cart", username=username, user=getuser(), cart=cart, leng=leng, movies=movies, contador=contador, loginsuccess = True, message=0, cookie=c)
+    catalogue = database.db_catalogue()
+    movies = []
+    for i in range(0,5):
+        movies.append(random.choice(catalogue))
+    genres = database.db_genres()
+    return render_template('cart.html', title="Cart", username=username, user=getuser(), cart=cart, leng=leng, movies=movies, contador=contador, loginsuccess = True, message=0, cookie=c, genres=genres)
 
 @app.route("/add_to_cart", methods=['POST','GET'])
 def add_to_cart():
-	title=request.args.get('pelicula')
+    title=request.args.get('pelicula')
 
-	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
-		catalogue = {}
-		catalogue = json.load(data)
-		for x in catalogue['peliculas']:
-			if x['titulo'] == title:
-				if vacio == False:
-					setcart()
-				addcart(x)
-	return redirect(url_for('cart'))
+    catalogue = database.db_catalogue()
+    for x in catalogue:
+        if x[1] == title:
+            if vacio == False:
+                setcart()
+    addcart(x)
+    return redirect(url_for('cart'))
 
 @app.route("/remove", methods=['POST','GET'])
 def remove_selected():
@@ -214,8 +214,8 @@ def remove_selected():
 	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
 		catalogue = {}
 		catalogue = json.load(data)
-		for x in catalogue['peliculas']:
-			if x['titulo'] == peli:
+		for x in catalogue:
+			if x[1] == peli:
 				delcart(x)
 	return redirect(url_for('cart'))
 
@@ -289,26 +289,26 @@ def buy_now():
 
 @app.route("/history")
 def history():
-	c = getcookie()
-	username = str(getusername())
-	history={}
-	existe=False
-	if 	os.path.isfile(os.path.join(app.root_path,'users/'+username+'/history.json')) == True:
-		existe=True
-		with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'r') as data:
+    c = getcookie()
+    username = str(getusername())
+    history={}
+    existe=False
+    if 	os.path.isfile(os.path.join(app.root_path,'users/'+username+'/history.json')) == True:
+        existe=True
+    with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'r') as data:
 
-			history = json.load(data)
+        history = json.load(data)
 
-	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
-		catalogue = {}
-		catalogue = json.load(data)
-		movies = []
-		for i in range(0,5):
-			movies.append(random.choice(catalogue['peliculas']))
+    with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
+        catalogue = {}
+        catalogue = json.load(data)
+        movies = []
+        for i in range(0,5):
+            movies.append(random.choice(catalogue['peliculas']))
 
-		saldo=20
-
-	return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser(), history=history, existe=existe, movies=movies, loginsuccess = True, message=0, saldo = saldo, cookie=c)
+        saldo=20
+    genres = database.db_genres()
+    return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser(), history=history, existe=existe, movies=movies, loginsuccess = True, message=0, saldo = saldo, cookie=c, gernes=genres)
 
 #######################
 # Incrementar Saldo #
@@ -382,7 +382,8 @@ def user_test():
     if not os.path.isdir(os.path.join(app.root_path,'users/'+username+'/')):
         os.makedirs(os.path.join(app.root_path,'users/'+username+'/'), 0777)
 
-    return render_template('user_test.html', registry=registry, movies=movies,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
+    genres = database.db_genres()
+    return render_template('user_test.html', registry=registry, movies=movies,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c, genres=genres)
 
 #########################
 # Busqueda de Peliculas #
@@ -417,9 +418,8 @@ def results():
                     movies.append(x)
 
     username = str(getusername())
-    print movies
-
-    return render_template('results.html', title="Results", movies=movies, username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
+    genres = database.db_genres()
+    return render_template('results.html', title="Results", movies=movies, username=username, user=getuser(), loginsuccess = True, message=0, cookie=c, genres=genres)
 
 @app.route("/hits", methods=['POST'])
 def hits():

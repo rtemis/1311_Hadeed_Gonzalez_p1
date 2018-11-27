@@ -16,16 +16,16 @@
 			</table>
 		</div>
 		{% for m in cart %}
-			<form action={{url_for('remove_selected', peli=m.titulo)}} method=post>
+			<form action={{url_for('remove_selected', peli='images/pelis.jpg')}} method=post>
 				<div class="cart-table">
 
 					<table>
 
 
 						<tr>
-							<td>{{ m.titulo }}</td>
-							<td>{{ m.precio }}</td>
-							<td>{{contador[m.titulo]}}
+							<td>{{ m[1] }}</td>
+							<td>{{ m[3] }}</td>
+							<td>{{contador[m[3]]}}
 							<td><input type="submit" name="checkbox" value="Remove One" onclick=></td>
 						</tr>
 
@@ -53,9 +53,9 @@
 		<h2>You don't have any movies in your cart yet... Why don't you take a look?</h2>
 		{% for m in movies%}
 			<div class="movie-desc">
-				<a href={{ url_for('description', title=m.titulo) }} method="get">
-				<img src={{ url_for('static', filename=m.poster) }} alt={{ m.titulo }}> </a>
-				{{ m.titulo }}
+				<a href={{ url_for('description', title=m[1]) }} method="get">
+				<img src={{ url_for('static', filename='images/pelis.jpg') }}> </a>
+				{{ m[1] }}
 			</div>
 		{% endfor %}
 	{% endif %}

@@ -6,21 +6,17 @@
 
 {% block article %}
 	<div class="movie">
-		<img src={{ url_for('static', filename=m.poster) }} alt={{ m.titulo }}>
+		<img src={{ url_for('static', filename='images/pelis.jpg') }} alt={{ m.titulo }}>
 		<h2>{{ m[1] }}</h2>
-		<p>Country
-			{{ m[3] }}
-		<p>Director
-			{{ m[2] }}
-		<p><h4>Description:</h4>
-		{{ m[6] }}
-		<p>
-		${{ m[5] }}
+		<p><h4>Country: </h4>{{ m[3] }}
+		<p><h4>Director: </h4>{{ m[2] }}
+		<p><h4>Description :</h4>{{ m[6] }}
+		<p><h4>Price: </h4>${{ m[5] }}
+		<p><h4>Actor: </h4>{{ m[4] }}
 		<form action={{ url_for('add_to_cart', pelicula=m[1]) }} method="post">
 			<input type="submit"  value="Add to Cart">
 		</form>
-		<p> <h4>Actor:</h4>
-			<p>{{ m[4] }}
+
 
 	</div>
 {% endblock %}

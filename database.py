@@ -55,7 +55,6 @@ def db_register(Fname, Lname, age, address1,address2, city, state, country, regi
             print '***********Query register failed, username already exists***********'
             db_conn.close()
             return False
-        db_conn.close()
 
     except exc.SQLAlchemyError as error:
         if db_conn is not None:
@@ -87,26 +86,71 @@ def db_login(username, password):
             db_conn.close()
             return False
     except exc.SQLAlchemyError as error:
+        if db_conn is not None:
+            db_conn.close()
         print '************Something is broken on login*****************'
         print (error)
         return False
 
+
 def db_catalogue():
     try:
+
         # conexion a la base de datos
         db_conn = None
         db_conn = db_engine.connect()
 
-        resul = db_conn.execute("select movieid, movietitle, genre from (imdb_movies natural join imdb_moviegenres) natural join imdb_genres")
+        resul = db_conn.execute("select movieid, movietitle from imdb_movies  LIMIT 50")
         resul = resul.fetchall()
+        db_conn.close()
 
         return list(resul)
 
     except exc.SQLAlchemyError as error:
+        if db_conn is not None:
+            db_conn.close()
         print '************Something is broken on catalogue*****************'
-        print(error)
+        print (error)
+        return None
+"""
+def db_search(title, genre):
+    try:
+
+        # conexion a la base de datos
+        db_conn = None
+        db_conn = db_engine.connect()
+        print "*************"
+        print title
+        print "************"
+
+        if title == "":
+            if genre != "#":
+                resul = db_conn.execute("select movieid, movietitle, genre, price from ((imdb_movies natural join imdb_moviegenres) natural join imdb_genres)natural join products LIMIT 50 where genre = %s", (genre,))
+                resul = resul.fetchall()
+            else:
+                resul = db_catalogue()
+        else:
+            if genre != "#":
+                resul = db_conn.execute("select movieid, movietitle, genre, price from ((imdb_movies natural join imdb_moviegenres) natural join imdb_genres)natural join products LIMIT 50 where genre = %s and movietitle= %s", (genre,title,))
+                resul = resul.fetchall()
+            else:
+                resul = db_conn.execute("select movieid, movietitle, genre, price from ((imdb_movies natural join imdb_moviegenres) natural join imdb_genres)natural join products LIMIT 50 where movietitle = %s", (title,))
+                resul = resul.fetchall()
+
+
+
+        db_conn.close()
+
+        return list(resul)
+
+    except exc.SQLAlchemyError as error:
+        if db_conn is not None:
+            db_conn.close()
+        print '************Something is broken on catalogue*****************'
+        print (error)
         return None
 
+"""
 def db_description(movieid):
     try:
         # conexion a la base de datos
@@ -115,14 +159,33 @@ def db_description(movieid):
 
         resul = db_conn.execute("select movieid, movietitle, directorname, country, actorname, price, description from (((((((imdb_movies natural join imdb_directormovies) natural join imdb_directors) natural join imdb_moviecountries)natural join imdb_countries) natural join imdb_actormovies) natural join imdb_actors) natural join products) where movieid=%s", (movieid,))
         resul = resul.fetchone()
-
+        db_conn.close()
         return resul
 
     except exc.SQLAlchemyError as error:
+        if db_conn is not None:
+            db_conn.close()
         print '************Something is broken on description*****************'
         print (error)
         return None
 
+def db_genres():
+    try:
+        # conexion a la base de datos
+        db_conn = None
+        db_conn = db_engine.connect()
+
+        resul = db_conn.execute("select * from imdb_genres")
+        resul = resul.fetchall()
+        db_conn.close()
+        return list(resul)
+
+    except exc.SQLAlchemyError as error:
+        if db_conn is not None:
+            db_conn.close()
+        print '************Something is broken on genres*****************'
+        print (error)
+        return None
 
 """"def db_addToCart(customerid):
         try:

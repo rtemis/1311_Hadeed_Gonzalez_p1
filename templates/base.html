@@ -28,22 +28,9 @@
 				<form action={{ url_for('results') }} method="post">
 					<select name="select">
 						<option value="#"> --- </option>
-						<option value="Action" name="Action">Action</option>
-						<option value="Adventure" name="Adventure">Adventure</option>
-						<option value="Animation" name="Animation">Animation</option>
-						<option value="Comedy" name="Comedy">Comedy</option>
-						<option value="Crime" name="Crime">Crime</option>
-						<option value="Drama" name="Drama">Drama</option>
-						<option value="Family" name="Family">Family</option>
-						<option value="Fantasy" name="Fantasy">Fantasy</option>
-						<option value="Historical" name="Historical">Historical</option>
-						<option value="Horror" name="Horror">Horror</option>
-						<option value="Independent"name="Independent">Independent</option>
-						<option value="Political" name="Political">Political</option>
-						<option value="Romance" name="Romance">Romance</option>
-						<option value="Sci-Fi" name="Sci-Fi">Sci-fi</option>
-						<option value="War" name="War">War</option>
-						<option value="Western" name="Western">Western</option>
+						{% for g in genres %}
+					  <option value={{ g[1] }} name={{ g[1] }}>{{ g[1] }}</option>
+						{% endfor %}
 					</select>
 					<input type="text"  placeholder="Search.." name="search" >
 					<input type="submit" value = "Search">
