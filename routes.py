@@ -116,10 +116,6 @@ def index():
     global topVentas
     topVentas  = database.db_getTopVentas(anno)
 
-    with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
-        catalogue = {}
-        catalogue = json.load(data)
-
     if buysuccess == 1:
         message = 1
     elif buysuccess == 2:
@@ -127,7 +123,7 @@ def index():
 
     c = getcookie()
     username = str(getusername())
-    #catalogue = database.db_catalogue()
+    catalogue = database.db_catalogue()
 
     buysuccess = 0
     return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = True, message=message, cookie = c, topVentas=topVentas, anno=anno)
@@ -150,9 +146,7 @@ def user():
         setusername(username)
 
 
-    with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
-        catalogue = {}
-        catalogue = json.load(data)
+    catalogue = database.db_catalogue()
     return render_template('index.html', title="Index", catalogue=catalogue, username=username, user=getuser(), loginsuccess = loginsuccess,  message=0, cookie=c, topVentas=topVentas, anno=anno)
 
 @app.route("/*")
@@ -170,16 +164,14 @@ def logout():
 ###############
 @app.route("/description/<title>", methods=['GET'])
 def description(title):
-	c = getcookie()
-	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
-		catalogue = {}
-		catalogue = json.load(data)
-		for x in catalogue['peliculas']:
-			if x['titulo'] == title:
-				movie = x
-
-	username = str(getusername())
-	return render_template('description.html', title=title, m=movie,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
+    c = getcookie()
+    catalogue = database.db_catalogue()
+    for x in catalogue:
+        if x[1] == title:
+            movie = x
+    movie = database.db_description(movie[0])
+    username = str(getusername())
+    return render_template('description.html', title=title, m=movie,username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
 
 #####################
 # Paginas de Compra #
@@ -397,40 +389,37 @@ def user_test():
 #########################
 @app.route("/results", methods=['POST'])
 def results():
-	c = getcookie()
-	genero = request.form['select']
-	busqueda = request.form['search']
-	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
-		catalogue = {}
-		catalogue = json.load(data)
-		movies = []
-		aux=[]
-		if not busqueda:
-			if genero != "#":
-				for x in catalogue['peliculas']:
-					if genero in x['categoria']:
-						movies.append(x)
-			else:
-				movies=catalogue['peliculas']
-		else:
-			if genero != "#":
-				for x in catalogue['peliculas']:
-					if genero in x['categoria']:
-						aux.append(x)
+    c = getcookie()
+    genero = request.form['select']
+    busqueda = request.form['search']
+    movies = []
+    aux=[]
+    catalogue = database.db_catalogue()
 
+    if not busqueda:
+        if genero != "#":
+            for x in catalogue:
+                if genero in x[2]:
+                    movies.append(x)
+        else:
+            movies=catalogue
+    else:
+        if genero != "#":
+            for x in catalogue:
+                if genero in x[2]:
+                    aux.append(x)
+            for x in aux:
+                if busqueda.lower() in x[1].lower():
+                    movies.append(x)
+        else:
+            for x in catalogue:
+                if busqueda.lower() in x[1].lower():
+                    movies.append(x)
 
-				for x in aux:
-					if busqueda.lower() in x['titulo'].lower():
-						movies.append(x)
-			else:
-				for x in catalogue['peliculas']:
-					if busqueda.lower() in x['titulo'].lower():
-						movies.append(x)
+    username = str(getusername())
+    print movies
 
-	username = str(getusername())
-
-
-	return render_template('results.html', title="Results", movies=movies, username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
+    return render_template('results.html', title="Results", movies=movies, username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
 
 @app.route("/hits", methods=['POST'])
 def hits():

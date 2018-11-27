@@ -30,7 +30,6 @@ def db_getTopVentas(anno):
         return None
 
 def db_register(Fname, Lname, age, address1,address2, city, state, country, region, zip, gender, email, phone, creditcard, creditcardtype, creditcardexp, username, password):
-
     try:
         # conexion a la base de datos
         db_conn = None
@@ -48,13 +47,7 @@ def db_register(Fname, Lname, age, address1,address2, city, state, country, regi
             resul = db_conn.execute("select max(customerid) from customers")
             id += resul.fetchone()[0]
             income = random.randint(0,100)
-
-            # inicializar el usuario
-            db_conn.execute("INSERT INTO customers(firstname, lastname, age, address1, address2,city, state, country, region, zip, gender, email, phone, creditcard,creditcardtype, creditcardexpiration, username, password, income)VALUES(%s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (Fname, Lname, age,address1, address2, city, state, country, region, zip, gender, email, phone,creditcard, creditcardtype, creditcardexp, username, password,income,))
-
-            # inicializar el carrito
-            db_conn.execute("INSERT INTO orders(orderdate, customerid, status)VALUES(CURRENT_DATE, %s, NULL)",(id,))
-
+            db_conn.execute("INSERT INTO customers(customerid, firstname, lastname, age, address1, address2,city, state, country, region, zip, gender, email, phone, creditcard,creditcardtype, creditcardexpiration, username, password, income)VALUES(%s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (id, Fname, Lname, age,address1, address2, city, state, country, region, zip, gender, email, phone,creditcard, creditcardtype, creditcardexp, username, password,income,))
             print '***********Query register success***********'
             db_conn.close()
             return True
@@ -70,7 +63,6 @@ def db_register(Fname, Lname, age, address1,address2, city, state, country, regi
         print '*******Something is broken on register**********'
         print (error)
         return False
-
 
 
 def db_login(username, password):
@@ -96,7 +88,7 @@ def db_login(username, password):
             return False
     except exc.SQLAlchemyError as error:
         print '************Something is broken on login*****************'
-        print(error)
+        print (error)
         return False
 
 def db_catalogue():
@@ -105,7 +97,7 @@ def db_catalogue():
         db_conn = None
         db_conn = db_engine.connect()
 
-        resul = db_conn.execute("select movietitle, year from imdb_movies")
+        resul = db_conn.execute("select movieid, movietitle, genre from (imdb_movies natural join imdb_moviegenres) natural join imdb_genres")
         resul = resul.fetchall()
 
         return list(resul)
@@ -115,12 +107,28 @@ def db_catalogue():
         print(error)
         return None
 
-def db_addToCart(customerid):
+def db_description(movieid):
+    try:
+        # conexion a la base de datos
+        db_conn = None
+        db_conn = db_engine.connect()
+
+        resul = db_conn.execute("select movieid, movietitle, directorname, country, actorname, price, description from (((((((imdb_movies natural join imdb_directormovies) natural join imdb_directors) natural join imdb_moviecountries)natural join imdb_countries) natural join imdb_actormovies) natural join imdb_actors) natural join products) where movieid=%s", (movieid,))
+        resul = resul.fetchone()
+
+        return resul
+
+    except exc.SQLAlchemyError as error:
+        print '************Something is broken on description*****************'
+        print (error)
+        return None
+
+
+""""def db_addToCart(customerid):
         try:
             db_conn = None
             db_conn = db_engine.connect()
 
             result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s AND status=NULL", (customerid,))
             row = result.fetchone()[0]
-            if order == None:
-                
+"""

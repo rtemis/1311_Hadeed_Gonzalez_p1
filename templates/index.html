@@ -24,11 +24,11 @@
 </div>
 <h3>BILLBOARD</h3>
 <div class=movies>
-	{% for m in catalogue.peliculas %}
+	{% for m in catalogue %}
 		<div class="movie-desc">
-			<a href={{ url_for('description', title=m.titulo) }} method="get">
-			<img src={{ url_for('static', filename=m.poster) }} alt={{ m.titulo }}> </a>
-			{{ m.titulo }}
+			<a href={{ url_for('description', title=m[1]) }} method="get">
+			<img src={{ url_for('static', filename='images/pelis.jpg') }} alt={{ m[1] }}> </a>
+			{{ m[1] }}
 		</div>
 	{% endfor %}
 </div>

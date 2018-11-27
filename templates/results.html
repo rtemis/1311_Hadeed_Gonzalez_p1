@@ -11,9 +11,9 @@
 	{% else %}
 		{% for m in movies %}
 			<div class="movie-desc">
-				<a href={{ url_for('description', title=m.titulo) }} method="post">
-				<img src={{ url_for('static', filename=m.poster) }} alt={{ m.titulo }}> </a>
-				{{ m.titulo }}
+				<a href={{ url_for('description', title=m[1]) }} method="get">
+				<img src={{ url_for('static', filename='images/pelis.jpg') }} alt={{ m[1] }}> </a>
+				{{ m[1] }}
 			</div>
 		{% endfor %}
 	{% endif %}
