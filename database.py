@@ -254,13 +254,10 @@ def db_genres():
         print (error)
         return None
 
-def db_addToCart(customerid, prodid, price):
+def db_addToCart(customerid, prodid):
     try:
         db_conn = None
         db_conn = db_engine.connect()
-
-        cid = customerid[0]
-        prid = prodid[0]
 
         result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s AND status IS NULL", (customerid,))
         row = result.fetchone()
@@ -274,7 +271,7 @@ def db_addToCart(customerid, prodid, price):
             row = result.fetchone()
 
             # Y por fin, se ejecuta el insertar en carrito
-            db_conn.execute("INSERT INTO orderdetail (orderid, prod_id, price, quantity) values(%s, %s, %s, %s)", (row, prodid, p, 1,))
+            db_conn.execute("INSERT INTO orderdetail (orderid, prod_id) values(%s, %s)", (row, prodid,))
 
         # Aqui se comprueba el caso donde ya existe un carrito
         else:
@@ -283,8 +280,8 @@ def db_addToCart(customerid, prodid, price):
             item_exists = resul.fetchone()
 
             # En el caso de que no lo tenga, se hace un insert igual que arriba
-            if item_exists == None:
-                db_conn.execute("INSERT INTO orderdetail (orderid, prod_id, price, quantity) values(%s, %s, %s, %s)", (row, prodid, p, 1,))
+            if item_exists != prodid:
+                db_conn.execute("INSERT INTO orderdetail (orderid, prod_id) values(%s, %s)", (row, prodid,))
             # En el caso de anadir otro producto igual, se hace un update de la cantidad
             else:
                 db_conn.execute("UPDATE orderdetail SET quantity=quantity+1 WHERE orderid=%s AND prod_id=%s", (row, prodid,))
@@ -307,6 +304,9 @@ def db_getProductId(movieid, price):
 
         result = db_conn.execute("SELECT prod_id FROM products WHERE movieid=%s AND price=%s", (movieid, str(price),))
         row = result.fetchone()
+
+        print row
+
         print '***********Query db_getProductId success***********'
         db_conn.close()
         return row

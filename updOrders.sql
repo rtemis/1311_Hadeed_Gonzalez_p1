@@ -9,6 +9,7 @@
 		
 		-- Setting price for inserted item
 			NEW.price = (SELECT price FROM products WHERE NEW.prod_id=prod_id);
+			NEW.quantity = 1;
 			
 		-- Updating net amount
 			UPDATE orders

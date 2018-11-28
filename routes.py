@@ -218,7 +218,7 @@ def add_to_cart():
     else:
         prodid=database.db_getProductId(movieid, price)
         customerid=getcustomerid()
-        database.db_addToCart(customerid, prodid, price)
+        database.db_addToCart(customerid, prodid)
 
     return redirect(url_for('cart'))
 
