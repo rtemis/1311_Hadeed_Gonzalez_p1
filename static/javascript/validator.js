@@ -54,7 +54,7 @@ function validate_registration() {
 	}
 
 	var zip = document.forms["registration"]["zipField"].value;
-	if (!zip.match("[0-9]{5,9}")){
+	if (!zip.match("[0-9]{0,9}")){
 		alert("Zip are only numbers, at least five, maximum nine.");
 		return false;
 	}

@@ -53,8 +53,8 @@
 		<h2>You don't have any movies in your cart yet... Why don't you take a look?</h2>
 		{% for m in movies%}
 			<div class="movie-desc">
-				<a href={{ url_for('description', title=m[1]) }} method="get">
-				<img src={{ url_for('static', filename='images/pelis.jpg') }}> </a>
+				<a href={{ url_for('description', movieid=m[0], title=m[1]) }} method="post">
+				<img src={{ url_for('static', filename='images/pelis.jpg') }} alt={{ m[1] }}> </a>
 				{{ m[1] }}
 			</div>
 		{% endfor %}

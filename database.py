@@ -71,9 +71,9 @@ def db_login(username, password):
         db_conn = db_engine.connect()
 
         resul = db_conn.execute("select password from customers where username=%s", (username,))
-        row = resul.fetchone()[0]
+        row = resul.fetchone()
         if row != None:
-            if row == hashlib.md5(password).hexdigest():
+            if row[0] == hashlib.md5(password).hexdigest():
 
                 print '***********Query login success***********'
                 db_conn.close()
@@ -195,33 +195,32 @@ def db_getCustomerid(username):
         print (error)
         return None
 
-"""
+
 def db_search(title, genre):
     try:
 
         # conexion a la base de datos
         db_conn = None
         db_conn = db_engine.connect()
-        print "*************"
-        print title
-        print "************"
+        title = '%'+title+'%'
 
         if title == "":
             if genre != "#":
-                resul = db_conn.execute("select movieid, movietitle, genre, price from ((imdb_movies natural join imdb_moviegenres) natural join imdb_genres)natural join products LIMIT 50 where genre = %s", (genre,))
+                resul = db_conn.execute("select movieid, movietitle from (imdb_movies natural join imdb_moviegenres) natural join imdb_genres where genre = %s LIMIT 50", (genre,))
+                print resul
                 resul = resul.fetchall()
             else:
                 resul = db_catalogue()
         else:
             if genre != "#":
-                resul = db_conn.execute("select movieid, movietitle, genre, price from ((imdb_movies natural join imdb_moviegenres) natural join imdb_genres)natural join products LIMIT 50 where genre = %s and movietitle= %s", (genre,title,))
+                resul = db_conn.execute("select movieid, movietitle from (imdb_movies natural join imdb_moviegenres) natural join imdb_genres where genre = %s and movietitle LIKE %s LIMIT 50", (genre,title,))
                 resul = resul.fetchall()
             else:
-                resul = db_conn.execute("select movieid, movietitle, genre, price from ((imdb_movies natural join imdb_moviegenres) natural join imdb_genres)natural join products LIMIT 50 where movietitle = %s", (title,))
+                resul = db_conn.execute("select movieid, movietitle from (imdb_movies natural join imdb_moviegenres) natural join imdb_genres where movietitle LIKE %s LIMIT 50 ", (title,))
                 resul = resul.fetchall()
 
 
-
+        print '***********Query db_search success***********'
         db_conn.close()
 
         return list(resul)
@@ -229,11 +228,11 @@ def db_search(title, genre):
     except exc.SQLAlchemyError as error:
         if db_conn is not None:
             db_conn.close()
-        print '************Something is broken on catalogue*****************'
+        print '************Something is broken on db_search*****************'
         print (error)
         return None
 
-"""
+
 
 def db_genres():
     try:

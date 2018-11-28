@@ -148,7 +148,6 @@ def user():
 
     if loginsuccess == True:
         customerid = database.db_getCustomerid(username)
-        print customerid
         setusername(username, customerid)
 
 
@@ -180,7 +179,8 @@ def description():
     mdetails.append(movieid)
 
     username = str(getusername())
-    return render_template('description.html', title=title, username=username, user=getuser(), loginsuccess = True, message=0, cookie=c, mdetails=mdetails, long=long)
+    genres = database.db_genres()
+    return render_template('description.html', title=title, username=username, user=getuser(), loginsuccess = True, message=0, cookie=c, mdetails=mdetails, long=long, genres=genres)
 
 #####################
 # Paginas de Compra #
@@ -405,29 +405,8 @@ def results():
     c = getcookie()
     genero = request.form['select']
     busqueda = request.form['search']
-    movies = []
-    aux=[]
-    catalogue = database.db_catalogue()
 
-    if not busqueda:
-        if genero != "#":
-            for x in catalogue:
-                if genero in x[2]:
-                    movies.append(x)
-        else:
-            movies=catalogue
-    else:
-        if genero != "#":
-            for x in catalogue:
-                if genero in x[2]:
-                    aux.append(x)
-            for x in aux:
-                if busqueda.lower() in x[1].lower():
-                    movies.append(x)
-        else:
-            for x in catalogue:
-                if busqueda.lower() in x[1].lower():
-                    movies.append(x)
+    movies = database.db_search(busqueda, genero)
 
     username = str(getusername())
     genres = database.db_genres()
