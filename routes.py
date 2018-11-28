@@ -42,7 +42,7 @@ anno = 0
 ###############################
 def setusername(username, customerid):
     global user
-    user=Trues
+    user=True
     global session
     session['username'] = username
     session['customerid'] = customerid
@@ -59,6 +59,8 @@ def getcookie():
 		a = ""
 		return a
 
+def getcustomerid():
+	return session.get('customerid')
 
 def getusername():
 	return session.get('username')
@@ -167,31 +169,18 @@ def logout():
 ###############
 # Descripcion #
 ###############
-@app.route("/description/<title>", methods=['GET'])
-def description(title):
+@app.route("/description/", methods=['GET', 'POST'])
+def description():
     c = getcookie()
-    catalogue = database.db_catalogue()
-    for x in catalogue:
-        if x[1] == title:
-            movie = x
-    mdetails = database.db_getDetails(movie[0])
+    movieid = request.args.get('movieid')
+    title = request.args.get('title')
 
-    price = None
-    actors = None
-    directors = None
-    genres = None
-    languages = None
-
-    if mdetails != None:
-        price = mdetails['movies']
-        print price
-        actors = mdetails['actors']
-        directors = mdetails['directors']
-        genres = mdetails['genres']
-        languages = mdetails['languages']
+    mdetails = database.db_getDetails(movieid)
+    long=len(mdetails[0][0])
+    mdetails.append(movieid)
 
     username = str(getusername())
-    return render_template('description.html', title=title, username=username, user=getuser(), loginsuccess = True, message=0, cookie=c, price=price, actors=actors, directors=directors, genres=genres, languages=languages)
+    return render_template('description.html', title=title, username=username, user=getuser(), loginsuccess = True, message=0, cookie=c, mdetails=mdetails, long=long)
 
 #####################
 # Paginas de Compra #
@@ -215,14 +204,23 @@ def cart():
 
 @app.route("/add_to_cart", methods=['POST','GET'])
 def add_to_cart():
-    title=request.args.get('pelicula')
+    movieid=request.args.get('pelicula')
 
-    catalogue = database.db_catalogue()
-    for x in catalogue:
-        if x[1] == title:
-            if vacio == False:
-                setcart()
-    addcart(x)
+
+    user=getuser()
+    #usuario no logueado
+    if user == False:
+        if vacio == False:
+            setcart()
+        movie=databse.db_getMovie(movieid)
+        addcart(movie)
+    #usuario logueado
+    else:
+        prodid=database.db_getProductId(movieid)
+        customerid=getcustomerid()
+        database.db_addToCart(customerid, prodid)
+
+
     return redirect(url_for('cart'))
 
 @app.route("/remove", methods=['POST','GET'])
@@ -389,12 +387,10 @@ def user_test():
     password = hashlib.md5(password).hexdigest()
     registry = database.db_register(Fname, Lname, age, address1,address2, city, state, country, region, zip, gender, email, phone, creditcard, creditcardtype, creditcardexp, username, password)
 
-    with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
-        catalogue = {}
-        catalogue = json.load(data)
-        movies = []
+    catalogue = databse.db_catalogue()
+    movies = []
     for i in range(0,5):
-        movies.append(random.choice(catalogue['peliculas']))
+        movies.append(random.choice(catalogue))
     #De momento dejamos esta linea para que el hisotrial no explote
     if not os.path.isdir(os.path.join(app.root_path,'users/'+username+'/')):
         os.makedirs(os.path.join(app.root_path,'users/'+username+'/'), 0777)

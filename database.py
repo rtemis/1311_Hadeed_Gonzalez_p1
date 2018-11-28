@@ -97,31 +97,53 @@ def db_login(username, password):
 def db_getDetails(movieid):
     try:
 
-        moviedict = {}
+        movie = []
 
         db_conn = None
         db_conn = db_engine.connect()
 
         resul = db_conn.execute("select price, description from imdb_movies natural join products where movieid=%s", (movieid,))
-        movies = resul.fetchall()
-        
-        resul = db_conn.execute("select actorname, movieid from (imdb_movies natural join imdb_actormovies) natural join imdb_actors where movieid=%s", (movieid,))
-        actors = resul.fetchall()
+        movies=[]
+        aux1=[]
+        aux2=[]
+        for x in resul:
+            aux1.append(str(x[0]))
+            aux2.append(x[1].encode('ascii', 'ignore'))
+        movies.append(aux1)
+        movies.append(aux2)
+        print movies
 
-        resul = db_conn.execute("select directorname, movieid from (imdb_movies natural join imdb_directormovies) natural join imdb_directors where movieid=%s", (movieid,))
-        directors = resul.fetchall()
+        resul = db_conn.execute("select actorname from (imdb_movies natural join imdb_actormovies) natural join imdb_actors where movieid=%s LIMIT 10", (movieid,))
+        actors=[]
+        for x in resul:
+            actors.append(x[0].encode('ascii', 'ignore'))
 
-        resul = db_conn.execute("select genre, movieid from (imdb_movies natural join imdb_moviegenres) natural join imdb_genres where movieid=%s", (movieid,))
-        genres = resul.fetchall()
+        resul = db_conn.execute("select directorname from (imdb_movies natural join imdb_directormovies) natural join imdb_directors where movieid=%s", (movieid,))
+        directors = []
+        for x in resul:
+            directors.append(x[0].encode('ascii', 'ignore'))
 
-        resul = db_conn.execute("select lang, movieid from (imdb_movies natural join imdb_movielanguages) natural join imdb_languages where movieid=%s", (movieid,))
-        languages = resul.fetchall()
+        resul = db_conn.execute("select genre from (imdb_movies natural join imdb_moviegenres) natural join imdb_genres where movieid=%s", (movieid,))
+        genres = []
+        for x in resul:
+            genres.append(x[0].encode('ascii', 'ignore'))
+
+
+        resul = db_conn.execute("select lang from (imdb_movies natural join imdb_movielanguages) natural join imdb_languages where movieid=%s", (movieid,))
+        languages = []
+        for x in resul:
+            languages.append(x[0].encode('ascii', 'ignore'))
 
         db_conn.close()
 
-        moviedict = {'movies': list(movies), 'actors': list(actors), 'directors': list(directors), 'genres': list(genres), 'languages': list(languages)}
+        movie.append(list(movies))
+        movie.append(list(actors))
+        movie.append(list(directors))
+        movie.append(list(genres))
+        movie.append(list(languages))
 
-        return moviedict
+
+        return movie
 
     except exc.SQLAlchemyError as error:
         if db_conn is not None:
@@ -152,6 +174,26 @@ def db_catalogue():
         print (error)
         return None
 
+
+def db_getCustomerid(username):
+    try:
+        # conexion a la base de datos
+        db_conn = None
+        db_conn = db_engine.connect()
+
+        resul = db_conn.execute("select customerid from customers where username=%s", (username,))
+        resul = resul.fetchone()
+        print '***********Query db_getCustomerid success***********'
+        db_conn.close()
+
+        return resul
+
+    except exc.SQLAlchemyError as error:
+        if db_conn is not None:
+            db_conn.close()
+        print '************Something is broken on db_getCustomerid*****************'
+        print (error)
+        return None
 
 """
 def db_search(title, genre):
@@ -192,24 +234,6 @@ def db_search(title, genre):
         return None
 
 """
-def db_description(movieid):
-    try:
-        # conexion a la base de datos
-        db_conn = None
-        db_conn = db_engine.connect()
-
-        resul = db_conn.execute("select movieid, movietitle, directorname, country, actorname, price, description from (((((((imdb_movies natural join imdb_directormovies) natural join imdb_directors) natural join imdb_moviecountries)natural join imdb_countries) natural join imdb_actormovies) natural join imdb_actors) natural join products) where movieid=%s", (movieid,))
-        resul = resul.fetchone()
-        print '***********Query description success***********'
-        db_conn.close()
-        return resul
-
-    except exc.SQLAlchemyError as error:
-        if db_conn is not None:
-            db_conn.close()
-        print '************Something is broken on description*****************'
-        print (error)
-        return None
 
 def db_genres():
     try:
@@ -243,7 +267,6 @@ def db_addToCart(customerid, prodid):
             result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s AND status=NULL", (customerid,))
             row = result.fetchone()
 
-        print
         db_conn.execute("INSERT INTO orderdetail (orderid, prod_id, quantity) values(%s, %s, 1)", (row, prodid,))
         print '***********Query addToCart success***********'
         db_conn.close()
@@ -275,3 +298,21 @@ def db_getProductId(movieid):
         print '************Something is broken on db_getProductId*****************'
         print (error)
         return None
+
+def db_getMovie(movieid):
+    try:
+        db_conn = None
+        db_conn = db_engine.connect()
+
+        result = db_conn.execute("SELECT * FROM imdb_movies WHERE movieid=%s", (movieid,))
+        row = result.fetchone()
+        print '***********Query db_getMovie success***********'
+        db_conn.close()
+        return row
+
+
+    except exc.SQLAlchemyError as error:
+        if db_conn is not None:
+            db_conn.close()
+        print '************Something is broken on db_getMovie*****************'
+        print (error)

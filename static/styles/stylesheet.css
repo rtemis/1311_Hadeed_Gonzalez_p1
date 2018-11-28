@@ -123,21 +123,11 @@ table {
 	width: 75%;
 }
 
-
-.contact-form {
-	background-color: #F2F0F0;
-	width: 100%;
-	height: 100%;
-	padding: 10px;
-	overflow: auto;
-	border-radius: 25px;
+.form-prices{
+  color: black;
+  background-color: #c6c1c0;
 }
 
-	.contact-form textarea {
-		resize: none;
-		width: 80%;
-		height: 200px;
-	}
 
 .info img {
 	width: 60px;
