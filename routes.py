@@ -205,7 +205,7 @@ def cart():
 @app.route("/add_to_cart", methods=['POST','GET'])
 def add_to_cart():
     movieid=request.args.get('pelicula')
-
+    price=request.form['price']
 
     user=getuser()
     #usuario no logueado
@@ -216,10 +216,9 @@ def add_to_cart():
         addcart(movie)
     #usuario logueado
     else:
-        prodid=database.db_getProductId(movieid)
+        prodid=database.db_getProductId(movieid, price)
         customerid=getcustomerid()
-        database.db_addToCart(customerid, prodid)
-
+        database.db_addToCart(customerid, prodid, price)
 
     return redirect(url_for('cart'))
 
@@ -387,7 +386,7 @@ def user_test():
     password = hashlib.md5(password).hexdigest()
     registry = database.db_register(Fname, Lname, age, address1,address2, city, state, country, region, zip, gender, email, phone, creditcard, creditcardtype, creditcardexp, username, password)
 
-    catalogue = databse.db_catalogue()
+    catalogue = database.db_catalogue()
     movies = []
     for i in range(0,5):
         movies.append(random.choice(catalogue))
