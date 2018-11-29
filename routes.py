@@ -221,35 +221,37 @@ def cart():
 @app.route("/add_to_cart", methods=['POST','GET'])
 def add_to_cart():
 
-    movieid=request.args.get('pelicula')
-    price=request.form['price']
+	movieid=request.args.get('pelicula')
+	price=request.form['price']
 
-    username = getusername()
-    #usuario no logueado
-    if username == None:
-        if vacio == False:
-            setcart()
-        movie=database.db_getMovie(movieid)
-        movie.append(price)
-        prod_id=database.db_getProductId(movieid, price)
-        movie.append(prod_id)
-        addcart(movie)
-    #usuario logueado
-    else:
-        prodid=database.db_getProductId(movieid, price)
-        customerid=getcustomerid()
-        database.db_addToCart(customerid, prodid)
+	username = getusername()
+	#usuario no logueado
+	if username == None:
+		print username
+		if vacio == False:
+			print 'False'
+			setcart()
+		movie=database.db_getMovie(movieid)
+		movie.append(price)
+		prod_id=database.db_getProductId(movieid, price)
+		movie.append(prod_id)
+		addcart(movie)
+	#usuario logueado
+	else:
+		prodid=database.db_getProductId(movieid, price)
+		customerid=getcustomerid()
+		database.db_addToCart(customerid, prodid)
 
-        cart = getcart()
-        if cart != None:
-            for x in cart:
-                prodid=x[3]
-                contador = getcontador()
-                for i in range(0,contador[prodid]):
-                    database.db_addToCart(customerid, prodid)
-            cleancart()
+		cart = getcart()
+		if cart != None:
+			for x in cart:
+				prodid=x[3]
+				contador = getcontador()
+				for i in range(0,contador[prodid]):
+					database.db_addToCart(customerid, prodid)
+		cleancart()
 
-    return redirect(url_for('cart'))
+	return redirect(url_for('cart'))
 
 @app.route("/remove", methods=['POST','GET'])
 def remove_selected():
@@ -364,7 +366,8 @@ def increase():
 def register():
 	c = getcookie()
 	username = str(getusername())
-	return render_template('register.html', title="Register",username=username, user=getuser(), loginsuccess = True, message=0, cookie=c)
+	genres = database.db_genres()
+	return render_template('register.html', title="Register",username=username, user=getuser(), loginsuccess = True, message=0, cookie=c, genres=genres)
 
 @app.route("/new_user", methods=['POST'])
 def user_test():
