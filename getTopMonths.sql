@@ -19,8 +19,8 @@
 			) as t1 join orderdetail on t1.orderid = orderdetail.orderid
 			group by yrs, mnth
 		) loop
-			if temp1.ipte > imp then 
-				if temp1.total > numprod then
+			if temp1.ipte > imp then
+		 		if temp1.total > numprod then 
 					anno := temp1.yrs;
 					mes := temp1.mnth;
 					importe := temp1.ipte;
