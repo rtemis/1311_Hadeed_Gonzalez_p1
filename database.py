@@ -180,7 +180,7 @@ def db_getCustomerid(username):
         db_conn = db_engine.connect()
 
         resul = db_conn.execute("select customerid from customers where username=%s", (username,))
-        resul = resul.fetchone()
+        resul = resul.fetchone()[0]
         print '***********Query db_getCustomerid success***********'
         db_conn.close()
 
@@ -285,15 +285,9 @@ def db_addToCart(customerid, prodid):
             # Luego se devuelve el orderid del nuevo carrito
             result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s AND status IS NULL", (customerid,))
             row = result.fetchone()
-            print '****no existia******'
-            print row
-            print '******ahora si****'
 
             set.append(str(row[0]).encode('ascii', 'ignore'))
             set.append(str(prodid))
-            print '****t******'
-            print set
-            print '**********'
 
             # Y por fin, se ejecuta el insertar en carrito
             db_conn.execute("INSERT INTO orderdetail(orderid, prod_id)values(%s, %s)", (set,))
@@ -379,7 +373,7 @@ def db_getCart(customerid):
         db_conn = None
         db_conn = db_engine.connect()
 
-        result = db_conn.execute("SELECT movieid, movietitle, price, prod_id, quantity FROM ((orders natural join orderdetail)natural join products)natural join imdb_movies WHERE customerid=%s", (customerid,))
+        result = db_conn.execute("SELECT movieid, movietitle, price, prod_id, quantity FROM ((orders natural join orderdetail)natural join products)natural join imdb_movies WHERE customerid=%s and status is NULL", (customerid,))
         row = result.fetchall()
 
         print '***********Query db_getCart success***********'
@@ -453,7 +447,7 @@ def db_buy(customerid, income):
         db_conn = db_engine.connect()
 
         db_conn.execute("UPDATE orders set status='Paid'  WHERE customerid=%s and status is NULL", (customerid,))
-        db_conn.execute("UPDATE customers SET income-=%s WHERE customerid=%s", (income, customerid,))
+        db_conn.execute("UPDATE customers SET income=income-%s WHERE customerid=%s", (income, customerid,))
         print '***********Query db_geTotalAmount success***********'
         db_conn.close()
         return
@@ -462,4 +456,20 @@ def db_buy(customerid, income):
         if db_conn is not None:
             db_conn.close()
         print '************Something is broken on db_geTotalAmount*****************'
+        print (error)
+
+def db_increaseIncome(customerid, income):
+    try:
+        db_conn = None
+        db_conn = db_engine.connect()
+
+        db_conn.execute("UPDATE customers set income=income+%s  WHERE customerid=%s", (income, customerid,))
+        print '***********Query db_increaseIncome success***********'
+        db_conn.close()
+        return
+
+    except exc.SQLAlchemyError as error:
+        if db_conn is not None:
+            db_conn.close()
+        print '************Something is broken on db_increaseIncome*****************'
         print (error)

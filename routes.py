@@ -90,7 +90,6 @@ def addcart(movie):
 
 def delcart(movie):
     global session
-    print session['contador'][movie[3]]
     if session['contador'][movie[3]] == 1:
         session['cart'].remove(movie)
         session['contador'].pop(movie[3])
@@ -212,7 +211,6 @@ def cart():
 
     leng = len(cart)
     contador=getcontador()
-    print contador
     catalogue = database.db_catalogue()
     movies = []
     for i in range(0,5):
@@ -284,13 +282,7 @@ def buy_now():
     global buysuccess
 
     dinero = database.db_geTotalAmount(customerid)
-    print '**********dinero a pagar'
-    print dinero
-    print '**************'
     saldo = database.db_getCustomerIncome(customerid)
-    print '**********saldo usuario'
-    print saldo
-    print '**************'
 
     if  float(dinero) <= float(saldo):
         variable = {}
@@ -300,7 +292,7 @@ def buy_now():
             pelicula={}
             pelicula['titulo']=x[1]
             pelicula['cantidad']=x[4]
-            pelicula['precio']=x[2]
+            pelicula['precio']=str(x[2])
             variable['peliculas'].append(pelicula)
 
         variable['precio'] = str(dinero)
@@ -332,6 +324,8 @@ def buy_now():
 def history():
     c = getcookie()
     username = str(getusername())
+    customerid = getcustomerid()
+    saldo = database.db_getCustomerIncome(customerid)
     history={}
     existe=False
     if 	os.path.isfile(os.path.join(app.root_path,'users/'+username+'/history.json')) == True:
@@ -347,27 +341,20 @@ def history():
         for i in range(0,5):
             movies.append(random.choice(catalogue['peliculas']))
 
-        saldo=20
     genres = database.db_genres()
-    return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser(), history=history, existe=existe, movies=movies, loginsuccess = True, message=0, saldo = saldo, cookie=c, gernes=genres)
+    return render_template('purchase-history.html', title="Purchase History",username=username, user=getuser(), history=history, existe=existe, movies=movies, loginsuccess = True, message=0, saldo = saldo, cookie=c, genres=genres)
 
 #######################
 # Incrementar Saldo #
 #######################
 @app.route("/history/i", methods=['POST','GET'])
 def increase():
-	username = str(getusername())
-	money = request.form['money']
+    customerid = getcustomerid()
+    money = request.form['money']
+    money=float(money)
 
-	with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r') as f:
-		for line in f:
-			parts = line.split(' : ')
-		saldo= float(parts[6])+float(money)
-
-	with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'w') as f:
-				f.write(parts[0] + ' : ' + parts[1] +  ' : ' + parts[2] + ' : ' + parts[3] + ' : ' +parts[4] + ' : ' + parts[5] + ' : ' + str(saldo))
-
-	return redirect(url_for('history'))
+    database.db_increaseIncome(customerid, money)
+    return redirect(url_for('history'))
 
 
 #######################
