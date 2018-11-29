@@ -16,13 +16,13 @@
 			</table>
 		</div>
 		{% for m in cart %}
-			<form action={{url_for('remove_selected', peli='images/pelis.jpg')}} method=post>
+			<form action={{url_for('remove_selected', peli=m[0], price=m[2])}} method=post>
 				<div class="cart-table">
 
 					<table>
 						<tr>
 							<td>{{ m[1] }}</td>
-							<td>{{ m[3] }}</td>
+							<td>{{ m[2] }}</td>
 							<td>{{contador[m[3]]}}
 							<td><input type="submit" name="checkbox" value="Remove One" onclick=></td>
 						</tr>

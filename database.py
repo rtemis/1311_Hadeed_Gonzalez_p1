@@ -111,8 +111,6 @@ def db_getDetails(movieid):
             aux2.append(x[1].encode('ascii', 'ignore'))
         movies.append(aux1)
         movies.append(aux2)
-        print movies
-
         resul = db_conn.execute("select actorname from (imdb_movies natural join imdb_actormovies) natural join imdb_actors where movieid=%s LIMIT 10", (movieid,))
         actors=[]
         for x in resul:
@@ -207,7 +205,6 @@ def db_search(title, genre):
         if title == "":
             if genre != "#":
                 resul = db_conn.execute("select movieid, movietitle from (imdb_movies natural join imdb_moviegenres) natural join imdb_genres where genre = %s LIMIT 50", (genre,))
-                print resul
                 resul = resul.fetchall()
             else:
                 resul = db_catalogue()
@@ -271,10 +268,8 @@ def db_addToCart(customerid, prodid):
             result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s AND status IS NULL", (customerid,))
             row = result.fetchone()
 
-            set.append(str(row[0]).encode('ascii', 'ignore'))
-            set.append(str(prodid[0]).encode('ascii', 'ignore'))
             # Y por fin, se ejecuta el insertar en carrito
-            db_conn.execute("INSERT INTO orderdetail(orderid, prod_id)values(%s, %s)", (set,))
+            db_conn.execute("INSERT INTO orderdetail(orderid, prod_id)values(%s, %s)", (row, prodid))
 
         # Aqui se comprueba el caso donde ya existe un carrito
         else:
@@ -319,9 +314,7 @@ def db_getProductId(movieid, price):
         db_conn = db_engine.connect()
 
         result = db_conn.execute("SELECT prod_id FROM products WHERE movieid=%s AND price=%s", (movieid, str(price),))
-        row = result.fetchone()
-
-        print row
+        row = result.fetchone()[0]
 
         print '***********Query db_getProductId success***********'
         db_conn.close()
@@ -339,16 +332,14 @@ def db_getMovie(movieid):
         db_conn = None
         db_conn = db_engine.connect()
 
-        result = db_conn.execute("SELECT * FROM imdb_movies WHERE movieid=%s", (movieid,))
+        result = db_conn.execute("SELECT movieid, movietitle FROM imdb_movies WHERE movieid=%s", (movieid,))
         row = result.fetchone()
         print '***********Query db_getMovie success***********'
         db_conn.close()
-        return row
+        return list(row)
 
     except exc.SQLAlchemyError as error:
         if db_conn is not None:
             db_conn.close()
         print '************Something is broken on db_getMovie*****************'
         print (error)
-
-def db_getCart()

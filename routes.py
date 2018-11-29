@@ -36,6 +36,7 @@ vacio = False
 buysuccess = 0
 cookiexists = False
 anno = 0
+user = False
 
 ###############################s
 # Funciones de session - user #
@@ -66,7 +67,8 @@ def getusername():
 	return session.get('username')
 
 def getuser():
-	return user
+    global user
+    return user
 
 ###############################
 # Funciones de session - cart #
@@ -79,20 +81,21 @@ def setcart():
 	session['contador']={}
 
 def addcart(movie):
-	global session
-	if movie in session['cart']:
-		session['contador'][movie[0]] +=1
-	else:
-		session['cart'].append(movie)
-		session['contador'][movie[0]]=1
+    global session
+    if movie in session['cart']:
+        session['contador'][movie[3]] +=1
+    else:
+        session['cart'].append(movie)
+        session['contador'][movie[3]]=1
 
 def delcart(movie):
-	global session
-	if session['contador'][movie[0]] == 1:
-		session['cart'].remove(movie)
-		session['contador'].pop(movie[0])
-	else:
-		session['contador'][movie[0]] -=1
+    global session
+    print session['contador'][movie[3]]
+    if session['contador'][movie[3]] == 1:
+        session['cart'].remove(movie)
+        session['contador'].pop(movie[3])
+    else:
+        session['contador'][movie[3]] -=1
 
 def cleancart():
 	global session
@@ -207,12 +210,15 @@ def add_to_cart():
     movieid=request.args.get('pelicula')
     price=request.form['price']
 
-    user=getuser()
+    username = getusername()
     #usuario no logueado
-    if user == False:
+    if username == None:
         if vacio == False:
             setcart()
-        movie=databse.db_getMovie(movieid)
+        movie=database.db_getMovie(movieid)
+        movie.append(price)
+        prod_id=database.db_getProductId(movieid, price)
+        movie.append(prod_id)
         addcart(movie)
     #usuario logueado
     else:
@@ -224,14 +230,17 @@ def add_to_cart():
 
 @app.route("/remove", methods=['POST','GET'])
 def remove_selected():
-	peli=request.args.get('peli')
-	with open(os.path.join(app.root_path,'catalogue/catalogue.json'), 'r') as data:
-		catalogue = {}
-		catalogue = json.load(data)
-		for x in catalogue:
-			if x[1] == peli:
-				delcart(x)
-	return redirect(url_for('cart'))
+    username = getusername()
+    #usuario no logueado
+    if username == None:
+        movieid=request.args.get('peli')
+        price = request.args.get('price')
+        movie=database.db_getMovie(movieid)
+        movie.append(price)
+        prod_id=database.db_getProductId(movieid, price)
+        movie.append(prod_id)
+        delcart(movie)
+    return redirect(url_for('cart'))
 
 @app.route("/buy", methods=['POST', 'GET'])
 def buy_now():
