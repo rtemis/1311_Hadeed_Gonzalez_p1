@@ -209,6 +209,7 @@ def cart():
                     database.db_addToCart(customerid, prodid)
             cleancart()
         cart = database.db_getCart(customerid)
+
     leng = len(cart)
     contador=getcontador()
     print contador
@@ -255,15 +256,21 @@ def add_to_cart():
 @app.route("/remove", methods=['POST','GET'])
 def remove_selected():
     username = getusername()
+    customerid=getcustomerid()
+
+    movieid=request.args.get('peli')
+    price = request.args.get('price')
+
+    prod_id=database.db_getProductId(movieid, price)
     #usuario no logueado
     if username == None:
-        movieid=request.args.get('peli')
-        price = request.args.get('price')
         movie=database.db_getMovie(movieid)
         movie.append(price)
-        prod_id=database.db_getProductId(movieid, price)
         movie.append(prod_id)
         delcart(movie)
+    else:
+        database.db_removeFromCart(customerid, prod_id)
+
     return redirect(url_for('cart'))
 
 @app.route("/buy", methods=['POST', 'GET'])
