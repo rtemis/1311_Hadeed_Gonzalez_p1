@@ -258,6 +258,8 @@ def db_addToCart(customerid, prodid):
         db_conn = None
         db_conn = db_engine.connect()
 
+        set = []
+
         result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s AND status IS NULL", (customerid,))
         row = result.fetchone()
 
@@ -269,21 +271,36 @@ def db_addToCart(customerid, prodid):
             result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s AND status IS NULL", (customerid,))
             row = result.fetchone()
 
+            set.append(str(row[0]).encode('ascii', 'ignore'))
+            set.append(str(prodid[0]).encode('ascii', 'ignore'))
             # Y por fin, se ejecuta el insertar en carrito
-            db_conn.execute("INSERT INTO orderdetail (orderid, prod_id) values(%s, %s)", (row, prodid,))
+            db_conn.execute("INSERT INTO orderdetail(orderid, prod_id)values(%s, %s)", (set,))
 
         # Aqui se comprueba el caso donde ya existe un carrito
         else:
             # Primero hay que comprobar que ese usuario no tiene ese producto ya
             resul = db_conn.execute("SELECT prod_id FROM orderdetail WHERE orderid=%s", (row,))
-            item_exists = resul.fetchone()
+            item_exists = resul.fetchall()
+
+            set.append(str(row[0]).encode('ascii', 'ignore'))
+            set.append(str(prodid[0]).encode('ascii', 'ignore'))
+
+            # En el caso de que no haya nada en el carrito, lo inserta directamente
+            if item_exists == None:
+                db_conn.execute("INSERT INTO orderdetail (orderid, prod_id) values(%s, %s)", (set,))
+
+            flag = 0
+
+            # En el caso de anadir otro producto igual, se hace un update de la cantidad
+            for x in item_exists:
+                if x == prodid:
+                    db_conn.execute("UPDATE orderdetail SET quantity=quantity+1 WHERE orderid=%s AND prod_id=%s", (set,))
+                    flag = 1
+                    break
 
             # En el caso de que no lo tenga, se hace un insert igual que arriba
-            if item_exists != prodid:
-                db_conn.execute("INSERT INTO orderdetail (orderid, prod_id) values(%s, %s)", (row, prodid,))
-            # En el caso de anadir otro producto igual, se hace un update de la cantidad
-            else:
-                db_conn.execute("UPDATE orderdetail SET quantity=quantity+1 WHERE orderid=%s AND prod_id=%s", (row, prodid,))
+            if flag == 0:
+                db_conn.execute("INSERT INTO orderdetail (orderid, prod_id) values(%s, %s)", (set,))
 
         print '***********Query addToCart success***********'
         db_conn.close()
@@ -333,3 +350,5 @@ def db_getMovie(movieid):
             db_conn.close()
         print '************Something is broken on db_getMovie*****************'
         print (error)
+
+def db_getCart()

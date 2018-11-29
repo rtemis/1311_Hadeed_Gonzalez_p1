@@ -20,15 +20,12 @@
 				<div class="cart-table">
 
 					<table>
-
-
 						<tr>
 							<td>{{ m[1] }}</td>
 							<td>{{ m[3] }}</td>
 							<td>{{contador[m[3]]}}
 							<td><input type="submit" name="checkbox" value="Remove One" onclick=></td>
 						</tr>
-
 					</table>
 
 				</div>
@@ -42,12 +39,12 @@
 				</div>
 			</form >
 		{%else%}
-		<p><br>
-		<form onsubmit="must_login()">
-			<div class="cart-buttons">
-				<input type="submit" value="Buy Now">
-			</div>
-		</form >
+			<p><br>
+			<form onsubmit="must_login()">
+				<div class="cart-buttons">
+					<input type="submit" value="Buy Now">
+				</div>
+			</form >
 		{% endif %}
 	{% else %}
 		<h2>You don't have any movies in your cart yet... Why don't you take a look?</h2>
