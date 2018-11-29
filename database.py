@@ -193,6 +193,25 @@ def db_getCustomerid(username):
         print (error)
         return None
 
+def db_getCustomerIncome(customerid):
+    try:
+        # conexion a la base de datos
+        db_conn = None
+        db_conn = db_engine.connect()
+
+        resul = db_conn.execute("select income from customers where customerid=%s", (customerid,))
+        resul = resul.fetchone()[0]
+        print '***********Query db_getCustomerIncome success***********'
+        db_conn.close()
+
+        return resul
+
+    except exc.SQLAlchemyError as error:
+        if db_conn is not None:
+            db_conn.close()
+        print '************Something is broken on db_getCustomerIncome*****************'
+        print (error)
+        return None
 
 def db_search(title, genre):
     try:
@@ -259,9 +278,6 @@ def db_addToCart(customerid, prodid):
 
         result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s AND status IS NULL", (customerid,))
         row = result.fetchone()
-        print '**********'
-        print row
-        print '**********'
         # Aqui se comprueba el caso de que no exista un order para ese usuario
         if row == None:
             # Entonces se tiene que crear el carrito primero en orders
@@ -372,4 +388,39 @@ def db_getMovie(movieid):
         if db_conn is not None:
             db_conn.close()
         print '************Something is broken on db_getMovie*****************'
+        print (error)
+
+def db_geTotalAmount(customerid):
+    try:
+        db_conn = None
+        db_conn = db_engine.connect()
+
+        result = db_conn.execute("SELECT totalamount FROM orders WHERE customerid=%s and status is NULL", (customerid,))
+        row = result.fetchone()
+        row = str(row[0])
+        print '***********Query db_geTotalAmount success***********'
+        db_conn.close()
+        return row
+
+    except exc.SQLAlchemyError as error:
+        if db_conn is not None:
+            db_conn.close()
+        print '************Something is broken on db_geTotalAmount*****************'
+        print (error)
+
+def db_buy(customerid, income):
+    try:
+        db_conn = None
+        db_conn = db_engine.connect()
+
+        db_conn.execute("UPDATE orders set status='Paid'  WHERE customerid=%s and status is NULL", (customerid,))
+        db_conn.execute("UPDATE customers SET income-=%s WHERE customerid=%s", (income, customerid,))
+        print '***********Query db_geTotalAmount success***********'
+        db_conn.close()
+        return
+
+    except exc.SQLAlchemyError as error:
+        if db_conn is not None:
+            db_conn.close()
+        print '************Something is broken on db_geTotalAmount*****************'
         print (error)

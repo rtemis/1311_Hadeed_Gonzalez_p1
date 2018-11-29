@@ -197,10 +197,17 @@ def cart():
         setcart()
     if username == None:
         cart=getcart()
-        print cart
 
     else:
         customerid = getcustomerid()
+        cart = getcart()
+        if cart != None:
+            for x in cart:
+                prodid=x[3]
+                contador = getcontador()
+                for i in range(0,contador[prodid]):
+                    database.db_addToCart(customerid, prodid)
+            cleancart()
         cart = database.db_getCart(customerid)
     leng = len(cart)
     contador=getcontador()
@@ -241,6 +248,7 @@ def add_to_cart():
                 contador = getcontador()
                 for i in range(0,contador[prodid]):
                     database.db_addToCart(customerid, prodid)
+            cleancart()
 
     return redirect(url_for('cart'))
 
@@ -260,67 +268,60 @@ def remove_selected():
 
 @app.route("/buy", methods=['POST', 'GET'])
 def buy_now():
-	username=getusername()
-	cart=getcart()
-	contador = getcontador()
-	dinero = 0
-	datos = {}
-	datos['compras']=[]
-	pelicula={}
-	global buysuccess
+    username=getusername()
+    customerid = getcustomerid()
+    cart=database.db_getCart(customerid)
+    dinero = 0
+    datos = {}
+    datos['compras']=[]
+    pelicula={}
+    global buysuccess
 
-	for x in cart:
-		dinero += float(x['precio']*contador[x['titulo']])
+    dinero= database.db_geTotalAmount(customerid)
+    print '**********dinero a pagar'
+    print dinero
+    print '**************'
+    saldo = database.db_getCustomerIncome(customerid)
+    print '**********saldo usuario'
+    print saldo
+    print '**************'
 
+    if  dinero <= saldo:
+        precio = 0
+        variable = {}
+        variable['date']= time.strftime("%x")
+        variable['peliculas'] = []
+        for x in cart:
 
+            pelicula['titulo']=x[1]
+            pelicula['cantidad']=x[4]
+            pelicula['precio']=x[2]
 
-	with open(os.path.join(app.root_path,'users/'+username+'/datos.dat'), 'r') as f:
-		for line in f:
-			parts = line.split(' : ')
-		saldo = float(parts[6])
-		if  dinero <= saldo:
-			precio = 0
-			variable = {}
-			variable['date']= time.strftime("%x")
-			variable['peliculas'] = []
-			for x in cart:
+            variable['peliculas'].append(pelicula)
+            pelicula={}
 
-				pelicula['titulo']=x['titulo']
-				pelicula['cantidad']=contador[x['titulo']]
-				pelicula['precio']=x['precio']
-				precio += (x['precio']*contador[x['titulo']])
+        variable['precio'] = dinero
+        datos['compras'].append(variable)
 
-				variable['peliculas'].append(pelicula)
-				pelicula={}
+        if 	os.path.isfile(os.path.join(app.root_path,'users/'+username+'/history.json')) == True:
+            with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'r') as data:
+                catalogue = {}
+                catalogue = json.load(data)
 
-			variable['precio'] = precio
-			datos['compras'].append(variable)
+                for x in catalogue['compras']:
+                    datos['compras'].append(x)
 
-			if 	os.path.isfile(os.path.join(app.root_path,'users/'+username+'/history.json')) == True:
-				with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'r') as data:
-						catalogue = {}
-						catalogue = json.load(data)
+        with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'w') as j:
 
-						for x in catalogue['compras']:
+            json.dump(datos, j)
 
-							datos['compras'].append(x)
+        buysuccess = 1
+        database.db_buy(customerid, dinero)
 
+    else:
+        buysuccess = 2
 
-			with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'w') as j:
-
-				json.dump(datos, j)
-
-			cleancart()
-
-			buysuccess = 1
-
-
-		else:
-			buysuccess = 2
-
-
-
-	return redirect(url_for('index'))
+    return redirect(url_for('index'))
 
 ########################
 # Paginas de Historial #
