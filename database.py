@@ -259,7 +259,9 @@ def db_addToCart(customerid, prodid):
 
         result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s AND status IS NULL", (customerid,))
         row = result.fetchone()
-
+        print '**********'
+        print row
+        print '**********'
         # Aqui se comprueba el caso de que no exista un order para ese usuario
         if row == None:
             # Entonces se tiene que crear el carrito primero en orders
@@ -267,9 +269,15 @@ def db_addToCart(customerid, prodid):
             # Luego se devuelve el orderid del nuevo carrito
             result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s AND status IS NULL", (customerid,))
             row = result.fetchone()
+            print '****no existia******'
+            print row
+            print '******ahora si****'
 
             set.append(str(row[0]).encode('ascii', 'ignore'))
-            set.append(str(prodid[0]).encode('ascii', 'ignore'))
+            set.append(str(prodid))
+            print '****t******'
+            print set
+            print '**********'
 
             # Y por fin, se ejecuta el insertar en carrito
             db_conn.execute("INSERT INTO orderdetail(orderid, prod_id)values(%s, %s)", (set,))
@@ -281,7 +289,7 @@ def db_addToCart(customerid, prodid):
             item_exists = resul.fetchall()
 
             set.append(str(row[0]).encode('ascii', 'ignore'))
-            set.append(str(prodid[0]).encode('ascii', 'ignore'))
+            set.append(str(prodid))
 
             # En el caso de que no haya nada en el carrito, lo inserta directamente
             if item_exists == None:
@@ -291,7 +299,7 @@ def db_addToCart(customerid, prodid):
 
             # En el caso de anadir otro producto igual, se hace un update de la cantidad
             for x in item_exists:
-                if x == prodid:
+                if x[0] == prodid:
                     db_conn.execute("UPDATE orderdetail SET quantity=quantity+1 WHERE orderid=%s AND prod_id=%s", (set,))
                     flag = 1
                     break
@@ -310,6 +318,25 @@ def db_addToCart(customerid, prodid):
         print '************Something is broken on addToCart*****************'
         print (error)
         return
+
+def db_getCart(customerid):
+    try:
+        db_conn = None
+        db_conn = db_engine.connect()
+
+        result = db_conn.execute("SELECT movieid, movietitle, price, prod_id, quantity FROM ((orders natural join orderdetail)natural join products)natural join imdb_movies WHERE customerid=%s", (customerid,))
+        row = result.fetchall()
+
+        print '***********Query db_getCart success***********'
+        db_conn.close()
+        return list(row)
+
+    except exc.SQLAlchemyError as error:
+        if db_conn is not None:
+            db_conn.close()
+        print '************Something is broken on db_getCart*****************'
+        print (error)
+        return None
 
 def db_getProductId(movieid, price):
     try:

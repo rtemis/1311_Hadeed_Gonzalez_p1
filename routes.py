@@ -192,13 +192,19 @@ def description():
 def cart():
     #mostrar carro dependiendo de lgoueado o no
     c = getcookie()
-    username = str(getusername())
+    username = getusername()
     if vacio == False:
         setcart()
-    cart=getcart()
+    if username == None:
+        cart=getcart()
+        print cart
+
+    else:
+        customerid = getcustomerid()
+        cart = database.db_getCart(customerid)
     leng = len(cart)
     contador=getcontador()
-
+    print contador
     catalogue = database.db_catalogue()
     movies = []
     for i in range(0,5):
@@ -208,7 +214,6 @@ def cart():
 
 @app.route("/add_to_cart", methods=['POST','GET'])
 def add_to_cart():
-
 
     movieid=request.args.get('pelicula')
     price=request.form['price']
@@ -225,11 +230,17 @@ def add_to_cart():
         addcart(movie)
     #usuario logueado
     else:
-        #primero comprobar carro de sesion, si existe, meterlo
         prodid=database.db_getProductId(movieid, price)
         customerid=getcustomerid()
-        #hacer bucloe o no
         database.db_addToCart(customerid, prodid)
+
+        cart = getcart()
+        if cart != None:
+            for x in cart:
+                prodid=x[3]
+                contador = getcontador()
+                for i in range(0,contador[prodid]):
+                    database.db_addToCart(customerid, prodid)
 
     return redirect(url_for('cart'))
 

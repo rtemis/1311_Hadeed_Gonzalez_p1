@@ -23,7 +23,11 @@
 						<tr>
 							<td>{{ m[1] }}</td>
 							<td>{{ m[2] }}</td>
-							<td>{{contador[m[3]]}}
+							{%if username == None%}
+								<td>{{contador[m[3]]}}
+							{% else %}
+								<td>{{m[4]}}
+							{% endif %}
 							<td><input type="submit" name="checkbox" value="Remove One" onclick=></td>
 						</tr>
 					</table>
@@ -31,21 +35,22 @@
 				</div>
 			</form>
 		{% endfor %}
-		{%if user == True%}
-			<p><br>
-			<form action={{url_for('buy_now')}} method=post>
-				<div class="cart-buttons">
-					<input type="submit" value="Buy Now">
-				</div>
-			</form >
-		{%else%}
+		{%if user == False%}
 			<p><br>
 			<form onsubmit="must_login()">
 				<div class="cart-buttons">
 					<input type="submit" value="Buy Now">
 				</div>
 			</form >
+		{% else%}
+			<p><br>
+			<form action={{url_for('buy_now')}} method=post>
+				<div class="cart-buttons">
+					<input type="submit" value="Buy Now">
+				</div>
+			</form >
 		{% endif %}
+
 	{% else %}
 		<h2>You don't have any movies in your cart yet... Why don't you take a look?</h2>
 		{% for m in movies%}
