@@ -281,10 +281,9 @@ def buy_now():
     dinero = 0
     datos = {}
     datos['compras']=[]
-    pelicula={}
     global buysuccess
 
-    dinero= database.db_geTotalAmount(customerid)
+    dinero = database.db_geTotalAmount(customerid)
     print '**********dinero a pagar'
     print dinero
     print '**************'
@@ -293,33 +292,28 @@ def buy_now():
     print saldo
     print '**************'
 
-    if  dinero <= saldo:
-        precio = 0
+    if  float(dinero) <= float(saldo):
         variable = {}
         variable['date']= time.strftime("%x")
         variable['peliculas'] = []
         for x in cart:
-
+            pelicula={}
             pelicula['titulo']=x[1]
             pelicula['cantidad']=x[4]
             pelicula['precio']=x[2]
-
             variable['peliculas'].append(pelicula)
-            pelicula={}
 
-        variable['precio'] = dinero
+        variable['precio'] = str(dinero)
         datos['compras'].append(variable)
 
         if 	os.path.isfile(os.path.join(app.root_path,'users/'+username+'/history.json')) == True:
             with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'r') as data:
                 catalogue = {}
                 catalogue = json.load(data)
-
                 for x in catalogue['compras']:
                     datos['compras'].append(x)
 
         with open(os.path.join(app.root_path,'users/'+username+'/history.json'), 'w') as j:
-
             json.dump(datos, j)
 
         buysuccess = 1
