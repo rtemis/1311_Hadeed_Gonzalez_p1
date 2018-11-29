@@ -268,8 +268,11 @@ def db_addToCart(customerid, prodid):
             result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s AND status IS NULL", (customerid,))
             row = result.fetchone()
 
+            set.append(str(row[0]).encode('ascii', 'ignore'))
+            set.append(str(prodid[0]).encode('ascii', 'ignore'))
+
             # Y por fin, se ejecuta el insertar en carrito
-            db_conn.execute("INSERT INTO orderdetail(orderid, prod_id)values(%s, %s)", (row, prodid))
+            db_conn.execute("INSERT INTO orderdetail(orderid, prod_id)values(%s, %s)", (set,))
 
         # Aqui se comprueba el caso donde ya existe un carrito
         else:

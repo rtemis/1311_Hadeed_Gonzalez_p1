@@ -190,6 +190,7 @@ def description():
 #####################
 @app.route("/cart", methods=['POST', 'GET'])
 def cart():
+    #mostrar carro dependiendo de lgoueado o no
     c = getcookie()
     username = str(getusername())
     if vacio == False:
@@ -207,6 +208,8 @@ def cart():
 
 @app.route("/add_to_cart", methods=['POST','GET'])
 def add_to_cart():
+
+
     movieid=request.args.get('pelicula')
     price=request.form['price']
 
@@ -222,8 +225,10 @@ def add_to_cart():
         addcart(movie)
     #usuario logueado
     else:
+        #primero comprobar carro de sesion, si existe, meterlo
         prodid=database.db_getProductId(movieid, price)
         customerid=getcustomerid()
+        #hacer bucloe o no
         database.db_addToCart(customerid, prodid)
 
     return redirect(url_for('cart'))
