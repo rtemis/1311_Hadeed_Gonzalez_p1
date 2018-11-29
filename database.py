@@ -319,6 +319,45 @@ def db_addToCart(customerid, prodid):
         print (error)
         return
 
+def db_removeFromCart(customerid, prodid):
+    try:
+        db_conn = None
+        db_conn = db_engine.connect()
+
+        set = []
+
+        # Aqui se coge la fila de la tabla orders del carrito del cliente
+        result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s AND status IS NULL", (customerid,))
+        row = result.fetchone()
+
+        # Aqui se coge todos los productos en el carrito
+        resul = db_conn.execute("SELECT prod_id, quantity FROM orderdetail WHERE orderid=%s", (row,))
+        item_exists = resul.fetchall()
+
+        set.append(str(row[0]).encode('ascii', 'ignore'))
+        set.append(str(prodid))
+
+        # Para todos los productos, compara los id's con el id dado
+        for x in item_exists:
+            if x[0] == prodid:
+                if x[1] > 1:
+                    db_conn.execute("UPDATE orderdetail SET quantity=quantity-1 WHERE orderid=%s AND prod_id=%s", (set,))
+                else:
+                    db_conn.execute("DELETE FROM orderdetail WHERE orderid=%s AND prod_id=%s", (set,))
+                break
+
+        print '***********Query removeFromCart success***********'
+        db_conn.close()
+        return
+
+    except exc.SQLAlchemyError as error:
+        if db_conn is not None:
+            db_conn.close()
+        print '************Something is broken on removeFromCart*****************'
+        print (error)
+        return
+
+
 def db_getCart(customerid):
     try:
         db_conn = None

@@ -1,2 +1,4 @@
 *.pyc
 si1pyenv/
+flask_session/
+
