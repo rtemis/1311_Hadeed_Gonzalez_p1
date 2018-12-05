@@ -15,39 +15,56 @@ def dbCloseConnect(db_conn):
     db_conn.close()
 
 def getListaCliMes(db_conn, mes, anio, iumbral, iintervalo, use_prepare, break0, niter):
+
+    # Conexion a la base de datos
     db_conn = dbConnect()
 
-    # TODO: implementar la consulta; asignar nombre 'cc' al contador resultante
+    # Creacion de la consulta
     consulta = "SELECT COUNT(DISTINCT(customerid)) as cc \
-    FROM orders WHERE date_part('year', orderdate)=2015 \
-    AND date_part('month',orderdate)=04 AND totalamount > 100"
+    FROM orders WHERE date_part('year', orderdate)=%s \
+    AND date_part('month',orderdate)=%s AND totalamount > %s"
 
-    # TODO: ejecutar la consulta
-    # - mediante PREPARE, EXECUTE, DEALLOCATE si use_prepare es True
-    # - mediante db_conn.execute() si es False
-    if use_prepare == True:
-        twoPhase = db_conn.begin_twophase()
-        twoPhase.prepare("CREATE INDEX anno ON orders(date_part('year',orderdate),date_part('month',orderdate))")
-        twoPhase.execute(consulta)
-        twoPhase.DEALLOCATE
-    else:
-        db_conn.execute(consulta)
+    # Creacion del indice
+    db_conn.execute("CREATE INDEX anno ON orders(date_part('year',orderdate),date_part('month',orderdate))")
 
     # Array con resultados de la consulta para cada umbral
     dbr=[]
 
+    # Iterando sobre los clientes
     for ii in range(niter):
+        # En caso de seleccionar 'usar prepare' en la pagina principal
+        if use_prepare == True:
 
-        # TODO: ...
+            # Inicializamos la transaccion
+            twoPhase = db_conn.begin_twophase()
+            # Preparamos la transaccion
+            twoPhase.prepare()
+            # Recogemos el resultado de la query para uso futuro
+            result = twoPhase.execute(consulta,anio,mes,iumbral)
+            # Hacemos el commit para guardar los cambios en la base de datos
+            twoPhase.commit()
+            # Liberamos memoria de la transaccion
+            twoPhase.DEALLOCATE
 
-        # Guardar resultado de la query
+        # En caso contrario
+        else:
+            # Ejecutamos directamente la consulta
+            result = db_conn.execute(consulta,anio,mes,iumbral)
+
+        # Recogemos los datos devueltos por la consulta
+        res = result.fetchone()
+
+        # Guardamos el resultado de la query
         dbr.append({"umbral":iumbral,"contador":res['cc']})
 
-        # TODO: si breakborraCliente0 es True, salir si contador resultante es cero
+        # Si se sale del bucle al no tener clientes
+        if break0 == True:
+            if res['cc'] == 0:
+                break
 
         # Actualizacion de umbral
         iumbral = iumbral + iintervalo
-
+        
     return dbr
 
 def getMovies(anio):
@@ -59,7 +76,7 @@ def getMovies(anio):
 
     a = []
     for rowproxy in resultproxy:
-        d={}borraCliente
+        d={}
         # rowproxy.items() returns an array like [(key0, value0), (key1, value1)]
         for tup in rowproxy.items():
             # build up the dictionary
