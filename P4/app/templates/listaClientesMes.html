@@ -28,7 +28,7 @@
 
     {% if not fecha is string %}
         <form action="" method="post">
-          Mes y año: 
+          Mes y año:
           <select name="mes">
             <option value="01">Enero</option>
             <option value="02">Febrero</option>
@@ -67,19 +67,19 @@
 
     {% else %}
         <!-- Impresion de resultados en HTML -->
-        <p>Número de clientes distintos con pedidos 
+        <p>Número de clientes distintos con pedidos
         por encima del valor indicado en el mes {{mes}}/{{anio}}.</p>
 
         <table><tr><th>Mayor que (euros)</th><th>Número de clientes</th></tr>
         {% for item in dbr %}
-           <tr><td>{{ item.umbral }}</td><td>{{ item.contador }}</td></tr>            
+           <tr><td>{{ item.umbral }}</td><td>{{ item.contador }}</td></tr>
         {% endfor %}
         </table>
         <p>Tiempo: {{ tiempo }} ms</p>
         {% if use_prepare %}
             <p><b>Usando prepare</b></p>
         {% endif %}
-          
+
         <p><a href={{ url_for('listaClientesMes') }}>Nueva consulta</a></p>
 
     {% endif %}

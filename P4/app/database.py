@@ -7,6 +7,7 @@ from sqlalchemy import create_engine
 
 # configurar el motor de sqlalchemy
 db_engine = create_engine("postgresql://alumnodb:alumnodb@localhost/si1", echo=False, execution_options={"autocommit":False})
+db_meta = MetaData(bind=db_engine)
 
 def dbConnect():
     return db_engine.connect()
@@ -64,7 +65,8 @@ def getListaCliMes(db_conn, mes, anio, iumbral, iintervalo, use_prepare, break0,
 
         # Actualizacion de umbral
         iumbral = iumbral + iintervalo
-        
+        db_conn.close()
+
     return dbr
 
 def getMovies(anio):
