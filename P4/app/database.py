@@ -107,6 +107,7 @@ def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
     # Array de trazas a mostrar en la página
     dbr=[]
 
+    db_conn = dbConnect()
     # TODO: Ejecutar consultas de borrado
     # - ordenar consultas según se desee provocar un error (bFallo True) o no
     # - ejecutar commit intermedio si bCommit es True
@@ -114,14 +115,22 @@ def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
     # - suspender la ejecución 'duerme' segundos en el punto adecuado para forzar deadlock
     # - ir guardando trazas mediante dbr.append()
 
-#    try:
-        # TODO: ejecutar consultas
+    if bSQL == True:
+        try:
+            # TODO: ejecutar consultas
+            db_conn.execute("BEGIN")
+            db_conn.execute("DELETE FROM customers WHERE customerid=%s", customerid)
 
-#    except Exception as e:
-        # TODO: deshacer en caso de error
+            if bCommit == True:
+                db_conn.execute("COMMIT")
 
-#    else:
-        # TODO: confirmar cambios si todo va bien
+        except Exception as e:
+            # TODO: deshacer en caso de error
+            db_conn.execute("ROLLBACK")
 
+        else:
+            # TODO: confirmar cambios si todo va bien
+            db_conn.execute("COMMIT")
 
+    dbCloseConnect(db_conn)
     return dbr

@@ -8,10 +8,15 @@ EXPLAIN select count(*)
 from orders 
 where status ='Shipped';
 
-select count(*) 
+ANALYZE orders;
+
+EXPLAIN select count(*) 
 from orders 
 where status ='Paid';
 
-select count(*) 
+EXPLAIN select count(*) 
 from orders 
 where status ='Processed';
+
+ANALYZE orders;
+
