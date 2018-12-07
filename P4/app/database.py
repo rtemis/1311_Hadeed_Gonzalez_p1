@@ -26,7 +26,7 @@ def getListaCliMes(db_conn, mes, anio, iumbral, iintervalo, use_prepare, break0,
     AND date_part('month',orderdate)=%s AND totalamount > %s"
 
     # Creacion del prepare
-    db_conn.execute("PREPARE listaClientes AS (numeric,numeric,numeric) \
+    db_conn.execute("PREPARE listaClientes (numeric,numeric,numeric) AS\
                 SELECT COUNT(DISTINCT(customerid)) as cc \
                 FROM orders WHERE date_part('year', orderdate)=$1\
                 AND date_part('month',orderdate)=$2 AND totalamount > $3")
