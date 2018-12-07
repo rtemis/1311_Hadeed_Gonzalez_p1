@@ -41,7 +41,7 @@ def getListaCliMes(db_conn, mes, anio, iumbral, iintervalo, use_prepare, break0,
     for ii in range(niter):
         # En caso de seleccionar 'usar prepare' en la pagina principal
         if use_prepare == True:
-            result = db_conn.execute("EXECUTE listaClientes(%s,%s,%s)" % anio, mes, iumbral)
+            result = db_conn.execute("EXECUTE listaClientes(%s,%s,%s)", anio, mes, iumbral)
 
         # En caso contrario
         else:
