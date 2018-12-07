@@ -3,7 +3,7 @@
 import os
 import sys, traceback, time
 
-from sqlalchemy import create_engine
+from sqlalchemy import *
 
 # configurar el motor de sqlalchemy
 db_engine = create_engine("postgresql://alumnodb:alumnodb@localhost/si1", echo=False, execution_options={"autocommit":False})
@@ -65,7 +65,8 @@ def getListaCliMes(db_conn, mes, anio, iumbral, iintervalo, use_prepare, break0,
 
         # Actualizacion de umbral
         iumbral = iumbral + iintervalo
-        db_conn.close()
+        
+    db_conn.close()
 
     return dbr
 
