@@ -26,10 +26,10 @@ def getListaCliMes(db_conn, mes, anio, iumbral, iintervalo, use_prepare, break0,
     AND date_part('month',orderdate)=%s AND totalamount > %s"
 
     # Creacion del prepare
-    prepared = "PREPARE listaClientes AS (numeric,numeric,numeric) \
+    db_conn.execute("PREPARE listaClientes AS (numeric,numeric,numeric) \
                 SELECT COUNT(DISTINCT(customerid)) as cc \
                 FROM orders WHERE date_part('year', orderdate)=$1\
-                AND date_part('month',orderdate)=$2 AND totalamount > $3"
+                AND date_part('month',orderdate)=$2 AND totalamount > $3")
 
     # Creacion del indice
     db_conn.execute("CREATE INDEX anno ON orders(date_part('year',orderdate),date_part('month',orderdate))")
@@ -41,7 +41,7 @@ def getListaCliMes(db_conn, mes, anio, iumbral, iintervalo, use_prepare, break0,
     for ii in range(niter):
         # En caso de seleccionar 'usar prepare' en la pagina principal
         if use_prepare == True:
-            result = db_conn.execute("EXECUTE listaClientes(%s,%s,%s)", anio, mes, iumbral)
+            result = db_conn.execute("EXECUTE listaClientes(%s,%s,%s)" % anio, mes, iumbral)
 
         # En caso contrario
         else:
