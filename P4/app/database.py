@@ -3,7 +3,7 @@
 import os
 import sys, traceback, time
 
-from sqlalchemy import *
+from sqlalchemy import create_engine, MetaData
 
 # configurar el motor de sqlalchemy
 db_engine = create_engine("postgresql://alumnodb:alumnodb@localhost/si1", echo=False, execution_options={"autocommit":False})
@@ -25,6 +25,12 @@ def getListaCliMes(db_conn, mes, anio, iumbral, iintervalo, use_prepare, break0,
     FROM orders WHERE date_part('year', orderdate)=%s \
     AND date_part('month',orderdate)=%s AND totalamount > %s"
 
+    # Creacion del prepare
+    prepared = "PREPARE listaClientes AS (numeric,numeric,numeric) \
+                SELECT COUNT(DISTINCT(customerid)) as cc \
+                FROM orders WHERE date_part('year', orderdate)=$1\
+                AND date_part('month',orderdate)=$2 AND totalamount > $3"
+
     # Creacion del indice
     db_conn.execute("CREATE INDEX anno ON orders(date_part('year',orderdate),date_part('month',orderdate))")
 
@@ -35,17 +41,7 @@ def getListaCliMes(db_conn, mes, anio, iumbral, iintervalo, use_prepare, break0,
     for ii in range(niter):
         # En caso de seleccionar 'usar prepare' en la pagina principal
         if use_prepare == True:
-
-            # Inicializamos la transaccion
-            twoPhase = db_conn.begin_twophase()
-            # Preparamos la transaccion
-            twoPhase.prepare()
-            # Recogemos el resultado de la query para uso futuro
-            result = twoPhase.execute(consulta,anio,mes,iumbral)
-            # Hacemos el commit para guardar los cambios en la base de datos
-            twoPhase.commit()
-            # Liberamos memoria de la transaccion
-            twoPhase.DEALLOCATE
+            result = db_conn.execute("EXECUTE listaClientes(%s,%s,%s)", anio, mes, iumbral)
 
         # En caso contrario
         else:
@@ -65,7 +61,7 @@ def getListaCliMes(db_conn, mes, anio, iumbral, iintervalo, use_prepare, break0,
 
         # Actualizacion de umbral
         iumbral = iumbral + iintervalo
-        
+
     db_conn.close()
 
     return dbr
