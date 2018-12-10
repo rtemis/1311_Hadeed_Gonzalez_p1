@@ -3,7 +3,7 @@
 import os
 import sys, traceback, time
 
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine, MetaData, Table
 
 # configurar el motor de sqlalchemy
 db_engine = create_engine("postgresql://alumnodb:alumnodb@localhost/si1", echo=False, execution_options={"autocommit":False})
@@ -107,7 +107,16 @@ def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
     # Array de trazas a mostrar en la página
     dbr=[]
 
+    # Conexion a la base de datos
     db_conn = dbConnect()
+
+    # Creacion del constraint
+    constraint = "ALTER TABLE customers DROP CONSTRAINT customers_pkey, \
+    ADD CONSTRAINT PRIMARY KEY (customerid) ON DELETE CASCADE"
+
+    # Preparacion de la tabla customers
+    customers = Table('customers',db_meta, autoload=True, autoload_with=db_engine)
+
     # TODO: Ejecutar consultas de borrado
     # - ordenar consultas según se desee provocar un error (bFallo True) o no
     # - ejecutar commit intermedio si bCommit es True
@@ -115,22 +124,59 @@ def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
     # - suspender la ejecución 'duerme' segundos en el punto adecuado para forzar deadlock
     # - ir guardando trazas mediante dbr.append()
 
-    if bSQL == True:
-        try:
-            # TODO: ejecutar consultas
+    try:
+        # En caso de querer usar sentencias SQL
+        if bSQL == True:
+            # Iniciar la consulta
             db_conn.execute("BEGIN")
-            db_conn.execute("DELETE FROM customers WHERE customerid=%s", customerid)
+            # Anadir el constraint ON DELETE CASCADE
+            db_conn.execute(constraint)
 
+            # Si el usuario ha seleccionado commits intermedios
             if bCommit == True:
                 db_conn.execute("COMMIT")
 
-        except Exception as e:
-            # TODO: deshacer en caso de error
-            db_conn.execute("ROLLBACK")
+            # Ejecucion de la query
+            results = db_conn.execute("DELETE FROM customers WHERE customerid=%s", customerid)
 
         else:
-            # TODO: confirmar cambios si todo va bien
+            # Comienzo de query
+            db_conn.begin()
+            # Anadir el constraint ON DELETE CASCADE
+            db_conn.execute(constraint)
+
+            # Si el usuario ha seleccionado commits intermedios
+            if bCommit == True:
+                db_conn.commit()
+
+            # Creacion de la query con sqlalchemy
+            query = db.delete(customers)
+            query = query.where((customers.columns.customerid = "%s"), customerid)
+
+            # Ejecucion de la query con sqlalchemy
+            results = connection.execute(query)
+
+        # En caso de querer provocar fallos
+        if bFallo == True:
+            time.sleep(duerme)
+
+        # Anadir traza a dbr
+        traza = results.fetchone()
+        dbr.append(traza)
+
+        # Si se produce un fallo, por ejemplo el deadlock
+    except Exception as e:
+        # TODO: deshacer en caso de error
+        if bSQL == True:
+            db_conn.execute("ROLLBACK")
+        else:
+            db_conn.rollback()
+    else:
+        # TODO: confirmar cambios si todo va bien
+        if bSQL == True:
             db_conn.execute("COMMIT")
+        else:
+            db_conn.commit()
 
     dbCloseConnect(db_conn)
     return dbr
