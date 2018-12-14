@@ -18,5 +18,3 @@ EXPLAIN select count(*)
 from orders 
 where status ='Processed';
 
-ANALYZE orders;
-

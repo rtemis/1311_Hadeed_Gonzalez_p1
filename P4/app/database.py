@@ -110,10 +110,6 @@ def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
     # Conexion a la base de datos
     db_conn = dbConnect()
 
-    # Creacion del constraint
-    constraint = "ALTER TABLE customers DROP CONSTRAINT customers_pkey, \
-    ADD CONSTRAINT PRIMARY KEY (customerid) ON DELETE CASCADE"
-
     # Preparacion de la tabla customers
     customers = Table('customers',db_meta, autoload=True, autoload_with=db_engine)
 
@@ -129,9 +125,12 @@ def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
         if bSQL == True:
             # Iniciar la consulta
             db_conn.execute("BEGIN")
-            # Anadir el constraint ON DELETE CASCADE
-            db_conn.execute(constraint)
 
+            if bFallo == True:
+                # Ejecucion de la query
+                results = db_conn.execute("DELETE FROM customers WHERE customerid=%s", customerid)
+                raise Exception
+                
             # Si el usuario ha seleccionado commits intermedios
             if bCommit == True:
                 db_conn.execute("COMMIT")
@@ -141,23 +140,21 @@ def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
 
         else:
             # Comienzo de query
-            db_conn.begin()
-            # Anadir el constraint ON DELETE CASCADE
-            db_conn.execute(constraint)
+            trans = db_conn.begin()
 
             # Si el usuario ha seleccionado commits intermedios
             if bCommit == True:
-                db_conn.commit()
+                trans.commit()
 
             # Creacion de la query con sqlalchemy
             query = db.delete(customers)
-            query = query.where((customers.columns.customerid = "%s"), customerid)
+            query = query.where("%s.columns.customerid = %s",customers, customerid,)
 
             # Ejecucion de la query con sqlalchemy
-            results = connection.execute(query)
+            results = trans.execute(query)
 
         # En caso de querer provocar fallos
-        if bFallo == True:
+        if duerme != 0:
             time.sleep(duerme)
 
         # Anadir traza a dbr
@@ -170,13 +167,13 @@ def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
         if bSQL == True:
             db_conn.execute("ROLLBACK")
         else:
-            db_conn.rollback()
+            trans.rollback()
     else:
         # TODO: confirmar cambios si todo va bien
         if bSQL == True:
             db_conn.execute("COMMIT")
         else:
-            db_conn.commit()
+            trans.commit()
 
     dbCloseConnect(db_conn)
     return dbr

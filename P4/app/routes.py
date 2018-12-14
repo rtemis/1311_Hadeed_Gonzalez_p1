@@ -56,7 +56,7 @@ def listaClientesMes():
         dbr = database.getListaCliMes(db_conn, mes, anio, int(umbral), int(intervalo), use_prepare, break0, int(niter))
         t1=round(time.time() * 1000)
         database.dbCloseConnect(db_conn)
-    
+
         return render_template('listaClientesMes.html',
             fecha = fecha,
             mes   = mes,
