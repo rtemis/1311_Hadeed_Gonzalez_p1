@@ -9,7 +9,7 @@ import time
 
 @app.route('/borraCliente', methods=['POST','GET'])
 def borraCliente():
-    if 'customerid' in request.form:
+    if 'entrada' in request.form:
         customerid = request.form["customerid"]
         bSQL       = request.form["txnSQL"]
         bCommit = "bCommit" in request.form
