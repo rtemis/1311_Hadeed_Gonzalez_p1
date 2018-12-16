@@ -183,17 +183,14 @@ def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
             else:
                 print " NOFALLO "
 
+                
                 # Creacion de la query con sqlalchemy
                 query = trans.delete(orders)
                 query = query.where("%s.columns.customerid = %s", (orders, customerid,))
                 print "QUERY1"
-                
+
                 # Ejecucion de la query en orden
                 results = trans.execute(query1)
-
-            # Anadir traza a dbr
-            traza = results.fetchone()
-            dbr.append(traza)
 
             # Si el usuario ha seleccionado commits intermedios
             if bCommit == True:
@@ -212,6 +209,7 @@ def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
         # Deshace en caso de error
         if bSQL == True:
             db_conn.execute("ROLLBACK")
+
         else:
             trans.rollback()
     else:
