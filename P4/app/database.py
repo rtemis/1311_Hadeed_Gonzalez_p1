@@ -115,72 +115,79 @@ def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
     orders = Table('orders', db_meta, autoload=True, autoload_with=db_engine)
 
     try:
-        print "ENTERS HERE "
         # En caso de querer usar sentencias SQL
         if bSQL == True:
-            print "BSQL TRUE"
 
             # Iniciar la consulta
             db_conn.execute("BEGIN")
 
             # En caso de querer provocar un fallo, se hace el borrado fuera de orden
             if bFallo == True:
-                print "BFALLO TRUE"
-                # Ejecucion de la query
-                results = db_conn.execute("DELETE FROM customers WHERE customerid=%s", customerid)
-                # raise Exception
-            else:
-                print "BFALLO FALSE "
-                result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s", customerid)
-                orderid = []
-                for x in result:
-                    orderid.append(x.encode('ascii','ignore'))
-                print "RESSSSSS"
-                for x in orderid:
-                    print "NEXT"
-                    results = db_conn.execute("DELETE FROM orderdetail WHERE orderid=%s", x)
-                    # Anadir traza a dbr
-                    traza = results.fetchone()[]
-                    dbr.append(traza)
-                print "REACGGG"
-                # Borrado primero de las tablas donde se usa el customer id como clave foranea
-                results = db_conn.execute("DELETE FROM orders WHERE customerid=%s", customerid)
 
-            # Anadir traza a dbr
-            traza = results.fetchone()
-            dbr.append(traza)
+                # Ejecucion de la query
+                results = db_conn.execute("DELETE FROM customers WHERE customerid=%s" % customerid)
+
+            else:
+                # Selecciona todos los orderids de un customer dado 
+                result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s", (customerid,))
+
+                # Para cada order se borra los detalles de la tabla orderdetail
+                for x in result:
+                    results = db_conn.execute("DELETE FROM orderdetail WHERE orderid=%s" % x[0])
+
+                    string = str(x[0])
+
+                    # Anadir traza a dbr
+                    traza = "Order con id " + string + " borrado de la tabla orderdetail"
+                    dbr.append(traza)
+
+                # Si el usuario ha seleccionado commits intermedios
+                if bCommit == True:
+                    db_conn.execute("COMMIT")
+
+                # Borrado primero de las tablas donde se usa el customer id como clave foranea
+                results = db_conn.execute("DELETE FROM orders WHERE customerid=%s" % customerid)
+
+                # Anadir traza a dbr
+                traza = "\nOrders del customer " + customerid + " borrado de la tabla orders"
+                dbr.append(traza)
 
             # Si el usuario ha seleccionado commits intermedios
             if bCommit == True:
-                print "BCOMMIT"
                 db_conn.execute("COMMIT")
+                traza = "\nUsuario ha hecho commit.\n"
+                dbr.append(traza)
 
             # Ejecucion de la query
-            results = db_conn.execute("DELETE FROM customers WHERE customerid=%s", customerid)
-
+            results = db_conn.execute("DELETE FROM customers WHERE customerid=%s" % customerid)
+            
+            # Anadir traza a dbr
+            traza = "Customer con id " + customerid + " borrado de la tabla customers"
+            dbr.append(traza)
+        
         else:
             print "BSQL FASLE"
             # Comienzo de query
             trans = db_conn.begin()
 
             # Creacion de la query con sqlalchemy
-            query1 = db.delete(orders)
-            query1 = query1.where("%s.columns.customerid = %s", orders, customerid,)
-            print "QUERY1"
-
-            query = db
-            # Creacion de la query con sqlalchemy
-            query2 = db.delete(customers)
-            query2 = query2.where("%s.columns.customerid = %s", customers, customerid,)
+            query2 = trans.delete(customers)
+            query2 = query2.where("%s.columns.customerid = %s", (customers, customerid,))
             print "QUERY2"
 
             if bFallo == True:
                 print "FALLOOOO"
                 # Ejecucion de la query fuera de orden
                 results = trans.execute(query2)
-                # raise Exception
+
             else:
                 print " NOFALLO "
+
+                # Creacion de la query con sqlalchemy
+                query = trans.delete(orders)
+                query = query.where("%s.columns.customerid = %s", (orders, customerid,))
+                print "QUERY1"
+                
                 # Ejecucion de la query en orden
                 results = trans.execute(query1)
 
@@ -199,10 +206,6 @@ def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
         if duerme != 0:
             time.sleep(duerme)
 
-        # Anadir traza a dbr
-        traza = results.fetchone()
-        dbr.append(traza)
-
         # Si se produce un fallo, por ejemplo el deadlock
     except Exception as e:
         print "ENTERSSSSS HEREEEE"
@@ -217,6 +220,11 @@ def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
             db_conn.execute("COMMIT")
         else:
             trans.commit()
+    finally:
+        dbCloseConnect(db_conn)
+        print "finally"
+
 
     dbCloseConnect(db_conn)
+    print "SE HA DESCONECTADO"
     return dbr
