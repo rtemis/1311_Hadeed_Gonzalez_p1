@@ -103,16 +103,11 @@ def getCustomer(username, password):
         return {'firstname': res['firstname'], 'lastname': res['lastname']}
 
 def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
-    print "Enters here"
     # Array de trazas a mostrar en la página
     dbr=[]
 
     # Conexion a la base de datos
     db_conn = dbConnect()
-
-    # Preparacion de las tablas para transacciones de SQLAlchemy
-    customers = Table('customers',db_meta, autoload=True, autoload_with=db_engine)
-    orders = Table('orders', db_meta, autoload=True, autoload_with=db_engine)
 
     try:
         # En caso de querer usar sentencias SQL
@@ -121,6 +116,10 @@ def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
             db_conn.execute("BEGIN")
         else:
             trans = db_conn.begin()
+        
+        result = db_conn.execute("SELECT * FROM customers WHERE customerid=%s", (customerid,))
+        if result == None:
+            break
 
         # En caso de querer provocar un fallo, se hace el borrado fuera de orden
         if bFallo == True:
