@@ -116,59 +116,60 @@ def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
             db_conn.execute("BEGIN")
         else:
             trans = db_conn.begin()
-        
-        result = db_conn.execute("SELECT * FROM customers WHERE customerid=%s", (customerid,))
-        if result == None:
-            break
 
-        # En caso de querer provocar un fallo, se hace el borrado fuera de orden
-        if bFallo == True:
+        # Comprobar que el usuario existe
+        result = db_conn.execute("SELECT * FROM customers WHERE customerid=%s", (customerid,))
+        if result != None:
+
+            # En caso de querer provocar un fallo, se hace el borrado fuera de orden
+            if bFallo == True:
+                # Ejecucion de la query
+                results = db_conn.execute("DELETE FROM customers WHERE customerid=%s" % customerid)
+            else:
+                # Selecciona todos los orderids de un customer dado
+                result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s", (customerid,))
+
+            # Para cada order se borra los detalles de la tabla orderdetail
+            for x in result:
+                results = db_conn.execute("DELETE FROM orderdetail WHERE orderid=%s" % x[0])
+                string = str(x[0])
+                # Anadir traza a dbr
+                traza = "Order con id " + string + " borrado de la tabla orderdetail"
+                dbr.append(traza)
+
+            # Si el usuario ha seleccionado commits intermedios
+            if bCommit == True:
+                if bSQL == True:
+                    db_conn.execute("COMMIT")
+                else:
+                    trans.commit()
+                traza = "\nUsuario ha hecho commit.\n"
+                dbr.append(traza)
+
+            # Borrado primero de las tablas donde se usa el customer id como clave foranea
+            results = db_conn.execute("DELETE FROM orders WHERE customerid=%s" % customerid)
+            # Anadir traza a dbr
+            traza = "\nOrders del customer " + customerid + " borrado de la tabla orders"
+            dbr.append(traza)
+
+            # Si el usuario ha seleccionado commits intermedios
+            if bCommit == True:
+                if bSQL == True:
+                    db_conn.execute("COMMIT")
+                else:
+                    trans.commit()
+                traza = "\nUsuario ha hecho commit.\n"
+                dbr.append(traza)
+
+            # En caso de querer provocar fallos
+            if duerme != 0:
+                traza = "\nSe ha dormido la maquina.\n"
+                dbr.append(traza)
+                time.sleep(duerme)
+
             # Ejecucion de la query
             results = db_conn.execute("DELETE FROM customers WHERE customerid=%s" % customerid)
-        else:
-            # Selecciona todos los orderids de un customer dado
-            result = db_conn.execute("SELECT orderid FROM orders WHERE customerid=%s", (customerid,))
 
-        # Para cada order se borra los detalles de la tabla orderdetail
-        for x in result:
-            results = db_conn.execute("DELETE FROM orderdetail WHERE orderid=%s" % x[0])
-            string = str(x[0])
-            # Anadir traza a dbr
-            traza = "Order con id " + string + " borrado de la tabla orderdetail"
-            dbr.append(traza)
-
-        # Si el usuario ha seleccionado commits intermedios
-        if bCommit == True:
-            if bSQL == True:
-                db_conn.execute("COMMIT")
-            else:
-                trans.commit()
-            traza = "\nUsuario ha hecho commit.\n"
-            dbr.append(traza)
-
-        # Borrado primero de las tablas donde se usa el customer id como clave foranea
-        results = db_conn.execute("DELETE FROM orders WHERE customerid=%s" % customerid)
-        # Anadir traza a dbr
-        traza = "\nOrders del customer " + customerid + " borrado de la tabla orders"
-        dbr.append(traza)
-
-        # Si el usuario ha seleccionado commits intermedios
-        if bCommit == True:
-            if bSQL == True:
-                db_conn.execute("COMMIT")
-            else:
-                trans.commit()
-            traza = "\nUsuario ha hecho commit.\n"
-            dbr.append(traza)
-
-        # En caso de querer provocar fallos
-        if duerme != 0:
-            traza = "\nSe ha dormido la maquina.\n"
-            dbr.append(traza)
-            time.sleep(duerme)
-            
-        # Ejecucion de la query
-        results = db_conn.execute("DELETE FROM customers WHERE customerid=%s" % customerid)
         # Anadir traza a dbr
         traza = "Customer con id " + customerid + " borrado de la tabla customers"
         dbr.append(traza)
